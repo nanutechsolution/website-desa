@@ -73,157 +73,164 @@
         {{-- Overlay untuk Mobile (saat sidebar terbuka) --}}
         <div x-show="sidebarOpen" x-transition:opacity @click="sidebarOpen = false"
             class="fixed inset-0 bg-black bg-opacity-50 z-30 md:hidden"></div>
-        {{-- Sidebar Admin --}}
         <aside
-            class="fixed top-0 left-0 z-40 w-64 h-full bg-gray-800 text-white p-4 space-y-4 shadow-lg flex-shrink-0
-                       transform transition-transform duration-300 ease-in-out {{-- Hapus md:static di sini --}}
-                       -translate-x-full md:translate-x-0"
-            {{-- <- DEFAULT: tersembunyi, di MD: terlihat --}} :class="{ 'translate-x-0': sidebarOpen }"> {{-- <- HANYA terapkan 'translate-x-0' jika dibuka (untuk mobile) --}}
+            class="fixed top-0 left-0 z-40 w-64 h-screen overflow-y-auto bg-gray-800 text-white p-4 space-y-4 shadow-lg transform transition-transform duration-300 ease-in-out -translate-x-full md:translate-x-0"
+            :class="{ 'translate-x-0': sidebarOpen }">
+
             <div class="text-2xl font-bold mb-6 text-center text-desa-green">Admin Orakeri</div>
+
             <nav>
                 <ul class="space-y-1">
+
+                    <!-- Dashboard -->
                     <li>
                         <a href="{{ route('admin.dashboard') }}"
-                            class="flex items-center p-2 rounded-lg dark:text-white hover:bg-gray-700 group {{ request()->routeIs('admin.dashboard') ? 'bg-gray-700' : '' }}">
+                            class="flex items-center p-2 rounded-lg hover:bg-gray-700 {{ request()->routeIs('admin.dashboard') ? 'bg-gray-700' : '' }}">
                             <span class="ms-3">Dashboard</span>
                         </a>
                     </li>
 
-                    {{-- Dropdown Manajemen Konten --}}
-                    <li x-data="{ contentOpen: {{ request()->routeIs('admin.hero-sliders.*', 'admin.news.*', 'admin.galleries.*', 'admin.potentials.*', 'admin.products.*', 'admin.documents.*') ? 'true' : 'false' }} }">
-                        <button @click="contentOpen = !contentOpen"
-                            class="flex items-center justify-between w-full p-2 rounded-lg text-white hover:bg-gray-700 group">
+                    <!-- Manajemen Konten -->
+                    <li x-data="{ open: {{ request()->routeIs('admin.hero-sliders.*', 'admin.news.*', 'admin.galleries.*', 'admin.potentials.*', 'admin.products.*', 'admin.documents.*', 'admin.comments.*') ? 'true' : 'false' }} }">
+                        <button @click="open = !open"
+                            class="flex items-center justify-between w-full p-2 rounded-lg hover:bg-gray-700">
                             <span class="ms-3">Manajemen Konten</span>
-                            <svg :class="{ 'rotate-90': contentOpen }"
+                            <svg :class="{ 'rotate-90': open }"
                                 class="w-4 h-4 transform transition-transform duration-200" fill="none"
-                                stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
-                                </path>
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 5l7 7-7 7" />
                             </svg>
                         </button>
-                        <ul x-show="contentOpen" x-transition class="mt-1 space-y-1 bg-gray-700 rounded-lg py-1 px-3">
-                            <li>
-                                <a href="{{ route('admin.hero-sliders.index') }}"
-                                    class="flex items-center p-2 rounded-lg text-white hover:bg-gray-600 group {{ request()->routeIs('admin.hero-sliders.*') ? 'bg-gray-600' : '' }}">
-                                    <span class="ms-3">Hero Slider</span>
-                                </a>
+                        <ul x-show="open" x-show="open" x-transition:enter="transition ease-out duration-200"
+                            x-transition:enter-start="opacity-0 transform scale-95"
+                            x-transition:enter-end="opacity-100 transform scale-100"
+                            x-transition:leave="transition ease-in duration-75"
+                            x-transition:leave-start="opacity-100 transform scale-100"
+                            x-transition:leave-end="opacity-0 transform scale-95"
+                            class="mt-1 space-y-1 bg-gray-700 rounded-lg py-1 px-3">
+                            <li><a href="{{ route('admin.hero-sliders.index') }}"
+                                    class="menu-item {{ request()->routeIs('admin.hero-sliders.*') ? 'bg-gray-600' : '' }}">Hero
+                                    Slider</a></li>
+                            <li><a href="{{ route('admin.news.index') }}"
+                                    class="menu-item {{ request()->routeIs('admin.news.*') ? 'bg-gray-600' : '' }}">Berita</a>
                             </li>
-                            <li>
-                                <a href="{{ route('admin.news.index') }}"
-                                    class="flex items-center p-2 rounded-lg text-white hover:bg-gray-600 group {{ request()->routeIs('admin.news.*') ? 'bg-gray-600' : '' }}">
-                                    <span class="ms-3">Berita</span>
-                                </a>
+                            <li><a href="{{ route('admin.galleries.index') }}"
+                                    class="menu-item {{ request()->routeIs('admin.galleries.*') ? 'bg-gray-600' : '' }}">Galeri</a>
                             </li>
-                            <li>
-                                <a href="{{ route('admin.galleries.index') }}"
-                                    class="flex items-center p-2 rounded-lg text-white hover:bg-gray-600 group {{ request()->routeIs('admin.galleries.*') ? 'bg-gray-600' : '' }}">
-                                    <span class="ms-3">Galeri</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ route('admin.potentials.index') }}"
-                                    class="flex items-center p-2 rounded-lg text-white hover:bg-gray-600 group {{ request()->routeIs('admin.potentials.*') ? 'bg-gray-600' : '' }}">
-                                    <span class="ms-3">Potensi Desa</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ route('admin.products.index') }}"
-                                    class="flex items-center p-2 rounded-lg text-white hover:bg-gray-600 group {{ request()->routeIs('admin.products.*') ? 'bg-gray-600' : '' }}">
-                                    <span class="ms-3">Produk Desa</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ route('admin.documents.index') }}"
-                                    class="flex items-center p-2 rounded-lg text-white hover:bg-gray-600 group {{ request()->routeIs('admin.documents.*') ? 'bg-gray-600' : '' }}">
-                                    <span class="ms-3">Dokumen Publik</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="{{ route('admin.comments.index') }}"
-                                    class="flex items-center p-2 rounded-lg dark:text-white hover:bg-gray-700 group {{ request()->routeIs('admin.comments.*') ? 'bg-gray-700' : '' }}">
-                                    <span class="ms-3">Moderasi Komentar</span>
-                                </a>
-                            </li>
+                            <li><a href="{{ route('admin.potentials.index') }}"
+                                    class="menu-item {{ request()->routeIs('admin.potentials.*') ? 'bg-gray-600' : '' }}">Potensi
+                                    Desa</a></li>
+                            <li><a href="{{ route('admin.products.index') }}"
+                                    class="menu-item {{ request()->routeIs('admin.products.*') ? 'bg-gray-600' : '' }}">Produk
+                                    Desa</a></li>
+                            <li><a href="{{ route('admin.documents.index') }}"
+                                    class="menu-item {{ request()->routeIs('admin.documents.*') ? 'bg-gray-600' : '' }}">Dokumen
+                                    Publik</a></li>
+                            <li><a href="{{ route('admin.comments.index') }}"
+                                    class="menu-item {{ request()->routeIs('admin.comments.*') ? 'bg-gray-600' : '' }}">Moderasi
+                                    Komentar</a></li>
                         </ul>
                     </li>
 
-                    {{-- Dropdown Profil Desa --}}
-                    <li class="mt-4" x-data="{ profileOpen: {{ request()->routeIs('admin.profile-contents.edit') ? 'true' : 'false' }} }">
-                        <button @click="profileOpen = !profileOpen"
-                            class="flex items-center justify-between w-full p-2 rounded-lg text-white hover:bg-gray-700 group">
+                    <!-- Profil Desa -->
+                    <li x-data="{ open: {{ request()->routeIs('admin.profile-contents.edit') ? 'true' : 'false' }} }">
+                        <button @click="open = !open"
+                            class="flex items-center justify-between w-full p-2 rounded-lg hover:bg-gray-700">
                             <span class="ms-3">Profil Desa</span>
-                            <svg :class="{ 'rotate-90': profileOpen }"
+                            <svg :class="{ 'rotate-90': open }"
                                 class="w-4 h-4 transform transition-transform duration-200" fill="none"
-                                stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
-                                </path>
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 5l7 7-7 7" />
                             </svg>
                         </button>
-                        <ul x-show="profileOpen" x-transition class="mt-1 space-y-1 bg-gray-700 rounded-lg py-1 px-3">
-                            <li>
-                                <a href="{{ route('admin.profile-contents.edit', 'visi') }}"
-                                    class="flex items-center p-2 rounded-lg text-white hover:bg-gray-600 group {{ request()->routeIs('admin.profile-contents.edit') && request()->route('key') == 'visi' ? 'bg-gray-600' : '' }}">
-                                    <span class="ms-3">Visi Desa</span>
-                                </a>
+                        <ul x-show="open" x-show="open" x-transition:enter="transition ease-out duration-200"
+                            x-transition:enter-start="opacity-0 transform scale-95"
+                            x-transition:enter-end="opacity-100 transform scale-100"
+                            x-transition:leave="transition ease-in duration-75"
+                            x-transition:leave-start="opacity-100 transform scale-100"
+                            x-transition:leave-end="opacity-0 transform scale-95"
+                            class="mt-1 space-y-1 bg-gray-700 rounded-lg py-1 px-3">
+                            <li><a href="{{ route('admin.profile-contents.edit', 'visi') }}"
+                                    class="menu-item {{ request()->route('key') == 'visi' ? 'bg-gray-600' : '' }}">Visi</a>
                             </li>
-                            <li>
-                                <a href="{{ route('admin.profile-contents.edit', 'misi') }}"
-                                    class="flex items-center p-2 rounded-lg text-white hover:bg-gray-600 group {{ request()->routeIs('admin.profile-contents.edit') && request()->route('key') == 'misi' ? 'bg-gray-600' : '' }}">
-                                    <span class="ms-3">Misi Desa</span>
-                                </a>
+                            <li><a href="{{ route('admin.profile-contents.edit', 'misi') }}"
+                                    class="menu-item {{ request()->route('key') == 'misi' ? 'bg-gray-600' : '' }}">Misi</a>
                             </li>
-                            <li>
-                                <a href="{{ route('admin.profile-contents.edit', 'sejarah') }}"
-                                    class="flex items-center p-2 rounded-lg text-white hover:bg-gray-600 group {{ request()->routeIs('admin.profile-contents.edit') && request()->route('key') == 'sejarah' ? 'bg-gray-600' : '' }}">
-                                    <span class="ms-3">Sejarah Desa</span>
-                                </a>
+                            <li><a href="{{ route('admin.profile-contents.edit', 'sejarah') }}"
+                                    class="menu-item {{ request()->route('key') == 'sejarah' ? 'bg-gray-600' : '' }}">Sejarah</a>
                             </li>
-                            <li>
-                                <a href="{{ route('admin.profile-contents.edit', 'struktur_pemerintahan') }}"
-                                    class="flex items-center p-2 rounded-lg text-white hover:bg-gray-600 group {{ request()->routeIs('admin.profile-contents.edit') && request()->route('key') == 'struktur_pemerintahan' ? 'bg-gray-600' : '' }}">
-                                    <span class="ms-3">Struktur Pemerintahan</span>
-                                </a>
+                            <li><a href="{{ route('admin.profile-contents.edit', 'struktur_pemerintahan') }}"
+                                    class="menu-item {{ request()->route('key') == 'struktur_pemerintahan' ? 'bg-gray-600' : '' }}">Struktur
+                                    Pemerintahan</a></li>
+                            <li><a href="{{ route('admin.profile-contents.edit', 'sekilas_desa') }}"
+                                    class="menu-item {{ request()->route('key') == 'sekilas_desa' ? 'bg-gray-600' : '' }}">Sekilas
+                                    Desa</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Info Desa -->
+                    <li x-data="{ open: {{ in_array(request()->route('key'), ['contact_address', 'Maps_embed', 'footer_about', 'contact_phone', 'contact_email']) ? 'true' : 'false' }} }">
+                        <button @click="open = !open"
+                            class="flex items-center justify-between w-full p-2 rounded-lg hover:bg-gray-700">
+                            <span class="ms-3">Info Desa</span>
+                            <svg :class="{ 'rotate-90': open }"
+                                class="w-4 h-4 transform transition-transform duration-200" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 5l7 7-7 7" />
+                            </svg>
+                        </button>
+                        <ul x-show="open" x-transition class="mt-1 space-y-1 bg-gray-700 rounded-lg py-1 px-3">
+                            <li><a href="{{ route('admin.profile-contents.edit', 'contact_address') }}"
+                                    class="menu-item {{ request()->route('key') == 'contact_address' ? 'bg-gray-600' : '' }}">Alamat</a>
                             </li>
-                            <li>
-                                <a href="{{ route('admin.profile-contents.edit', 'sekilas_desa') }}"
-                                    class="flex items-center p-2 rounded-lg text-white hover:bg-gray-600 group {{ request()->routeIs('admin.profile-contents.edit') && request()->route('key') == 'sekilas_desa' ? 'bg-gray-600' : '' }}">
-                                    <span class="ms-3">Sekilas Desa</span>
-                                </a>
+                            <li><a href="{{ route('admin.profile-contents.edit', 'Maps_embed') }}"
+                                    class="menu-item {{ request()->route('key') == 'Maps_embed' ? 'bg-gray-600' : '' }}">Google
+                                    Maps</a></li>
+                            <li><a href="{{ route('admin.profile-contents.edit', 'footer_about') }}"
+                                    class="menu-item {{ request()->route('key') == 'footer_about' ? 'bg-gray-600' : '' }}">Footer</a>
+                            </li>
+                            <li><a href="{{ route('admin.profile-contents.edit', 'contact_phone') }}"
+                                    class="menu-item {{ request()->route('key') == 'contact_phone' ? 'bg-gray-600' : '' }}">Telepon</a>
+                            </li>
+                            <li><a href="{{ route('admin.profile-contents.edit', 'contact_email') }}"
+                                    class="menu-item {{ request()->route('key') == 'contact_email' ? 'bg-gray-600' : '' }}">Email</a>
                             </li>
                         </ul>
                     </li>
 
-                    {{-- Dropdown Layanan Desa --}}
-                    <li class="mt-4" x-data="{ serviceOpen: {{ request()->routeIs('admin.service-procedures.*') ? 'true' : 'false' }} }">
-                        <button @click="serviceOpen = !serviceOpen"
-                            class="flex items-center justify-between w-full p-2 rounded-lg text-white hover:bg-gray-700 group">
+                    <!-- Layanan Desa -->
+                    <li x-data="{ open: {{ request()->routeIs('admin.service-procedures.*') ? 'true' : 'false' }} }">
+                        <button @click="open = !open"
+                            class="flex items-center justify-between w-full p-2 rounded-lg hover:bg-gray-700">
                             <span class="ms-3">Layanan Desa</span>
-                            <svg :class="{ 'rotate-90': serviceOpen }"
+                            <svg :class="{ 'rotate-90': open }"
                                 class="w-4 h-4 transform transition-transform duration-200" fill="none"
-                                stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
-                                </path>
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 5l7 7-7 7" />
                             </svg>
                         </button>
-                        <ul x-show="serviceOpen" x-transition class="mt-1 space-y-1 bg-gray-700 rounded-lg py-1 px-3">
-                            <li>
-                                <a href="{{ route('admin.service-procedures.index') }}"
-                                    class="flex items-center p-2 rounded-lg text-white hover:bg-gray-600 group {{ request()->routeIs('admin.service-procedures.*') ? 'bg-gray-600' : '' }}">
-                                    <span class="ms-3">Prosedur Layanan</span>
-                                </a>
-                            </li>
-                            {{-- Jika Anda membuat modul Pengajuan Surat (form yang diisi warga), bisa diletakkan di sini --}}
-                            {{-- <li>
-                                    <a href="{{ route('admin.service-requests.index') }}" class="flex items-center p-2 rounded-lg text-white hover:bg-gray-600 group {{ request()->routeIs('admin.service-requests.*') ? 'bg-gray-600' : '' }}">
-                                        <span class="ms-3">Pengajuan Surat</span>
-                                    </a>
-                                </li> --}}
+                        <ul x-show="open" x-transition class="mt-1 space-y-1 bg-gray-700 rounded-lg py-1 px-3">
+                            <li><a href="{{ route('admin.service-procedures.index') }}"
+                                    class="menu-item {{ request()->routeIs('admin.service-procedures.*') ? 'bg-gray-600' : '' }}">Prosedur
+                                    Layanan</a></li>
                         </ul>
+                    </li>
+                    {{-- di dalam ul untuk Manajemen Konten --}}
+                    <li>
+                        <a href="{{ route('admin.institutions.index') }}"
+                            class="flex items-center p-2 rounded-lg text-white hover:bg-gray-600 group {{ request()->routeIs('admin.institutions.*') ? 'bg-gray-600' : '' }}">
+                            <span class="ms-3">Lembaga Desa</span>
+                        </a>
                     </li>
                 </ul>
             </nav>
         </aside>
+
+
 
         <div class="flex-1 flex flex-col md:ml-64"> {{-- Tambahkan md:ml-64 untuk mengkompensasi sidebar di desktop --}}
             {{-- Navigasi Atas Admin --}}
@@ -249,7 +256,6 @@
         </div>
     </div>
 
-    {{-- Script TinyMCE sudah ada di sini di body --}}
 </body>
 
 </html>

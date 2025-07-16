@@ -10,3 +10,7 @@
 .gradient-bg {
     background: linear-gradient(135deg, #1e3a8a 0%, #065f46 50%, #166534 100%);
 }
+
+  .menu-item {
+        @apply flex items-center p-2 rounded-lg text-white hover:bg-gray-600;
+    }

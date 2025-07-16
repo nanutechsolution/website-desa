@@ -15,10 +15,16 @@ class NewsController extends Controller
     {
         $news = News::where('is_published', true)
             ->orderBy('published_at', 'desc')
-            ->paginate(6); // Tampilkan 6 berita per halaman
+            ->paginate(6);
 
-        return view('frontend.news', compact('news'));
+        $latestNews = News::where('is_published', true)
+            ->orderBy('published_at', 'desc')
+            ->take(5)
+            ->get();
+
+        return view('frontend.news', compact('news', 'latestNews'));
     }
+
 
     /**
      * Display a specific news article.
@@ -27,8 +33,18 @@ class NewsController extends Controller
     {
         $article = News::where('slug', $slug)
             ->where('is_published', true)
-            ->firstOrFail(); // Ambil berita berdasarkan slug
+            ->firstOrFail();
 
-        return view('frontend.news_show', compact('article'));
+        // Ambil 5 berita terbaru selain berita ini
+        $latestNews = News::where('is_published', true)
+            ->where('id', '!=', $article->id)
+            ->orderBy('published_at', 'desc')
+            ->take(5)
+            ->get();
+
+        // (Opsional) Kalau kamu punya kategori
+        // $categories = Category::has('news')->get();
+
+        return view('frontend.news_show', compact('article', 'latestNews'));
     }
 }

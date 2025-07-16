@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\CommentController;
 use App\Http\Controllers\Frontend\DocumentController;
 use App\Http\Controllers\Frontend\GalleryController;
+use App\Http\Controllers\Frontend\InstitutionController;
 use App\Http\Controllers\Frontend\NewsController;
 use App\Http\Controllers\Frontend\PotentialController;
 use App\Http\Controllers\Frontend\ProductController;
@@ -86,6 +87,13 @@ Route::get('/profil/struktur-pemerintahan', [FrontendProfileController::class, '
 
 // --- Rute Komentar (Pengiriman) ---
 Route::post('/news/{news}/comments', [CommentController::class, 'store'])->name('comments.store');
+
+
+
+// --- Rute Lembaga Desa ---
+Route::get('/lembaga-desa', [InstitutionController::class, 'index'])->name('institutions.index');
+Route::get('/lembaga-desa/{slug}', [InstitutionController::class, 'show'])->name('institutions.show');
+
 
 // Route::get('/profil/visi-misi', [ProfileController::class, 'visiMisi'])->name('profil.visi');
 require __DIR__ . '/auth.php';

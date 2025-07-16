@@ -11,6 +11,13 @@ class ProfileContent extends Model
 
     protected $fillable = [
         'key',
+        'title', // <-- TAMBAHKAN INI
         'content',
+        'type', // <-- TAMBAHKAN INI
+        'is_published', // <-- TAMBAHKAN INI
+    ];
+
+    protected $casts = [
+        'is_published' => 'boolean', // Ini juga diperlukan
     ];
 }

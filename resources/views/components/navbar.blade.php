@@ -24,11 +24,9 @@
                 </x-nav-link>
                 <div class="relative" x-data="{ dropdownOpen: false }" @mouseenter="dropdownOpen = true"
                     @mouseleave="dropdownOpen = false">
-                    {{-- TOMBOL DROPDOWN PROFIL DESA --}}
                     <button
                         class="flex items-center gap-1 text-sm font-semibold text-white hover:text-yellow-200 transition   mt-1
                         {{ request()->routeIs('profil.*') ? 'border-b-2 border-desa-skyblue' : '' }}">
-                        {{-- Warna border-b-2 bisa disesuaikan --}}
                         <span class="leading-tight text-sm">Profil Desa</span>
                         <svg class="w-4 h-4 mt-0.5 fill-current" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                             viewBox="0 0 20 20">
@@ -37,7 +35,6 @@
                                 clip-rule="evenodd" />
                         </svg>
                     </button>
-                    {{-- KONTEN DROPDOWN PROFIL DESA (TETAP PUTIH DENGAN TEKS GELAP) --}}
                     <div x-show="dropdownOpen" x-transition
                         class="absolute top-10 right-0 mt-2 w-max bg-white shadow-lg rounded-md py-4 z-50">
                         <a href="{{ route('profil.visi') }}"
@@ -48,25 +45,28 @@
                             class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Struktur Pemerintahan</a>
                     </div>
                 </div>
-                {{-- Dropdown Layanan --}}
-                <div x-data="{ open: false }" @mouseleave="open = false" class="relative">
-                    <button @mouseenter="open = true"
-                        class="text-white font-semibold hover:text-yellow-200 flex items-center gap-1">
+                <div class="relative" x-data="{ dropdownOpenLayanan: false }" @mouseenter="dropdownOpenLayanan = true"
+                    @mouseleave="dropdownOpenLayanan = false">
+                    <button
+                        class="flex items-center gap-1 text-sm font-semibold text-white hover:text-yellow-200 transition   mt-1
+                        {{ request()->routeIs('documents-procedures') || request()->routeIs('document') ? 'border-b-2 border-desa-skyblue' : '' }}">
                         <span class="leading-tight text-sm">Layanan</span>
-                        <svg class="w-4 h-4 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                            <path
-                                d="M5.23 7.21a.75.75 0 011.06 0L10 10.92l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 010-1.06z" />
+                        <svg class="w-4 h-4 mt-0.5 fill-current" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                            viewBox="0 0 20 20">
+                            <path fill-rule="evenodd"
+                                d="M5.23 7.21a.75.75 0 0 1 1.06 0L10 10.92l3.71-3.71a.75.75 0 0 1 1.06 1.06l-4.24 4.24a.75.75 0 0 1-1.06 0L5.23 8.27a.75.75 0 0 1 0-1.06z"
+                                clip-rule="evenodd" />
                         </svg>
                     </button>
-                    <div x-show="open" x-transition class="absolute bg-white mt-2 rounded shadow-md z-50 w-56">
-                        <a href="{{ route('online-services') }}"
-                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Ajukan Surat Online</a>
+                    <div x-show="dropdownOpenLayanan" x-transition
+                        class="absolute top-10 right-0 mt-2 w-max bg-white shadow-lg rounded-md py-4 z-50">
                         <a href="{{ route('service-procedures') }}"
                             class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Prosedur Layanan</a>
                         <a href="{{ route('documents') }}"
                             class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Dokumen Desa</a>
                     </div>
                 </div>
+
                 {{-- NAV-LINK UTAMA LAINNYA --}}
                 <x-nav-link :href="route('potentials')" :active="request()->routeIs('potentials')"
                     class="text-white text-base font-semibold hover:text-yellow-200">Potensi</x-nav-link>
@@ -74,6 +74,8 @@
                     class="text-white text-base font-semibold hover:text-yellow-200">Berita</x-nav-link>
                 <x-nav-link :href="route('gallery')" :active="request()->routeIs('gallery')"
                     class="text-white text-base font-semibold hover:text-yellow-200">Galeri</x-nav-link>
+                <x-nav-link :href="route('institutions.index')" :active="request()->routeIs('institutions.index')"
+                    class="text-white text-base font-semibold hover:text-yellow-200">Lembaga Desa</x-nav-link>
                 {{-- <x-nav-link :href="route('online-services')" :active="request()->routeIs('online-services')"
                     class="text-white text-base font-semibold hover:text-yellow-200">Layanan</x-nav-link> --}}
                 {{-- <x-nav-link :href="route('contact')" :active="request()->routeIs('contact')"
@@ -181,6 +183,10 @@
             {{-- di dalam div mobile menu --}}
             <x-responsive-nav-link :href="route('products')"
                 class="block text-white hover:bg-desa-green-700 px-3 py-2 rounded-md">Produk
+                Desa</x-responsive-nav-link>
+            {{-- di dalam div mobile menu --}}
+            <x-responsive-nav-link :href="route('institutions.index')"
+                class="block text-white hover:bg-desa-green-700 px-3 py-2 rounded-md">Lembaga
                 Desa</x-responsive-nav-link>
             {{-- @auth
                 <div class="mt-4 border-t border-gray-700 pt-4">

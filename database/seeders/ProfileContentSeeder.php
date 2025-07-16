@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\ProfileContent;
+use Faker\Factory as Faker;
 
 class ProfileContentSeeder extends Seeder
 {
@@ -13,29 +13,160 @@ class ProfileContentSeeder extends Seeder
      */
     public function run(): void
     {
-        ProfileContent::create([
-            'key' => 'visi',
-            'content' => 'Terwujudnya Desa Orakeri yang mandiri, sejahtera, dan berbudaya dengan mengedepankan partisipasi masyarakat serta kelestarian lingkungan untuk masa depan yang gemilang.'
-        ]);
+        $faker = Faker::create('id_ID'); // Menggunakan Faker bahasa Indonesia
 
-        ProfileContent::create([
-            'key' => 'misi',
-            'content' => '<ul><li>Meningkatkan kualitas sumber daya manusia melalui pendidikan dan pelatihan yang berkelanjutan.</li><li>Mengembangkan potensi ekonomi lokal melalui UMKM dan pariwisata berbasis masyarakat.</li><li>Meningkatkan dan merawat infrastruktur desa untuk mendukung aktivitas warga.</li><li>Mewujudkan tata kelola pemerintahan desa yang transparan, akuntabel, dan partisipatif.</li><li>Melestarikan nilai-nilai budaya dan kearifan lokal serta menjaga keberlanjutan lingkungan hidup.</li></ul>'
-        ]);
+        // Visi Desa
+        ProfileContent::firstOrCreate(
+            ['key' => 'visi'],
+            [
+                'title' => 'Visi Desa', // <-- Kolom baru
+                'content' => '<p>Mewujudkan Desa Orakeri yang mandiri, sejahtera, dan berbudaya, dengan mengedepankan potensi lokal dan partisipasi aktif masyarakat.</p>',
+                'type' => 'richtext', // <-- Kolom baru
+                'is_published' => true, // <-- Kolom baru
+            ]
+        );
 
-        ProfileContent::create([
-            'key' => 'sejarah',
-            'content' => '<p>Desa Orakeri memiliki sejarah panjang yang berakar pada masa lampau, dimulai dari pemukiman awal yang didirikan oleh para leluhur yang mencari lahan subur di tepi sungai. Nama "Orakeri" sendiri diyakini berasal dari kisah legenda lokal tentang...</p><p>Sejak itu, desa ini telah berkembang melalui berbagai era, dari perjuangan mempertahankan kemerdekaan hingga pembangunan di era modern. Gotong royong dan semangat kebersamaan selalu menjadi fondasi kuat yang menyatukan masyarakat Orakeri.</p>'
-        ]);
+        // Misi Desa
+        ProfileContent::firstOrCreate(
+            ['key' => 'misi'],
+            [
+                'title' => 'Misi Desa',
+                'content' => '<p>1. Meningkatkan kualitas sumber daya manusia melalui pendidikan dan pelatihan.</p><p>2. Mengembangkan potensi ekonomi desa berbasis pertanian dan UMKM.</p><p>3. Melestarikan adat istiadat dan budaya lokal.</p><p>4. Meningkatkan kualitas pelayanan publik yang transparan dan akuntabel.</p>',
+                'type' => 'richtext',
+                'is_published' => true,
+            ]
+        );
 
-        ProfileContent::create([
-            'key' => 'struktur_pemerintahan',
-            'content' => '<p>Berikut adalah bagan struktur pemerintahan Desa Orakeri yang bertugas melayani masyarakat dengan sepenuh hati:</p><ol><li><strong>Kepala Desa:</strong> [Nama Kepala Desa]</li><li><strong>Sekretaris Desa:</strong> [Nama Sekretaris Desa]</li><li><strong>Kepala Urusan (Kaur) Tata Usaha dan Umum:</strong> [Nama Kaur TU]</li><li><strong>Kepala Urusan (Kaur) Keuangan:</strong> [Nama Kaur Keuangan]</li><li><strong>Kepala Seksi (Kasi) Pemerintahan:</strong> [Nama Kasi Pemerintahan]</li><li><strong>Kepala Seksi (Kasi) Kesejahteraan:</strong> [Nama Kasi Kesejahteraan]</li><li><strong>Kepala Seksi (Kasi) Pelayanan:</strong> [Nama Kasi Pelayanan]</li><li><strong>Kepala Dusun (Kadus) I:</strong> [Nama Kadus I]</li><li><strong>Kepala Dusun (Kadus) II:</strong> [Nama Kadus II]</li><li><strong>BPD (Badan Permusyawaratan Desa):</strong> [Daftar Anggota BPD]</li></ol>'
-        ]);
+        // Sejarah Desa
+        ProfileContent::firstOrCreate(
+            ['key' => 'sejarah'],
+            [
+                'title' => 'Sejarah Desa',
+                'content' => '<p>Desa Orakeri memiliki sejarah panjang yang berakar pada masa lampau, dimulai dari pemukiman awal yang didirikan oleh para leluhur yang mencari lahan subur di tepi sungai. Nama "Orakeri" sendiri diyakini berasal dari kata kuno yang berarti "tempat berkumpulnya para petani". Sejak awal berdirinya, desa ini dikenal sebagai lumbung pangan dan pusat kerajinan tangan tradisional.</p><p>Pada masa penjajahan, Desa Orakeri menjadi salah satu basis perjuangan rakyat. Banyak pahlawan lokal yang lahir dari desa ini, berjuang mempertahankan tanah air. Setelah kemerdekaan, Desa Orakeri terus berkembang menjadi desa yang makmur, dengan tetap menjaga nilai-nilai luhur nenek moyang.</p>',
+                'type' => 'richtext',
+                'is_published' => true,
+            ]
+        );
 
-        ProfileContent::create([
-            'key' => 'sekilas_desa',
-            'content' => '<p>Desa Orakeri adalah sebuah permata tersembunyi yang kaya akan tradisi, keindahan alam, dan keramahan penduduknya. Kami mengundang Anda untuk menjelajahi potensi pertanian organik kami, keunikan UMKM lokal, serta pesona wisata alam yang menyejukkan jiwa. Mari bersama membangun Desa Orakeri yang mandiri, sejahtera, dan lestari.</p>'
-        ]);
+        // Struktur Pemerintahan Desa
+        ProfileContent::firstOrCreate(
+            ['key' => 'struktur_pemerintahan'],
+            [
+                'title' => 'Struktur Pemerintahan Desa',
+                'content' => '
+                    <p>Berikut adalah bagan struktur pemerintahan Desa Orakeri yang bertugas melayani masyarakat dengan sepenuh hati. Setiap posisi diisi oleh individu yang berdedikasi untuk kemajuan desa.</p>
+                    <p><img src="https://source.unsplash.com/random/800x600/?organization-chart,hierarchy,chart" alt="Bagan Struktur Pemerintahan Desa" style="max-width: 100%; height: auto; display: block; margin: 20px auto;"></p>
+                    
+                    <h3>A. Kepala Desa</h3>
+                    <p><strong>Kepala Desa:</strong> ' . $faker->name('male') . '</p>
+
+                    <h3>B. Perangkat Desa</h3>
+                    <p><strong>1. Sekretariat Desa</strong></p>
+                    <ul>
+                        <li><strong>Sekretaris Desa:</strong> ' . $faker->name() . '</li>
+                        <li><strong>Kepala Urusan Tata Usaha dan Umum:</strong> ' . $faker->name() . '</li>
+                        <li><strong>Kepala Urusan Keuangan:</strong> ' . $faker->name() . '</li>
+                        <li><strong>Kepala Urusan Perencanaan:</strong> ' . $faker->name() . '</li>
+                    </ul>
+
+                    <p><strong>2. Pelaksana Teknis</strong></p>
+                    <ul>
+                        <li><strong>Kepala Seksi Pemerintahan:</strong> ' . $faker->name() . '</li>
+                        <li><strong>Kepala Seksi Kesejahteraan:</strong> ' . $faker->name() . '</li>
+                        <li><strong>Kepala Seksi Pelayanan:</strong> ' . $faker->name() . '</li>
+                    </ul>
+                    
+                    <h3>C. Kewilayahan (Kepala Dusun / Kepala Wilayah)</h3>
+                    <ul>
+                        <li><strong>Kepala Dusun I (Dusun Mawar):</strong> ' . $faker->name() . '</li>
+                        <li><strong>Kepala Dusun II (Dusun Melati):</strong> ' . $faker->name() . '</li>
+                        <li><strong>Kepala Dusun III (Dusun Anggrek):</strong> ' . $faker->name() . '</li>
+                    </ul>
+
+                    <h3>D. Rukun Tetangga (Contoh)</h3>
+                    <p>Desa Orakeri memiliki [Jumlah RT: ' . $faker->numberBetween(10, 20) . '] Rukun Tetangga yang tersebar di seluruh wilayah dusun.</p>
+                    <p>Berikut adalah beberapa contoh Ketua RT:</p>
+                    <ul>
+                        <li><strong>Ketua RT 001/RW 001 (Dusun Mawar):</strong> ' . $faker->name() . '</li>
+                        <li><strong>Ketua RT 002/RW 001 (Dusun Mawar):</strong> ' . $faker->name() . '</li>
+                        <li><strong>Ketua RT 001/RW 002 (Dusun Melati):</strong> ' . $faker->name() . '</li>
+                    </ul>
+                    <p>Untuk daftar lengkap Ketua RT dan RW, silakan hubungi Kantor Desa.</p>
+                ',
+                'type' => 'richtext',
+                'is_published' => true,
+            ]
+        );
+
+        // Sekilas Desa
+        ProfileContent::firstOrCreate(
+            ['key' => 'sekilas_desa'],
+            [
+                'title' => 'Sekilas Desa',
+                'content' => '<p>Desa Orakeri adalah sebuah permata tersembunyi yang kaya akan tradisi, keindahan alam, dan keramahan penduduknya. Kami mengundang Anda untuk menjelajahi potensi pertanian organik kami, keunikan UMKM lokal, serta pesona wisata alam yang menyejukkan jiwa. Mari bersama membangun Desa Orakeri yang mandiri, sejahtera, dan lestari.</p>',
+                'type' => 'richtext',
+                'is_published' => true,
+            ]
+        );
+
+        // Data Kontak Dinamis
+        ProfileContent::firstOrCreate(
+            ['key' => 'contact_address'],
+            [
+                'title' => 'Alamat Kantor Desa',
+                'content' => 'Jl. Raya Desa Orakeri No. 123, Kecamatan Sejahtera, Kabupaten Harmoni, Jawa Barat 43211',
+                'type' => 'text', // Tipe text karena biasanya singkat
+                'is_published' => true,
+            ]
+        );
+        ProfileContent::firstOrCreate(
+            ['key' => 'contact_phone'],
+            [
+                'title' => 'Nomor Telepon Desa',
+                'content' => '(022) 123-456798',
+                'type' => 'text',
+                'is_published' => true,
+            ]
+        );
+        ProfileContent::firstOrCreate(
+            ['key' => 'contact_email'],
+            [
+                'title' => 'Email Desa',
+                'content' => 'info@desaorakeri.com',
+                'type' => 'text',
+                'is_published' => true,
+            ]
+        );
+        ProfileContent::firstOrCreate(
+            ['key' => 'Maps_embed'],
+            [
+                'title' => 'URL Google Maps Embed',
+                'content' => 'http://googleusercontent.com/maps.google.com/7', // Ganti dengan URL embed Anda
+                'type' => 'url', // Tipe URL
+                'is_published' => true,
+            ]
+        );
+
+        // Data Konten Footer Dinamis
+        ProfileContent::firstOrCreate(
+            ['key' => 'footer_about'],
+            [
+                'title' => 'Teks Tentang Desa di Footer',
+                'content' => 'Desa Orakeri adalah komunitas yang kaya budaya dan potensi alam, berkomitmen membangun desa yang mandiri, sejahtera, dan lestari dengan partisipasi masyarakat aktif.',
+                'type' => 'text',
+                'is_published' => true,
+            ]
+        );
+
+        // Nama Desa Dinamis
+        ProfileContent::firstOrCreate(
+            ['key' => 'village_name'],
+            [
+                'title' => 'Nama Desa',
+                'content' => 'Desa Orakeri',
+                'type' => 'text',
+                'is_published' => true,
+            ]
+        );
     }
 }

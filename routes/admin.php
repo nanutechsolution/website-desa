@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\DocumentController;
 use App\Http\Controllers\Admin\GalleryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\HeroSliderController;
+use App\Http\Controllers\Admin\InstitutionController;
 use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\PotentialController;
 use App\Http\Controllers\Admin\ProductController;
@@ -58,6 +59,8 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/comments', [CommentController::class, 'index'])->name('admin.comments.index');
     Route::put('/comments/{comment}', [CommentController::class, 'update'])->name('admin.comments.update');
     Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('admin.comments.destroy');
+    // --- Rute Lembaga Desa ---
+    Route::resource('institutions', InstitutionController::class)->names('admin.institutions');
 
 
     // --- Rute Konten Profil (Visi, Misi, Sejarah, Struktur) ---

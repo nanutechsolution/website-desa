@@ -86,51 +86,72 @@
             </a>
         </div>
     </section>
-    <section id="berita-terbaru" class="py-20 bg-white">
+    <section id="berita-terbaru" class="py-24 bg-white">
         <div class="container mx-auto px-4">
+            <!-- Header -->
             <div class="text-center mb-16" data-aos="fade-down">
-                <h2 class="text-3xl md:text-4xl font-bold text-desa-brown mb-4">Berita Terbaru</h2>
-                <div class="w-24 h-1 bg-desa-green-600 mx-auto"></div>
+                <h2 class="text-4xl font-extrabold text-desa-brown tracking-tight mb-4">
+                    Berita Terbaru
+                </h2>
+                <div class="w-16 h-1 bg-desa-green-600 mx-auto rounded-full"></div>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <!-- Grid Berita -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 @forelse ($news as $index => $article)
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden transition hover:shadow-lg duration-300"
+                    <div class="bg-white border border-gray-100 rounded-2xl shadow-sm overflow-hidden transform transition duration-300 hover:scale-[1.02] hover:shadow-xl"
                         data-aos="fade-up" data-aos-delay="{{ 100 * ($index + 1) }}">
+
                         @if ($article->image)
                             <img src="{{ Storage::url($article->image) }}" alt="{{ $article->title }}"
-                                class="w-full h-48 object-cover">
+                                class="w-full h-52 object-cover">
                         @endif
+
                         <div class="p-6">
-                            <h3 class="text-xl font-bold mb-2 text-dark-text hover:text-desa-skyblue">
-                                <a
-                                    href="{{ route('news.show', $article->slug) }}">{{ Str::limit($article->title, 50) }}</a>
+                            <!-- Judul -->
+                            <h3 class="text-lg font-semibold mb-2 text-gray-800 hover:text-desa-green-700 transition">
+                                <a href="{{ route('news.show', $article->slug) }}">
+                                    {{ Str::limit($article->title, 60) }}
+                                </a>
                             </h3>
-                            <p class="text-sm text-gray-600 mb-3">
-                                Oleh {{ $article->author ?? 'Admin' }} pada
-                                {{ $article->published_at ? $article->published_at->format('d F Y') : '-' }}
+
+                            <!-- Info Penulis -->
+                            <p class="text-xs text-gray-500 mb-3">
+                                Oleh <span class="font-medium">{{ $article->author ?? 'Admin' }}</span>,
+                                {{ $article->published_at ? $article->published_at->translatedFormat('d F Y') : '-' }}
                             </p>
-                            <p class="text-gray-700 leading-relaxed mb-4">
+
+                            <!-- Isi singkat -->
+                            <p class="text-gray-600 text-sm mb-4 leading-relaxed">
                                 {{ Str::limit(strip_tags($article->content), 100) }}
                             </p>
+
+                            <!-- Tombol -->
                             <a href="{{ route('news.show', $article->slug) }}"
-                                class="inline-block bg-desa-skyblue hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md text-sm">Baca
-                                Selengkapnya &rarr;</a>
+                                class="inline-block text-sm font-semibold text-desa-skyblue hover:text-blue-700 transition duration-200">
+                                Baca Selengkapnya &rarr;
+                            </a>
                         </div>
                     </div>
                 @empty
-                    <p class="col-span-full text-center text-gray-500">Belum ada berita terbaru yang dipublikasikan.
+                    <p class="col-span-full text-center text-gray-400 text-sm">
+                        Belum ada berita terbaru yang dipublikasikan.
                     </p>
                 @endforelse
             </div>
+
+            <!-- Tombol Lihat Semua -->
             @if ($news->count() > 0)
-                <div class="text-center mt-12">
+                <div class="text-center mt-14" data-aos="fade-up" data-aos-delay="500">
                     <a href="{{ route('news') }}"
-                        class="inline-block bg-desa-green-600 hover:bg-desa-green-700 text-white font-bold py-3 px-8 rounded-full transition-colors duration-300">Lihat
-                        Semua Berita</a>
+                        class="inline-block bg-desa-green-600 hover:bg-desa-green-700 text-white font-bold py-3 px-8 rounded-full transition-all duration-300 shadow-md hover:shadow-lg">
+                        Lihat Semua Berita
+                    </a>
                 </div>
             @endif
         </div>
     </section>
+
     <section class="py-20 bg-gradient-to-r from-desa-skyblue/10 via-white to-desa-skyblue/10 backdrop-blur-md">
         <div class="container mx-auto px-6">
             <h2 class="text-4xl font-extrabold text-center text-desa-brown mb-14 tracking-tight" data-aos="fade-down">
@@ -250,46 +271,30 @@
             @endif
         </div>
     </section>
-    <section id="kontak" class="py-20 bg-soft-gray">
+    <section id="lokasi" class="py-20 bg-soft-gray">
         <div class="container mx-auto px-4">
             <div class="text-center mb-16" data-aos="fade-down">
-                <h2 class="text-3xl md:text-4xl font-bold text-desa-brown mb-4">Hubungi Kami</h2>
+                <h2 class="text-3xl md:text-4xl font-bold text-desa-brown mb-4">Lokasi Kantor Desa</h2>
                 <div class="w-24 h-1 bg-desa-green-600 mx-auto"></div>
             </div>
-
             <div class="flex flex-col lg:flex-row gap-10">
-                <div class="lg:w-1/2" data-aos="fade-right" data-aos-delay="100">
-                    <form class="bg-white p-8 rounded-lg shadow-md">
-                        <div class="mb-6">
-                            <label for="name" class="block text-gray-700 font-medium mb-2">Nama Lengkap</label>
-                            <input type="text" id="name"
-                                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-desa-green-500">
-                        </div>
-                        <div class="mb-6">
-                            <label for="email" class="block text-sm font-medium text-gray-700">Alamat Email</label>
-                            <input type="email" id="email"
-                                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-desa-green-500">
-                        </div>
-                        <div class="mb-6">
-                            <label for="message" class="block text-gray-700 font-medium mb-2">Pesan Anda</label>
-                            <textarea id="message" rows="4"
-                                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-desa-green-500"></textarea>
-                        </div>
-                        <button type="submit"
-                            class="w-full bg-desa-green-600 text-white py-3 px-6 rounded-md hover:bg-desa-green-700 transition font-medium">
-                            Kirim Pesan
-                        </button>
-                    </form>
-                </div>
-                <div class="lg:w-1/2" data-aos="fade-left" data-aos-delay="100">
+                <div class="lg:w-full" data-aos="fade-left" data-aos-delay="100"> {{-- Menggunakan lg:w-full karena tidak ada form kontak lagi di sampingnya --}}
                     <div class="bg-white p-8 rounded-lg shadow-md h-full">
-                        <h3 class="text-xl font-semibold text-dark-text mb-4">Lokasi Kantor Desa</h3>
+                        <h3 class="text-xl font-semibold text-dark-text mb-4">Informasi Kontak & Lokasi</h3>
+                        {{-- Ganti judul h3 --}}
                         <div class="aspect-w-16 aspect-h-9 mb-6">
-                            {{-- Ganti src Google Maps dengan URL yang valid --}}
-                            <iframe
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15814.770281699042!2d110.37042557766324!3d-7.794711295982823!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a57833a6b3d81%3A0x4027a76e3557e40!2sYogyakarta%20City%2C%20Special%20Region%20of%20Yogyakarta!5e0!3m2!1sen!2sid!4v1700000000000!5m2!1sen!2sid"
-                                width="100%" height="100%" style="min-height: 300px;" allowfullscreen=""
-                                loading="lazy" class="rounded-lg"></iframe>
+                            {{-- Menggunakan URL Google Maps dinamis --}}
+                            @if ($googleMapsEmbedUrl && $googleMapsEmbedUrl->content)
+                                <iframe src="{{ $googleMapsEmbedUrl->content }}" width="100%" height="100%"
+                                    style="min-height: 300px;" allowfullscreen="" loading="lazy"
+                                    referrerpolicy="no-referrer-when-downgrade" class="rounded-lg">
+                                </iframe>
+                            @else
+                                <div class="w-full h-full bg-gray-200 flex items-center justify-center text-gray-500 rounded-lg"
+                                    style="min-height: 300px;">
+                                    Peta belum diatur.
+                                </div>
+                            @endif
                         </div>
                         <div class="space-y-4">
                             <div class="flex items-start space-x-4">
@@ -300,8 +305,13 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                                 </svg>
-                                <p class="text-gray-600">Jl. Raya Orakeri No. 123, Kecamatan Sejahtera, Kabupaten
-                                    Harmoni, Jawa Barat 43211</p>
+                                <p class="text-gray-700">
+                                    @if ($contactAddress && $contactAddress->content)
+                                        {!! $contactAddress->content !!} {{-- Menggunakan !! untuk render HTML dari TinyMCE --}}
+                                    @else
+                                        Alamat belum diatur.
+                                    @endif
+                                </p>
                             </div>
                             <div class="flex items-start space-x-4">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-desa-green-600 mt-1"
@@ -309,7 +319,14 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                                 </svg>
-                                <p class="text-gray-600">desa.orakeri@gmail.com</p>
+                                <p class="text-gray-700">
+                                    @if ($contactEmail && $contactEmail->content)
+                                        <a href="mailto:{{ strip_tags($contactEmail->content) }}"
+                                            class="text-desa-skyblue hover:underline">{{ strip_tags($contactEmail->content) }}</a>
+                                    @else
+                                        Email belum diatur.
+                                    @endif
+                                </p>
                             </div>
                             <div class="flex items-start space-x-4">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-desa-green-600 mt-1"
@@ -317,7 +334,17 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                                 </svg>
-                                <p class="text-gray-600">(022) 1234567</p>
+                                <p class="text-gray-700">
+                                    @if ($contactPhone && $contactPhone->content)
+                                        @php
+                                            $cleanPhoneNumber = preg_replace('/[^0-9+]/', '', $contactPhone->content);
+                                        @endphp
+                                        <a href="tel:{{ $cleanPhoneNumber }}"
+                                            class="text-desa-skyblue hover:underline">{{ strip_tags($contactPhone->content) }}</a>
+                                    @else
+                                        Telepon belum diatur.
+                                    @endif
+                                </p>
                             </div>
                         </div>
                     </div>

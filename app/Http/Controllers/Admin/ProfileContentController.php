@@ -3,18 +3,17 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\ProfileContent; // Import model ProfileContent
+use App\Models\ProfileContent;
 use Illuminate\Http\Request;
 
 class ProfileContentController extends Controller
 {
     /**
-     * Show the form for editing specific profile content (Visi, Misi, Sejarah, Struktur).
-     * @param string $key The key of the content to edit (e.g., 'visi', 'misi', 'sejarah', 'struktur_pemerintahan').
+     * Show the form for editing specific profile content.
+     * @param string $key The key of the content to edit.
      */
     public function edit(string $key)
     {
-        // Temukan konten berdasarkan key, atau buat yang baru jika belum ada
         $content = ProfileContent::firstOrCreate(['key' => $key]);
         $title = '';
         switch ($key) {
@@ -33,8 +32,23 @@ class ProfileContentController extends Controller
             case 'sekilas_desa':
                 $title = 'Sekilas Desa';
                 break;
+            case 'contact_address':
+                $title = 'Alamat Kantor Desa';
+                break;
+            case 'contact_phone':
+                $title = 'Nomor Telepon Desa';
+                break;
+            case 'contact_email':
+                $title = 'Email Desa';
+                break;
+            case 'Maps_embed':
+                $title = 'URL Google Maps Embed';
+                break;
+            case 'footer_about': // <-- TAMBAHKAN INI
+                $title = 'Teks Tentang Desa di Footer';
+                break;
             default:
-                $title = 'Konten Profil';
+                $title = 'Konten Profil Tidak Dikenal';
                 break;
         }
 
@@ -48,13 +62,14 @@ class ProfileContentController extends Controller
     public function update(Request $request, string $key)
     {
         $request->validate([
-            'content' => 'nullable|string',
+            'content' => ($key == 'Maps_embed') ? 'nullable|url' : 'nullable|string',
         ]);
 
         $profileContent = ProfileContent::firstOrCreate(['key' => $key]);
         $profileContent->content = $request->input('content');
         $profileContent->save();
 
-        return redirect()->back()->with('success', 'Konten ' . $key . ' berhasil diperbarui.');
+        $successMessage = 'Konten ' . str_replace('_', ' ', $key) . ' berhasil diperbarui.';
+        return redirect()->back()->with('success', $successMessage);
     }
 }
