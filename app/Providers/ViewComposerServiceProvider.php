@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
-use App\Models\ProfileContent; // Import model ProfileContent
+use App\Models\ProfileContent; // Pastikan ini diimport
 
 class ViewComposerServiceProvider extends ServiceProvider
 {
@@ -21,10 +21,17 @@ class ViewComposerServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Komposisi data 'footer_about' ke semua view yang menggunakan 'layouts.app' atau 'components.footer'
-        View::composer('*', function ($view) { // Menggunakan '*' untuk semua view, bisa lebih spesifik jika perlu
+        View::composer('*', function ($view) {
             $footerAbout = ProfileContent::where('key', 'footer_about')->first();
-            $view->with('footerAbout', $footerAbout);
+            $villageName = ProfileContent::where('key', 'village_name')->first();
+
+            // --- PERBAIKAN DI SINI ---
+            $view->with([
+                'footerAbout' => $footerAbout,
+                'villageName' => $villageName,
+            ]);
+
+            // --- AKHIR PERBAIKAN ---
         });
     }
 }

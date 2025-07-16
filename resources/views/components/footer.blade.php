@@ -3,7 +3,8 @@
         <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
             {{-- Kolom 1: Tentang Desa Orakeri (Dinamis) --}}
             <div>
-                <h3 class="text-xl font-bold mb-4 text-desa-green">Desa Orakeri</h3>
+                <h3 class="text-xl font-bold mb-4 text-desa-green">
+                    {{ strip_tags($villageName->content) ?? 'Nama Desa' }}</h3>
                 <p class="text-gray-400 text-sm">
                     {!! $footerAbout->content ?? 'Teks tentang desa belum diatur di admin.' !!}
                 </p>
@@ -86,7 +87,7 @@
 
         {{-- Hak Cipta --}}
         <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-500 text-sm">
-            &copy; {{ date('Y') }} Desa Orakeri. Hak Cipta Dilindungi.
+            © {{ date('Y') }} {{ $villageName->content ?? 'Nama Desa' }}. Hak Cipta Dilindungi.
         </div>
     </div>
 </footer>

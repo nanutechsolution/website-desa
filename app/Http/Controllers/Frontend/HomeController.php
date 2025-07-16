@@ -28,18 +28,20 @@ class HomeController extends Controller
         $contactPhone = ProfileContent::where('key', 'contact_phone')->first();
         $contactEmail = ProfileContent::where('key', 'contact_email')->first();
         $googleMapsEmbedUrl = ProfileContent::where('key', 'Maps_embed')->first();
-
+        $villageName = ProfileContent::where('key', 'village_name')->first();
 
         return view('frontend.home', compact(
             'sliders',
             'potentials',
             'news',
             'homepageGalleries',
-            'sekilasDesa', // <--- PASTIKAN INI TERMASUK DALAM COMPACT
+            'sekilasDesa',
             'contactAddress',
             'contactPhone',
             'contactEmail',
-            'googleMapsEmbedUrl' // <--- PASTIKAN INI TERMASUK DALAM COMPACT
+            'googleMapsEmbedUrl',
+            'villageName'
+
         ));
     }
 }

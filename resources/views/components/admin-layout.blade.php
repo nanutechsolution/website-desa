@@ -6,16 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    <meta name="description" content="{{ config('app.description', 'Dasbor Admin Desa Orakeri') }}">
     <title>{{ config('app.name', 'Dasbor Admin Desa Orakeri') }}</title>
 
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    <meta name="description" content="{{ $villageName ?? 'Website resmi Desa Orakeri.' }}">
+    <title>{{ config('app.name', 'Laravel') }} - {{ $villageName ?? 'Nama Desa' }}</title>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    {{-- TinyMCE CDN - TAMBAHKAN INI TEPAT SEBELUM </body> --}}
     <script src="https://cdn.tiny.cloud/1/algt269vr4aq8vf2pokvkxyplcwaofury8xlyeekzrg85v42/tinymce/6/tinymce.min.js"
         referrerpolicy="origin"></script>
-    {{-- GANTI 'YOUR_TINYMCE_API_KEY' dengan kunci API Anda. --}}
 
     <script>
         // Fungsi untuk menginisialisasi TinyMCE
@@ -183,6 +184,10 @@
                             </svg>
                         </button>
                         <ul x-show="open" x-transition class="mt-1 space-y-1 bg-gray-700 rounded-lg py-1 px-3">
+
+                            <li><a href="{{ route('admin.profile-contents.edit', 'village_name') }}"
+                                    class="menu-item {{ request()->route('key') == 'village_name' ? 'bg-gray-600' : '' }}">Nama
+                                    Desa</a>
                             <li><a href="{{ route('admin.profile-contents.edit', 'contact_address') }}"
                                     class="menu-item {{ request()->route('key') == 'contact_address' ? 'bg-gray-600' : '' }}">Alamat</a>
                             </li>
