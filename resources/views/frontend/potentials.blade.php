@@ -22,7 +22,8 @@
                                 @endif
                                 <div class="p-6">
                                     <h4 class="text-xl font-bold mb-2 text-desa-green">{{ $potential->title }}</h4>
-                                    <p class="text-gray-700">{{ Str::limit($potential->description, 150) }}</p>
+                                    <p class="text-gray-700">{{ strip_tags(Str::limit($potential->description, 150)) }}
+                                    </p>
                                     {{-- Tambahkan link "Baca Selengkapnya" jika ada halaman detail --}}
                                     {{-- Jika Anda mengimplementasikan PotentialController@show: --}}
                                     {{-- <a href="{{ route('potentials.show', $potential->slug) }}" class="mt-3 inline-block text-desa-skyblue hover:underline">Baca Selengkapnya &rarr;</a> --}}

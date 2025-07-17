@@ -12,7 +12,10 @@
                             d="M12 5.688l-7.5 7.5a.75.75 0 0 0-1.06 1.06l7.25 7.25a.75.75 0 0 0 1.06 0l7.25-7.25a.75.75 0 0 0-1.06-1.06L12 5.688Z"
                             clip-rule="evenodd" />
                     </svg>
-                    <span class="ml-2 text-lg font-bold text-white">Desa Orakeri</span>
+                    @php
+                        $villageName = App\Models\ProfileContent::where('key', 'village_name')->first();
+                    @endphp
+                    <span class="ml-2 text-lg font-bold text-white">{{ strip_tags($villageName->content) }}</span>
                 </a>
             </div>
 
@@ -49,7 +52,7 @@
                     @mouseleave="dropdownOpenLayanan = false">
                     <button
                         class="flex items-center gap-1 text-sm font-semibold text-white hover:text-yellow-200 transition   mt-1
-                        {{ request()->routeIs('documents-procedures') || request()->routeIs('document') ? 'border-b-2 border-desa-skyblue' : '' }}">
+                        {{ request()->routeIs('service-procedures') || request()->routeIs('documents') ? 'border-b-2 border-desa-skyblue' : '' }}">
                         <span class="leading-tight text-sm">Layanan</span>
                         <svg class="w-4 h-4 mt-0.5 fill-current" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                             viewBox="0 0 20 20">
@@ -76,19 +79,9 @@
                     class="text-white text-base font-semibold hover:text-yellow-200">Galeri</x-nav-link>
                 <x-nav-link :href="route('institutions.index')" :active="request()->routeIs('institutions.index')"
                     class="text-white text-base font-semibold hover:text-yellow-200">Lembaga Desa</x-nav-link>
-                {{-- <x-nav-link :href="route('online-services')" :active="request()->routeIs('online-services')"
-                    class="text-white text-base font-semibold hover:text-yellow-200">Layanan</x-nav-link> --}}
-                {{-- <x-nav-link :href="route('contact')" :active="request()->routeIs('contact')"
-                    class="text-white text-base font-semibold hover:text-yellow-200">Kontak</x-nav-link> --}}
-                {{-- <x-nav-link :href="route('documents')" :active="request()->routeIs('contact')"
-                    class="text-white text-base font-semibold hover:text-yellow-200">Dokumen</x-nav-link> --}}
-                {{-- <x-nav-link :href="route('service-procedures')" :active="request()->routeIs('service-procedures')"
-                    class="text-white text-base font-semibold hover:text-yellow-200">Prosedur Layanan</x-nav-link> --}}
                 <x-nav-link :href="route('products')" :active="request()->routeIs('products')"
                     class="text-white text-base font-semibold hover:text-yellow-200">Produk Desa</x-nav-link>
-
             </div>
-
             <div class="flex items-center space-x-4">
                 @auth
                     <x-dropdown align="right" width="48">
@@ -146,7 +139,7 @@
             {{-- Mobile Dropdown Profil Desa --}}
             <div x-data="{ mobileProfileOpen: false }">
                 <button @click="mobileProfileOpen = !mobileProfileOpen"
-                    class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-white hover:bg-desa-green-700 focus:outline-none flex justify-between items-center">
+                    class=" w-full text-left px-3 py-2 rounded-md text-base font-medium text-white hover:bg-desa-green-700 focus:outline-none flex justify-between items-center">
                     <span>Profil Desa</span>
                     <svg class="h-5 w-5 fill-current transform transition-transform duration-200"
                         :class="{ 'rotate-180': mobileProfileOpen }" xmlns="http://www.w3.org/2000/svg"

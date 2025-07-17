@@ -141,8 +141,8 @@ class ProfileContentSeeder extends Seeder
             ['key' => 'Maps_embed'],
             [
                 'title' => 'URL Google Maps Embed',
-                'content' => 'http://googleusercontent.com/maps.google.com/7', // Ganti dengan URL embed Anda
-                'type' => 'url', // Tipe URL
+                'content' => 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d50401.81578724136!2d110.4619592!3d-7.780961599999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a51b96c72a851%3A0xf454bd5877f00a2e!2sLava%20Bantal!5e1!3m2!1sid!2sid!4v1752754980086!5m2!1sid!2sid',
+                'type' => 'url',
                 'is_published' => true,
             ]
         );

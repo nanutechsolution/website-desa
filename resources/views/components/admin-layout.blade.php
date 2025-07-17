@@ -13,7 +13,7 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     <meta name="description" content="{{ $villageName ?? 'Website resmi Desa Orakeri.' }}">
     <title>{{ config('app.name', 'Laravel') }} - {{ $villageName ?? 'Nama Desa' }}</title>
-
+    @livewireStyles
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="https://cdn.tiny.cloud/1/algt269vr4aq8vf2pokvkxyplcwaofury8xlyeekzrg85v42/tinymce/6/tinymce.min.js"
         referrerpolicy="origin"></script>
@@ -64,12 +64,13 @@
             initializeTinyMCE('textarea#content');
             initializeTinyMCE('textarea#steps_requirements');
             initializeTinyMCE('textarea#description_editor');
-            initializeTinyMCE('textarea#description'); // Untuk Produk Desa description
+            initializeTinyMCE('textarea#description');
         });
     </script>
 </head>
 
 <body class="font-sans antialiased bg-gray-100">
+
     <div class="min-h-screen flex" x-data="{ sidebarOpen: false }" @toggle-sidebar="sidebarOpen = !sidebarOpen">
         {{-- Overlay untuk Mobile (saat sidebar terbuka) --}}
         <div x-show="sidebarOpen" x-transition:opacity @click="sidebarOpen = false"
@@ -77,8 +78,12 @@
         <aside
             class="fixed top-0 left-0 z-40 w-64 h-screen overflow-y-auto bg-gray-800 text-white p-4 space-y-4 shadow-lg transform transition-transform duration-300 ease-in-out -translate-x-full md:translate-x-0"
             :class="{ 'translate-x-0': sidebarOpen }">
+            @php
+                $villageName = App\Models\ProfileContent::where('key', 'village_name')->first();
+            @endphp
 
-            <div class="text-2xl font-bold mb-6 text-center text-desa-green">Admin Orakeri</div>
+            <div class="text-2xl font-bold mb-6 text-center text-desa-green">{{ strip_tags($villageName->content) }}
+            </div>
 
             <nav>
                 <ul class="space-y-1">
@@ -234,13 +239,8 @@
                 </ul>
             </nav>
         </aside>
-
-
-
-        <div class="flex-1 flex flex-col md:ml-64"> {{-- Tambahkan md:ml-64 untuk mengkompensasi sidebar di desktop --}}
-            {{-- Navigasi Atas Admin --}}
+        <div class="flex-1 flex flex-col md:ml-64">
             @include('layouts.admin-top-navigation')
-
             @if (isset($header))
                 <header class="bg-white shadow">
                     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
@@ -248,19 +248,37 @@
                     </div>
                 </header>
             @endif
-
-            <main class="flex-1">
+            <main class="">
                 {{ $slot }}
             </main>
+            <footer
+                class="bg-gray-900 text-gray-300 py-6 px-4 sm:px-6 lg:px-8 text-center text-sm border-t border-gray-700">
+                @php
+                    $villageName = App\Models\ProfileContent::where('key', 'village_name')->first();
+                @endphp
 
-            {{-- Footer Admin --}}
-            <footer class="bg-gray-800 text-white py-4 px-4 sm:px-6 lg:px-8 text-center text-sm">
-                <p>&copy; {{ date('Y') }} Dasbor Admin Desa Orakeri. Hak Cipta Dilindungi.</p>
-                <p class="mt-1">Ditenagai oleh Laravel & Tailwind CSS.</p>
+                <div class="space-y-2">
+                    <p class="text-white font-semibold text-base">
+                        &copy; {{ date('Y') }} {!! strip_tags($villageName->content) !!}. Semua hak cipta dilindungi.
+                    </p>
+
+                    <p>
+                        Dibangun dengan ❤️ menggunakan <span class="text-blue-400">Laravel</span> & <span
+                            class="text-teal-400">Tailwind CSS</span>
+                    </p>
+
+                    <p>
+                        Versi <span class="font-mono text-yellow-300">{{ config('app.version', '1.0.0') }}</span>
+                    </p>
+
+                    <p class="italic text-gray-400">
+                        Made with care by <span class="text-pink-400 font-semibold">Tim Nanu Group</span>
+                    </p>
+                </div>
             </footer>
+
         </div>
     </div>
-
 </body>
 
 </html>

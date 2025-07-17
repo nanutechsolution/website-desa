@@ -14,12 +14,9 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="bg-gray-50">
+<body class="font-sans antialiased overflow-x-hidden">
     <div class="min-h-screen bg-gray-100">
-        {{-- @include('layouts.navigation') --}}
         <x-navbar />
-
-        <!-- Page Heading -->
         @isset($header)
             <header class="bg-white shadow">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
@@ -27,18 +24,11 @@
                 </div>
             </header>
         @endisset
-
-        <!-- Page Content -->
         <main>
             {{ $slot }}
         </main>
     </div>
-
-    {{-- footer --}}
     <x-footer />
-
-    {{-- Scripts --}}
-
 </body>
 
 </html>

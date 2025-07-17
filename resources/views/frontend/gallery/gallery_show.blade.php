@@ -12,7 +12,7 @@
                     <h3 class="text-2xl font-bold mb-4 text-desa-brown text-center" data-aos="fade-down">
                         {{ $gallery->name }}</h3>
                     <p class="text-gray-700 mb-6 text-center" data-aos="fade-down" data-aos-delay="100">
-                        {{ $gallery->description }}</p>
+                        {!! strip_tags($gallery->description) !!}</p>
 
                     @if ($gallery->cover_image)
                         <img src="{{ Storage::url($gallery->cover_image) }}" alt="Sampul {{ $gallery->name }}"

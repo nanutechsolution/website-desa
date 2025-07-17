@@ -35,7 +35,6 @@
                                 class="mt-3 inline-block bg-white text-desa-brown px-4 py-2 rounded hover:bg-gray-200">Lihat
                                 Permintaan</a>
                         </div>
-                        {{-- Tambahkan lebih banyak widget di sini --}}
                     </div>
                 </div>
             </div>

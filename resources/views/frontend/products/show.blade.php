@@ -13,7 +13,6 @@
                         <div data-aos="zoom-in">
                             @if ($product->image)
                                 <div data-aos="zoom-in">
-                                    {{-- Menggunakan accessor image_url --}}
                                     <img src="{{ $product->image_url }}" alt="{{ $product->name }}"
                                         class="w-full h-80 object-cover rounded-lg shadow-md">
                                 </div>

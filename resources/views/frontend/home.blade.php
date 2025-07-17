@@ -1,11 +1,10 @@
 <x-app-layout>
     {{-- Hero Slider Section --}}
-    <div class="relative w-full overflow-hidden h-[500px]" x-data="{ activeSlide: 0, slides: {{ $sliders->toJson() }} }" x-init="if (slides.length > 1) {
+    <div class="relative w-full overflow-hidden h-screen" x-data="{ activeSlide: 0, slides: {{ $sliders->toJson() }} }" x-init="if (slides.length > 1) {
         setInterval(() => {
             activeSlide = (activeSlide + 1) % slides.length;
         }, 5000);
     }">
-
         {{-- Slides --}}
         @forelse ($sliders as $index => $slider)
             <div x-show="activeSlide === {{ $index }}" x-transition:enter="transition ease-out duration-1000"
@@ -28,7 +27,7 @@
                 </div>
             </div>
         @empty
-            <div class="w-full h-full flex items-center justify-center bg-gray-200">
+            <div class="relative w-full overflow-hidden h-screen flex items-center justify-center">
                 <p class="text-gray-600 text-xl">Tidak ada slider aktif yang tersedia.</p>
             </div>
         @endforelse
@@ -60,17 +59,19 @@
     </div>
 
 
-    <section class="py-20 bg-white">
-        {{-- Ornamen dekoratif background (bisa diganti SVG khas desa) --}}
-        <div
+    <section class=" bg-gray-100 text-gray-700 py-12 mt-12  border-gray-300">
+        {{-- <div
             class="absolute inset-0 opacity-5 bg-[url('/images/motif-desa.png')] bg-cover bg-center pointer-events-none">
-        </div>
-
+        </div> --}}
+        @php
+            $villageName = App\Models\ProfileContent::where('key', 'village_name')->first();
+        @endphp
         <div class="max-w-5xl mx-auto px-6 text-center relative z-10">
-            <h2 class="text-4xl md:text-5xl font-extrabold text-desa-brown mb-6 tracking-tight drop-shadow-sm"
+            <h5 class="md:text-5xl font-extrabold text-desa-brown mb-6 tracking-tight drop-shadow-sm whitespace-nowrap overflow-hidden text-ellipsis"
                 data-aos="fade-down">
-                👋 Selamat Datang di Desa Orakeri!
-            </h2>
+                👋 Selamat Datang di <span>{!! $villageName->content !!}</span>
+            </h5>
+
             <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-8" data-aos="fade-up" data-aos-delay="100">
                 {!! $sekilasDesa->content ??
                     '<span class="italic text-red-600">Teks sambutan desa belum diatur. Silakan hubungi admin.</span>' !!}
@@ -248,18 +249,21 @@
                                     alt="Sampul {{ $gallery->name }}"
                                     class="w-full h-64 object-cover transform hover:scale-105 transition duration-500">
                             @else
-                                <div class="w-full h-64 flex items-center justify-center bg-gray-200 text-gray-500">No
+                                <div class="w-full h-64 flex items-center justify-center bg-gray-200 text-gray-500">
+                                    No
                                     Image</div>
                             @endif
                             <div class="p-4 bg-white">
-                                <h4 class="text-lg font-semibold text-dark-text">{{ Str::limit($gallery->name, 40) }}
+                                <h4 class="text-lg font-semibold text-dark-text">
+                                    {{ Str::limit($gallery->name, 40) }}
                                 </h4>
                                 <p class="text-sm text-gray-600">{{ $gallery->images->count() }} Foto</p>
                             </div>
                         </a>
                     </div>
                 @empty
-                    <p class="col-span-full text-center text-gray-500">Belum ada album galeri yang dipublikasikan.</p>
+                    <p class="col-span-full text-center text-gray-500">Belum ada album galeri yang dipublikasikan.
+                    </p>
                 @endforelse
             </div>
             @if ($homepageGalleries->count() > 0)

@@ -67,7 +67,7 @@
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">{{ $potential->title }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            {{ Str::limit($potential->description, 50) }}</td>
+                                            {{ strip_tags(Str::limit($potential->description, 10)) }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap">{{ $potential->order ?? '-' }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             @if ($potential->is_published)

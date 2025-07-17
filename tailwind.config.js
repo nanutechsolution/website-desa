@@ -7,6 +7,9 @@ export default {
         './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php', // Pastikan baris ini ada dan benar
+        './vendor/power-components/livewire-powergrid/resources/views/**/*.php', // TAMBAHKAN BARIS INI
+        './vendor/power-components/livewire-powergrid/src/**/**/**/*.php',     // TAMBAHKAN BARIS INI
+
     ],
 
 
