@@ -3,18 +3,13 @@
         <div class="flex justify-between h-16 items-center"> {{-- Tambahkan items-center di sini --}}
             <div class="flex items-center space-x-4">
                 <a href="{{ route('home') }}" class="flex items-center">
-                    <svg class="h-8 w-8 text-white" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                        viewBox="0 0 24 24">
-                        <path fill-rule="evenodd"
-                            d="M11.47 2.47a.75.75 0 0 1 1.06 0l7.5 7.5a.75.75 0 1 1-1.06 1.06L12 4.06 5.03 11.03a.75.75 0 0 1-1.06-1.06l7.5-7.5Z"
-                            clip-rule="evenodd" />
-                        <path fill-rule="evenodd"
-                            d="M12 5.688l-7.5 7.5a.75.75 0 0 0-1.06 1.06l7.25 7.25a.75.75 0 0 0 1.06 0l7.25-7.25a.75.75 0 0 0-1.06-1.06L12 5.688Z"
-                            clip-rule="evenodd" />
-                    </svg>
-                    @php
-                        $villageName = App\Models\ProfileContent::where('key', 'village_name')->first();
-                    @endphp
+                    {{-- if site logo-conten contain images --}}
+                    @if (isset($siteLogo) && $siteLogo && $siteLogo->content && Str::contains($siteLogo->content, 'site_logos/'))
+                        <img src="{{ asset('storage/' . $siteLogo->content) }}" alt="Logo Desa"
+                            class="h-8 w-8 rounded-full">
+                    @else
+                        <img src="{{ asset('images/logo.jpg') }}" alt="Logo Desa" class="h-8 w-8 rounded-full">
+                    @endif
                     <span class="ml-2 text-lg font-bold text-white">{{ strip_tags($villageName->content) }}</span>
                 </a>
             </div>

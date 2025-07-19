@@ -1,11 +1,11 @@
 {{-- resources/views/frontend/news/news_show.blade.php --}}
 <x-app-layout>
+
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ $article->title }}
         </h2>
     </x-slot>
-
     <div class="py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -13,7 +13,6 @@
                 {{-- === Artikel & Komentar (2 Kolom) === --}}
                 <div class="lg:col-span-2">
 
-                    {{-- Artikel Utama --}}
                     <div class="bg-white overflow-hidden shadow-sm rounded-lg p-6 text-gray-900">
                         <h1 class="text-3xl font-bold mb-4 text-desa-brown" data-aos="fade-down">{{ $article->title }}
                         </h1>
@@ -21,7 +20,6 @@
                             Oleh {{ $article->author ?? 'Admin' }} pada
                             {{ $article->published_at ? $article->published_at->format('d F Y H:i') : '-' }}
                         </p>
-
                         @if ($article->image)
                             <img src="{{ $article->image_url }}" alt="{{ $article->title }}"
                                 class="w-full h-96 object-cover rounded-lg shadow-md mb-6" data-aos="zoom-in">

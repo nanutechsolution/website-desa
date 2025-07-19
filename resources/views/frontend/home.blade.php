@@ -275,6 +275,7 @@
             @endif
         </div>
     </section>
+    {{-- resources/views/frontend/home.blade.php (Bagian Lokasi Kantor Desa) --}}
     <section id="lokasi" class="py-20 bg-soft-gray">
         <div class="container mx-auto px-4">
             <div class="text-center mb-16" data-aos="fade-down">
@@ -282,21 +283,21 @@
                 <div class="w-24 h-1 bg-desa-green-600 mx-auto"></div>
             </div>
             <div class="flex flex-col lg:flex-row gap-10">
-                <div class="lg:w-full" data-aos="fade-left" data-aos-delay="100"> {{-- Menggunakan lg:w-full karena tidak ada form kontak lagi di sampingnya --}}
+                <div class="lg:w-full" data-aos="fade-left" data-aos-delay="100">
                     <div class="bg-white p-8 rounded-lg shadow-md h-full">
                         <h3 class="text-xl font-semibold text-dark-text mb-4">Informasi Kontak & Lokasi</h3>
-                        {{-- Ganti judul h3 --}}
                         <div class="aspect-w-16 aspect-h-9 mb-6">
-                            {{-- Menggunakan URL Google Maps dinamis --}}
-                            @if ($googleMapsEmbedUrl && $googleMapsEmbedUrl->content)
-                                <iframe src="{{ $googleMapsEmbedUrl->content }}" width="100%" height="100%"
-                                    style="min-height: 300px;" allowfullscreen="" loading="lazy"
-                                    referrerpolicy="no-referrer-when-downgrade" class="rounded-lg">
+                            {{-- Menggunakan string URL Google Maps dinamis --}}
+                            @if ($googleMapsEmbedUrl)
+                                {{-- Cukup cek apakah string URLnya tidak null --}}
+                                <iframe src="{{ $googleMapsEmbedUrl }}" width="100%" height="100%"
+                                    {{-- Langsung pakai variabel --}} style="min-height: 300px;" allowfullscreen=""
+                                    loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="rounded-lg">
                                 </iframe>
                             @else
                                 <div class="w-full h-full bg-gray-200 flex items-center justify-center text-gray-500 rounded-lg"
                                     style="min-height: 300px;">
-                                    Peta belum diatur.
+                                    Peta belum diatur atau koordinat tidak valid.
                                 </div>
                             @endif
                         </div>
@@ -311,7 +312,7 @@
                                 </svg>
                                 <p class="text-gray-700">
                                     @if ($contactAddress && $contactAddress->content)
-                                        {!! $contactAddress->content !!} {{-- Menggunakan !! untuk render HTML dari TinyMCE --}}
+                                        {!! $contactAddress->content !!}
                                     @else
                                         Alamat belum diatur.
                                     @endif
@@ -340,9 +341,7 @@
                                 </svg>
                                 <p class="text-gray-700">
                                     @if ($contactPhone && $contactPhone->content)
-                                        @php
-                                            $cleanPhoneNumber = preg_replace('/[^0-9+]/', '', $contactPhone->content);
-                                        @endphp
+                                        @php $cleanPhoneNumber = preg_replace('/[^0-9+]/', '', $contactPhone->content); @endphp
                                         <a href="tel:{{ $cleanPhoneNumber }}"
                                             class="text-desa-skyblue hover:underline">{{ strip_tags($contactPhone->content) }}</a>
                                     @else

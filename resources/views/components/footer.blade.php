@@ -80,7 +80,7 @@
 
         {{-- Footer Bottom --}}
         <div class="mt-10 pt-6 border-t border-gray-300 text-center text-xs text-gray-500">
-            <p>&copy; {{ date('Y') }} {!! strip_tags($villageName->content) ?? 'Nama Desa' !!}}. Hak Cipta Dilindungi.</p>
+            <p>&copy; {{ date('Y') }} {!! strip_tags($villageName->content) ?? 'Nama Desa' !!}. Hak Cipta Dilindungi.</p>
 
             <p class="mt-1 italic">
                 Versi {{ config('app.version', '1.0.0') }} |

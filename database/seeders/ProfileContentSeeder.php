@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\ProfileContent;
-use Faker\Factory as Faker;
+use Illuminate\Support\Str; // Tambahkan ini
 
 class ProfileContentSeeder extends Seeder
 {
@@ -13,16 +14,14 @@ class ProfileContentSeeder extends Seeder
      */
     public function run(): void
     {
-        $faker = Faker::create('id_ID'); // Menggunakan Faker bahasa Indonesia
-
         // Visi Desa
         ProfileContent::firstOrCreate(
             ['key' => 'visi'],
             [
-                'title' => 'Visi Desa', // <-- Kolom baru
+                'title' => 'Visi Desa',
                 'content' => '<p>Mewujudkan Desa Orakeri yang mandiri, sejahtera, dan berbudaya, dengan mengedepankan potensi lokal dan partisipasi aktif masyarakat.</p>',
-                'type' => 'richtext', // <-- Kolom baru
-                'is_published' => true, // <-- Kolom baru
+                'type' => 'richtext',
+                'is_published' => true,
             ]
         );
 
@@ -53,46 +52,7 @@ class ProfileContentSeeder extends Seeder
             ['key' => 'struktur_pemerintahan'],
             [
                 'title' => 'Struktur Pemerintahan Desa',
-                'content' => '
-                    <p>Berikut adalah bagan struktur pemerintahan Desa Orakeri yang bertugas melayani masyarakat dengan sepenuh hati. Setiap posisi diisi oleh individu yang berdedikasi untuk kemajuan desa.</p>
-                    <p><img src="https://source.unsplash.com/random/800x600/?organization-chart,hierarchy,chart" alt="Bagan Struktur Pemerintahan Desa" style="max-width: 100%; height: auto; display: block; margin: 20px auto;"></p>
-                    
-                    <h3>A. Kepala Desa</h3>
-                    <p><strong>Kepala Desa:</strong> ' . $faker->name('male') . '</p>
-
-                    <h3>B. Perangkat Desa</h3>
-                    <p><strong>1. Sekretariat Desa</strong></p>
-                    <ul>
-                        <li><strong>Sekretaris Desa:</strong> ' . $faker->name() . '</li>
-                        <li><strong>Kepala Urusan Tata Usaha dan Umum:</strong> ' . $faker->name() . '</li>
-                        <li><strong>Kepala Urusan Keuangan:</strong> ' . $faker->name() . '</li>
-                        <li><strong>Kepala Urusan Perencanaan:</strong> ' . $faker->name() . '</li>
-                    </ul>
-
-                    <p><strong>2. Pelaksana Teknis</strong></p>
-                    <ul>
-                        <li><strong>Kepala Seksi Pemerintahan:</strong> ' . $faker->name() . '</li>
-                        <li><strong>Kepala Seksi Kesejahteraan:</strong> ' . $faker->name() . '</li>
-                        <li><strong>Kepala Seksi Pelayanan:</strong> ' . $faker->name() . '</li>
-                    </ul>
-                    
-                    <h3>C. Kewilayahan (Kepala Dusun / Kepala Wilayah)</h3>
-                    <ul>
-                        <li><strong>Kepala Dusun I (Dusun Mawar):</strong> ' . $faker->name() . '</li>
-                        <li><strong>Kepala Dusun II (Dusun Melati):</strong> ' . $faker->name() . '</li>
-                        <li><strong>Kepala Dusun III (Dusun Anggrek):</strong> ' . $faker->name() . '</li>
-                    </ul>
-
-                    <h3>D. Rukun Tetangga (Contoh)</h3>
-                    <p>Desa Orakeri memiliki [Jumlah RT: ' . $faker->numberBetween(10, 20) . '] Rukun Tetangga yang tersebar di seluruh wilayah dusun.</p>
-                    <p>Berikut adalah beberapa contoh Ketua RT:</p>
-                    <ul>
-                        <li><strong>Ketua RT 001/RW 001 (Dusun Mawar):</strong> ' . $faker->name() . '</li>
-                        <li><strong>Ketua RT 002/RW 001 (Dusun Mawar):</strong> ' . $faker->name() . '</li>
-                        <li><strong>Ketua RT 001/RW 002 (Dusun Melati):</strong> ' . $faker->name() . '</li>
-                    </ul>
-                    <p>Untuk daftar lengkap Ketua RT dan RW, silakan hubungi Kantor Desa.</p>
-                ',
+                'content' => '<p>Berikut adalah bagan struktur pemerintahan Desa Orakeri yang bertugas melayani masyarakat dengan sepenuh hati.</p><p><img src="https://source.unsplash.com/random/800x600/?organization-chart,hierarchy,chart" alt="Bagan Struktur Pemerintahan Desa" style="max-width: 100%; height: auto; display: block; margin: 20px auto;"></p><p>Setiap perangkat desa memiliki tugas dan fungsi masing-masing untuk melayani masyarakat:</p><ul><li><strong>Kepala Desa:</strong> ' . $this->faker()->name('male') . '</li><li><strong>Sekretaris Desa:</strong> ' . $this->faker()->name() . '</li><li><strong>Kepala Urusan Tata Usaha dan Umum:</strong> ' . $this->faker()->name() . '</li><li><strong>Kepala Urusan Keuangan:</strong> ' . $this->faker()->name() . '</li><li><strong>Kepala Urusan Perencanaan:</strong> ' . $this->faker()->name() . '</li></ul><p><strong>2. Pelaksana Teknis</strong></p><ul><li><strong>Kepala Seksi Pemerintahan:</strong> ' . $this->faker()->name() . '</li><li><strong>Kepala Seksi Kesejahteraan:</strong> ' . $this->faker()->name() . '</li><li><strong>Kepala Seksi Pelayanan:</strong> ' . $this->faker()->name() . '</li></ul><h3>C. Kewilayahan (Kepala Dusun / Kepala Wilayah)</h3><ul><li><strong>Kepala Dusun I (Dusun Mawar):</strong> ' . $this->faker()->name() . '</li><li><strong>Kepala Dusun II (Dusun Melati):</strong> ' . $this->faker()->name() . '</li><li><strong>Kepala Dusun III (Dusun Anggrek):</strong> ' . $this->faker()->name() . '</li></ul><h3>D. Rukun Tetangga (Contoh)</h3><p>Desa Orakeri memiliki [Jumlah RT: ' . $this->faker()->numberBetween(10, 20) . '] Rukun Tetangga yang tersebar di seluruh wilayah dusun.</p><p>Berikut adalah beberapa contoh Ketua RT:</p><ul><li><strong>Ketua RT 001/RW 001 (Dusun Mawar):</strong> ' . $this->faker()->name() . '</li><li><strong>Ketua RT 002/RW 001 (Dusun Mawar):</strong> ' . $this->faker()->name() . '</li><li><strong>Ketua RT 001/RW 002 (Dusun Melati):</strong> ' . $this->faker()->name() . '</li></ul><p>Untuk daftar lengkap Ketua RT dan RW, silakan hubungi Kantor Desa.</p>',
                 'type' => 'richtext',
                 'is_published' => true,
             ]
@@ -115,7 +75,7 @@ class ProfileContentSeeder extends Seeder
             [
                 'title' => 'Alamat Kantor Desa',
                 'content' => 'Jl. Raya Desa Orakeri No. 123, Kecamatan Sejahtera, Kabupaten Harmoni, Jawa Barat 43211',
-                'type' => 'text', // Tipe text karena biasanya singkat
+                'type' => 'text',
                 'is_published' => true,
             ]
         );
@@ -137,12 +97,23 @@ class ProfileContentSeeder extends Seeder
                 'is_published' => true,
             ]
         );
+
+        // --- Data Koordinat Google Maps (KOREKSI NAMA KEY DI SINI) ---
         ProfileContent::firstOrCreate(
-            ['key' => 'Maps_embed'],
+            ['key' => 'Maps_latitude'], // <-- UBAH DARI 'Maps_latitude'
             [
-                'title' => 'URL Google Maps Embed',
-                'content' => 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d50401.81578724136!2d110.4619592!3d-7.780961599999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a51b96c72a851%3A0xf454bd5877f00a2e!2sLava%20Bantal!5e1!3m2!1sid!2sid!4v1752754980086!5m2!1sid!2sid',
-                'type' => 'url',
+                'title' => 'Garis Lintang Google Maps',
+                'content' => '-7.795580', // Contoh Latitude untuk Yogyakarta
+                'type' => 'text',
+                'is_published' => true,
+            ]
+        );
+        ProfileContent::firstOrCreate(
+            ['key' => 'Maps_longitude'], // <-- UBAH DARI 'Maps_longitude'
+            [
+                'title' => 'Garis Bujur Google Maps',
+                'content' => '110.368944', // Contoh Longitude untuk Yogyakarta
+                'type' => 'text',
                 'is_published' => true,
             ]
         );
@@ -168,5 +139,32 @@ class ProfileContentSeeder extends Seeder
                 'is_published' => true,
             ]
         );
+
+        // Logo Website Utama
+        ProfileContent::firstOrCreate(
+            ['key' => 'site_logo'],
+            [
+                'title' => 'Logo Website Utama',
+                'content' => 'images/logo.jpg',
+                'type' => 'image',
+                'is_published' => true,
+            ]
+        );
+
+        // Deskripsi Meta Situs Web
+        ProfileContent::firstOrCreate(
+            ['key' => 'site_meta_description'],
+            [
+                'title' => 'Deskripsi Meta Situs Web',
+                'content' => 'Website resmi Desa Orakeri. Temukan informasi terbaru, potensi desa, galeri foto, produk lokal, dan layanan administrasi online. Jelajahi keindahan dan kehidupan komunitas kami.',
+                'type' => 'text',
+                'is_published' => true,
+            ]
+        );
+    }
+    // Tambahkan helper faker di sini
+    protected function faker()
+    {
+        return \Faker\Factory::create('id_ID');
     }
 }

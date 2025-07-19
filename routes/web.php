@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Frontend\HomeController; // Import HomeController
 use App\Http\Controllers\Frontend\ProfileController as FrontendProfileController; // Import ProfileController frontend dengan alias
@@ -19,16 +20,7 @@ use App\Http\Controllers\Frontend\ServiceProcedureController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 
-// Rute lainnya untuk frontend (masih placeholder)
-Route::get('/potensi-desa', function () {
-    return view('frontend.potentials');
-})->name('potentials');
-Route::get('/berita', function () {
-    return view('frontend.news');
-})->name('news');
-Route::get('/galeri', function () {
-    return view('frontend.gallery');
-})->name('gallery');
+
 Route::get('/layanan-online', function () {
     return view('frontend.online_services');
 })->name('online-services');
@@ -39,13 +31,7 @@ Route::get('/kontak', function () {
 
 // --- RUTE BAWAAN LARAVEL BREEZE (UNTUK PENGGUNA TERAUTENTIKASI) ---
 
-// Rute Dashboard bawaan Breeze
-// Ini adalah dashboard default setelah login.
-// Anda akan mengakses dashboard admin Anda melalui '/admin/dashboard'
-Route::get('/dashboard', function () {
-    return view('admin/dashboard'); // Ini akan mengarah ke resources/views/dashboard.blade.php bawaan Breeze
-})->middleware(['auth', 'verified'])->name('dashboard');
-
+Route::get('/dashboard', [AdminController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 // Rute Profil Pengguna bawaan Breeze
 // Ini untuk mengelola profil pengguna yang login (bukan admin)
 Route::middleware('auth')->group(function () {

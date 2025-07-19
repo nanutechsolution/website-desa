@@ -24,11 +24,11 @@ class ViewComposerServiceProvider extends ServiceProvider
         View::composer('*', function ($view) {
             $footerAbout = ProfileContent::where('key', 'footer_about')->first();
             $villageName = ProfileContent::where('key', 'village_name')->first();
-
-            // --- PERBAIKAN DI SINI ---
+            $siteLogo = ProfileContent::where('key', 'site_logo')->first();
             $view->with([
                 'footerAbout' => $footerAbout,
                 'villageName' => $villageName,
+                'siteLogo' => $siteLogo,
             ]);
 
             // --- AKHIR PERBAIKAN ---

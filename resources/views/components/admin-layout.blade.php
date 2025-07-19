@@ -176,40 +176,6 @@
                         </ul>
                     </li>
 
-                    <!-- Info Desa -->
-                    <li x-data="{ open: {{ in_array(request()->route('key'), ['contact_address', 'Maps_embed', 'footer_about', 'contact_phone', 'contact_email']) ? 'true' : 'false' }} }">
-                        <button @click="open = !open"
-                            class="flex items-center justify-between w-full p-2 rounded-lg hover:bg-gray-700">
-                            <span class="ms-3">Info Desa</span>
-                            <svg :class="{ 'rotate-90': open }"
-                                class="w-4 h-4 transform transition-transform duration-200" fill="none"
-                                stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9 5l7 7-7 7" />
-                            </svg>
-                        </button>
-                        <ul x-show="open" x-transition class="mt-1 space-y-1 bg-gray-700 rounded-lg py-1 px-3">
-
-                            <li><a href="{{ route('admin.profile-contents.edit', 'village_name') }}"
-                                    class="menu-item {{ request()->route('key') == 'village_name' ? 'bg-gray-600' : '' }}">Nama
-                                    Desa</a>
-                            <li><a href="{{ route('admin.profile-contents.edit', 'contact_address') }}"
-                                    class="menu-item {{ request()->route('key') == 'contact_address' ? 'bg-gray-600' : '' }}">Alamat</a>
-                            </li>
-                            <li><a href="{{ route('admin.profile-contents.edit', 'Maps_embed') }}"
-                                    class="menu-item {{ request()->route('key') == 'Maps_embed' ? 'bg-gray-600' : '' }}">Google
-                                    Maps</a></li>
-                            <li><a href="{{ route('admin.profile-contents.edit', 'footer_about') }}"
-                                    class="menu-item {{ request()->route('key') == 'footer_about' ? 'bg-gray-600' : '' }}">Footer</a>
-                            </li>
-                            <li><a href="{{ route('admin.profile-contents.edit', 'contact_phone') }}"
-                                    class="menu-item {{ request()->route('key') == 'contact_phone' ? 'bg-gray-600' : '' }}">Telepon</a>
-                            </li>
-                            <li><a href="{{ route('admin.profile-contents.edit', 'contact_email') }}"
-                                    class="menu-item {{ request()->route('key') == 'contact_email' ? 'bg-gray-600' : '' }}">Email</a>
-                            </li>
-                        </ul>
-                    </li>
 
                     <!-- Layanan Desa -->
                     <li x-data="{ open: {{ request()->routeIs('admin.service-procedures.*') ? 'true' : 'false' }} }">
@@ -236,7 +202,39 @@
                             <span class="ms-3">Lembaga Desa</span>
                         </a>
                     </li>
-                </ul>
+                    <hr class="border-gray-600 my-2">
+                    <li x-data="{ open: {{ request()->routeIs('admin.settings.*') ? 'true' : 'false' }} }">
+                        <button @click="open = !open"
+                            class="flex items-center justify-between w-full p-2 rounded-lg hover:bg-gray-700">
+                            <span class="ms-3">Pengaturan</span>
+                            <svg :class="{ 'rotate-90': open }"
+                                class="w-4 h-4 transform transition-transform duration-200" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 5l7 7-7 7" />
+                            </svg>
+                        </button>
+                        <ul x-show="open" x-transition:enter="transition ease-out duration-200"
+                            x-transition:enter-start="opacity-0 transform scale-95"
+                            x-transition:enter-end="opacity-100 transform scale-100"
+                            x-transition:leave="transition ease-in duration-75"
+                            x-transition:leave-start="opacity-100 transform scale-100"
+                            x-transition:leave-end="opacity-0 transform scale-95"
+                            class="mt-1 space-y-1 bg-gray-700 rounded-lg py-1 px-3">
+                            <li x-data="{ open: {{ request()->routeIs('admin.settings.edit-general-info') || in_array(request()->route('key'), ['village_name', 'contact_address', 'Maps_coords', 'footer_about', 'contact_phone', 'contact_email', 'site_meta_description']) ? 'true' : 'false' }} }"> {{-- Logic untuk buka dropdown --}}
+                                <a href="{{ route('admin.settings.edit-general-info') }}"
+                                    class="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 group {{ request()->routeIs('admin.settings.edit-general-info') ? 'bg-gray-700' : '' }}">
+                                    <span class="ms-3">Info Desa</span>
+                                </a>
+                            </li>
+                            {{-- menejemen user --}}
+                            <li x-data="{ open: {{ request()->routeIs('admin.users.*') ? 'true' : 'false' }} }">
+                                <a href="{{ route('admin.users.index') }}"
+                                    class="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 group {{ request()->routeIs('admin.users.*') ? 'bg-gray-700' : '' }}">
+                                    <span class="ms-3">Manajemen Pengguna</span>
+                                </a>
+                            </li>
+                        </ul>
             </nav>
         </aside>
         <div class="flex-1 flex flex-col md:ml-64">
