@@ -44,9 +44,7 @@ Ikuti langkah-langkah di bawah ini untuk menyiapkan proyek di lingkungan lokal A
 1.  **📥 Kloning Repositori:**
     ```bash
     git clone [https://github.com/Radianus/desa-orakeri-website.git
-    cd desa-orakeri-website
-    ```
-    *(Ganti `USERNAME` dengan username GitHub Anda dan `desa-orakeri-website` dengan nama repositori Anda jika berbeda.)*
+    cd website-desa
 
 2.  **📦 Instal Dependensi PHP:**
     ```bash
