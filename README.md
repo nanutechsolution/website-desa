@@ -17,11 +17,15 @@ Sistem informasi dan promosi desa modern yang dibangun dengan **Laravel 12** seb
     * **Fitur Komentar:** Pengunjung dapat meninggalkan komentar pada artikel berita (membutuhkan moderasi admin dan perlindungan reCAPTCHA).
     * **Animasi AOS:** Efek animasi saat menggulir (scroll) untuk pengalaman pengguna yang lebih dinamis.
     * **Desain Responsif:** Tampilan yang adaptif di berbagai perangkat (mobile, tablet, desktop).
+    * **Warna Branding Dinamis:** Skema warna utama website dapat diatur dari dasbor admin.
+
 * **🔒 Dasbor Admin (Backend):**
     * **Sistem Autentikasi:** Menggunakan Laravel Breeze untuk login/logout admin yang aman.
     * **Manajemen Konten (CRUD):** Modul CRUD lengkap untuk mengelola Hero Slider, Berita, Galeri, Potensi Desa, Produk Desa, Dokumen Publik, dan Prosedur Layanan.
+    * **Manajemen Pengguna:** Mengelola pengguna yang memiliki akses ke dasbor admin (melihat, menambah, mengedit, menghapus).
     * **Moderasi Komentar:** Fitur untuk meninjau, menyetujui, menolak, atau menghapus komentar yang masuk.
-    * **Pengaturan Profil Desa:** Form untuk memperbarui konten Visi, Misi, Sejarah, Struktur Pemerintahan, dan Sekilas Desa.
+    * **Generator Surat:** Membuat dan mencetak surat resmi (misal: Surat Keterangan Kepemilikan Hewan, Domisili).
+    * **Pengaturan Umum:** Form terpusat untuk memperbarui nama desa, logo, meta deskripsi, detail kontak, dan warna branding.
     * **Editor WYSIWYG:** Integrasi TinyMCE untuk memudahkan penulisan konten kaya (rich text).
     * **Pencarian & Paginasi:** Fitur pencarian client-side dan paginasi di tabel admin untuk memudahkan pengelolaan data.
     * **Pengelolaan File:** Upload dan pengelolaan gambar/dokumen melalui sistem penyimpanan Laravel.
