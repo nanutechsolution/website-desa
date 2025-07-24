@@ -14,3 +14,105 @@
   .menu-item {
         @apply flex items-center p-2 rounded-lg text-white hover:bg-gray-600;
     }
+
+    
+  @media print {
+                /* Sembunyikan elemen-elemen navigasi dan kontrol di mode cetak */
+                nav, aside, .print\:hidden {
+                    display: none !important;
+                }
+                /* Pastikan konten utama memenuhi seluruh lebar halaman */
+                .print\:w-full {
+                    width: 100% !important;
+                }
+                .print\:ml-0 {
+                    margin-left: 0 !important;
+                }
+                .print\:pl-0 {
+                    padding-left: 0 !important;
+                }
+                .print\:mt-0 {
+                    margin-top: 0 !important;
+                }
+                .print\:py-0 {
+                    padding-top: 0 !important;
+                    padding-bottom: 0 !important;
+                }
+                .print\:px-0 {
+                    padding-left: 0 !important;
+                    padding-right: 0 !important;
+                }
+                .print\:shadow-none {
+                    box-shadow: none !important;
+                }
+                .print\:rounded-none {
+                    border-radius: 0 !important;
+                }
+                .print\:border-0 {
+                    border-width: 0 !important;
+                }
+            }
+
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+/* Scrollbar auto-hide */
+.sidebar:hover::-webkit-scrollbar {
+  display: block;
+}
+
+.sidebar::-webkit-scrollbar {
+  display: none;
+}
+
+.transition-all {
+  transition: all 0.3s ease-in-out;
+}
+
+ .content-tinymce * {
+        color: inherit !important;
+    }
+
+ :root {
+  --primary-h: 220;
+  --primary-s: 90%;
+  --primary-l: 55%;
+
+  --secondary-h: 160;
+  --secondary-s: 60%;
+  --secondary-l: 45%;
+
+  --accent-h: 45;
+  --accent-s: 100%;
+  --accent-l: 50%;
+
+  /* yang tadi kamu kasih */
+  --color-primary: hsl(var(--primary-h), var(--primary-s), var(--primary-l));
+  --color-primary-dark: hsl(var(--primary-h), var(--primary-s), clamp(0%, calc(var(--primary-l) - 10%), 100%));
+  --color-primary-darker: hsl(var(--primary-h), var(--primary-s), calc(var(--primary-l) - 20%));
+  --color-primary-light: hsl(var(--primary-h), var(--primary-s), calc(var(--primary-l) + 10%));
+
+  --color-secondary: hsl(var(--secondary-h), var(--secondary-s), var(--secondary-l));
+  --color-secondary-dark: hsl(var(--secondary-h), var(--secondary-s), calc(var(--secondary-l) - 10%));
+  --color-secondary-light: hsl(var(--secondary-h), var(--secondary-s), calc(var(--secondary-l) + 10%));
+
+  --color-accent: hsl(var(--accent-h), var(--accent-s), var(--accent-l));
+  --color-accent-dark: hsl(var(--accent-h), var(--accent-s), calc(var(--accent-l) - 10%));
+
+  --color-soft-gray: hsl(var(--primary-h), 10%, 95%);
+  --color-dark-text: hsl(0, 0%, 20%);
+}

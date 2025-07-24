@@ -4,8 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\ProfileContent;
-use Illuminate\Support\Str; // Tambahkan ini
+use App\Models\ProfileContent; // Pastikan ini ada
+use Faker\Factory as Faker; // Pastikan ini ada
 
 class ProfileContentSeeder extends Seeder
 {
@@ -14,6 +14,47 @@ class ProfileContentSeeder extends Seeder
      */
     public function run(): void
     {
+        // PENTING: Dapatkan instance faker di awal run()
+        $faker = Faker::create('id_ID'); // Menggunakan Faker bahasa Indonesia
+
+        // Helper function untuk konversi HEX ke HSL (approximate)
+        // Fungsi ini harus berada di dalam kelas ProfileContentSeeder
+        if (!function_exists('hexToHsl')) { // Cek agar tidak redeclare jika dipanggil lebih dari sekali
+            function hexToHsl($hex)
+            {
+                list($r, $g, $b) = sscanf($hex, "#%02x%02x%02x");
+                $r /= 255;
+                $g /= 255;
+                $b /= 255;
+                $max = max($r, $g, $b);
+                $min = min($r, $g, $b);
+                $h = $s = $l = ($max + $min) / 2;
+
+                if ($max === $min) {
+                    $h = $s = 0; // achromatic
+                } else {
+                    $d = $max - $min;
+                    $s = $l > 0.5 ? $d / (2 - $max - $min) : $d / ($max + $min);
+                    switch ($max) {
+                        case $r:
+                            $h = ($g - $b) / $d + ($g < $b ? 6 : 0);
+                            break;
+                        case $g:
+                            $h = ($b - $r) / $d + 2;
+                            break;
+                        case $b:
+                            $h = ($r - $g) / $d + 4;
+                            break;
+                    }
+                    $h /= 6;
+                }
+                return [round($h * 360), round($s * 100), round($l * 100)];
+            }
+        }
+
+
+        // --- Data Konten Profil Dinamis ---
+
         // Visi Desa
         ProfileContent::firstOrCreate(
             ['key' => 'visi'],
@@ -52,7 +93,46 @@ class ProfileContentSeeder extends Seeder
             ['key' => 'struktur_pemerintahan'],
             [
                 'title' => 'Struktur Pemerintahan Desa',
-                'content' => '<p>Berikut adalah bagan struktur pemerintahan Desa Orakeri yang bertugas melayani masyarakat dengan sepenuh hati.</p><p><img src="https://source.unsplash.com/random/800x600/?organization-chart,hierarchy,chart" alt="Bagan Struktur Pemerintahan Desa" style="max-width: 100%; height: auto; display: block; margin: 20px auto;"></p><p>Setiap perangkat desa memiliki tugas dan fungsi masing-masing untuk melayani masyarakat:</p><ul><li><strong>Kepala Desa:</strong> ' . $this->faker()->name('male') . '</li><li><strong>Sekretaris Desa:</strong> ' . $this->faker()->name() . '</li><li><strong>Kepala Urusan Tata Usaha dan Umum:</strong> ' . $this->faker()->name() . '</li><li><strong>Kepala Urusan Keuangan:</strong> ' . $this->faker()->name() . '</li><li><strong>Kepala Urusan Perencanaan:</strong> ' . $this->faker()->name() . '</li></ul><p><strong>2. Pelaksana Teknis</strong></p><ul><li><strong>Kepala Seksi Pemerintahan:</strong> ' . $this->faker()->name() . '</li><li><strong>Kepala Seksi Kesejahteraan:</strong> ' . $this->faker()->name() . '</li><li><strong>Kepala Seksi Pelayanan:</strong> ' . $this->faker()->name() . '</li></ul><h3>C. Kewilayahan (Kepala Dusun / Kepala Wilayah)</h3><ul><li><strong>Kepala Dusun I (Dusun Mawar):</strong> ' . $this->faker()->name() . '</li><li><strong>Kepala Dusun II (Dusun Melati):</strong> ' . $this->faker()->name() . '</li><li><strong>Kepala Dusun III (Dusun Anggrek):</strong> ' . $this->faker()->name() . '</li></ul><h3>D. Rukun Tetangga (Contoh)</h3><p>Desa Orakeri memiliki [Jumlah RT: ' . $this->faker()->numberBetween(10, 20) . '] Rukun Tetangga yang tersebar di seluruh wilayah dusun.</p><p>Berikut adalah beberapa contoh Ketua RT:</p><ul><li><strong>Ketua RT 001/RW 001 (Dusun Mawar):</strong> ' . $this->faker()->name() . '</li><li><strong>Ketua RT 002/RW 001 (Dusun Mawar):</strong> ' . $this->faker()->name() . '</li><li><strong>Ketua RT 001/RW 002 (Dusun Melati):</strong> ' . $this->faker()->name() . '</li></ul><p>Untuk daftar lengkap Ketua RT dan RW, silakan hubungi Kantor Desa.</p>',
+                'content' => '
+                    <p>Berikut adalah bagan struktur pemerintahan Desa Orakeri yang bertugas melayani masyarakat dengan sepenuh hati. Setiap posisi diisi oleh individu yang berdedikasi untuk kemajuan desa.</p>
+                    <p><img src="https://source.unsplash.com/random/800x600/?organization-chart,hierarchy,chart" alt="Bagan Struktur Pemerintahan Desa" style="max-width: 100%; height: auto; display: block; margin: 20px auto;"></p>
+                    
+                    <h3>A. Kepala Desa</h3>
+                    <p><strong>Kepala Desa:</strong> ' . $faker->name('male') . '</p>
+
+                    <h3>B. Perangkat Desa</h3>
+                    <p><strong>1. Sekretariat Desa</strong></p>
+                    <ul>
+                        <li><strong>Sekretaris Desa:</strong> ' . $faker->name() . '</li>
+                        <li><strong>Kepala Urusan Tata Usaha dan Umum:</strong> ' . $faker->name() . '</li>
+                        <li><strong>Kepala Urusan Keuangan:</strong> ' . $faker->name() . '</li>
+                        <li><strong>Kepala Urusan Perencanaan:</strong> ' . $faker->name() . '</li>
+                    </ul>
+
+                    <p><strong>2. Pelaksana Teknis</strong></p>
+                    <ul>
+                        <li><strong>Kepala Seksi Pemerintahan:</strong> ' . $faker->name() . '</li>
+                        <li><strong>Kepala Seksi Kesejahteraan:</strong> ' . $faker->name() . '</li>
+                        <li><strong>Kepala Seksi Pelayanan:</strong> ' . $faker->name() . '</li>
+                    </ul>
+                    
+                    <h3>C. Kewilayahan (Kepala Dusun / Kepala Wilayah)</h3>
+                    <ul>
+                        <li><strong>Kepala Dusun I (Dusun Mawar):</strong> ' . $faker->name() . '</li>
+                        <li><strong>Kepala Dusun II (Dusun Melati):</strong> ' . $faker->name() . '</li>
+                        <li><strong>Kepala Dusun III (Dusun Anggrek):</strong> ' . $faker->name() . '</li>
+                    </ul>
+
+                    <h3>D. Rukun Tetangga (Contoh)</h3>
+                    <p>Desa Orakeri memiliki [Jumlah RT: ' . $faker->numberBetween(10, 20) . '] Rukun Tetangga yang tersebar di seluruh wilayah dusun.</p>
+                    <p>Berikut adalah beberapa contoh Ketua RT:</p>
+                    <ul>
+                        <li><strong>Ketua RT 001/RW 001 (Dusun Mawar):</strong> ' . $faker->name() . '</li>
+                        <li><strong>Ketua RT 002/RW 001 (Dusun Mawar):</strong> ' . $faker->name() . '</li>
+                        <li><strong>Ketua RT 001/RW 002 (Dusun Melati):</strong> ' . $faker->name() . '</li>
+                    </ul>
+                    <p>Untuk daftar lengkap Ketua RT dan RW, silakan hubungi Kantor Desa.</p>
+                ',
                 'type' => 'richtext',
                 'is_published' => true,
             ]
@@ -69,7 +149,7 @@ class ProfileContentSeeder extends Seeder
             ]
         );
 
-        // Data Kontak Dinamis
+        // --- Data Kontak Dinamis ---
         ProfileContent::firstOrCreate(
             ['key' => 'contact_address'],
             [
@@ -100,7 +180,7 @@ class ProfileContentSeeder extends Seeder
 
         // --- Data Koordinat Google Maps (KOREKSI NAMA KEY DI SINI) ---
         ProfileContent::firstOrCreate(
-            ['key' => 'Maps_latitude'], // <-- UBAH DARI 'Maps_latitude'
+            ['key' => 'Maps_latitude'],
             [
                 'title' => 'Garis Lintang Google Maps',
                 'content' => '-7.795580', // Contoh Latitude untuk Yogyakarta
@@ -109,7 +189,7 @@ class ProfileContentSeeder extends Seeder
             ]
         );
         ProfileContent::firstOrCreate(
-            ['key' => 'Maps_longitude'], // <-- UBAH DARI 'Maps_longitude'
+            ['key' => 'Maps_longitude'],
             [
                 'title' => 'Garis Bujur Google Maps',
                 'content' => '110.368944', // Contoh Longitude untuk Yogyakarta
@@ -145,7 +225,7 @@ class ProfileContentSeeder extends Seeder
             ['key' => 'site_logo'],
             [
                 'title' => 'Logo Website Utama',
-                'content' => 'images/logo.jpg',
+                'content' => 'images/logo.jpg', // <--- Periksa PATH INI
                 'type' => 'image',
                 'is_published' => true,
             ]
@@ -161,8 +241,36 @@ class ProfileContentSeeder extends Seeder
                 'is_published' => true,
             ]
         );
+        ProfileContent::firstOrCreate(
+            ['key' => 'brand_primary_color_hsl'], // Key ini akan menyimpan HEX di 'content'
+            [
+                'title' => 'Warna Utama Branding',
+                'content' => '#4CAF50', // Simpan HEX langsung di content
+                'type' => 'color',
+                'is_published' => true,
+            ]
+        );
+        ProfileContent::firstOrCreate(
+            ['key' => 'brand_secondary_color_hsl'],
+            [
+                'title' => 'Warna Sekunder Branding',
+                'content' => '#2196F3', // Simpan HEX langsung di content
+                'type' => 'color',
+                'is_published' => true,
+            ]
+        );
+        ProfileContent::firstOrCreate(
+            ['key' => 'brand_accent_color_hsl'],
+            [
+                'title' => 'Warna Aksen Branding',
+                'content' => '#795548', // Simpan HEX langsung di content
+                'type' => 'color',
+                'is_published' => true,
+            ]
+        );
     }
-    // Tambahkan helper faker di sini
+
+    // Pastikan helper faker ada
     protected function faker()
     {
         return \Faker\Factory::create('id_ID');

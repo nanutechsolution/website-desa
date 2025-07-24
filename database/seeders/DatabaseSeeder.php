@@ -18,9 +18,9 @@ class DatabaseSeeder extends Seeder
         $this->call([
             HeroSliderSeeder::class,
             NewsSeeder::class,
-            // CommentSeeder::class,
-            // ProductSeeder::class,
-            // ServiceProcedureSeeder::class,
+            CommentSeeder::class,
+            ProductSeeder::class,
+            ServiceProcedureSeeder::class,
             ProfileContentSeeder::class,
             InstitutionSeeder::class
         ]);

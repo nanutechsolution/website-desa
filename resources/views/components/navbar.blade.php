@@ -1,19 +1,27 @@
-<nav x-data="{ open: false, profileDropdownOpen: false }"class="sticky top-0 z-50 gradient-bg shadow-lg">
+<nav
+    x-data="{ open: false, profileDropdownOpen: false }"class="sticky top-0 z-50  shadow-lg bg-[linear-gradient(135deg,var(--color-primary)_0%,var(--color-secondary)_50%,var(--color-accent)_100%)]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16 items-center"> {{-- Tambahkan items-center di sini --}}
             <div class="flex items-center space-x-4">
-                <a href="{{ route('home') }}" class="flex items-center">
-                    {{-- if site logo-conten contain images --}}
-                    @if (isset($siteLogo) && $siteLogo && $siteLogo->content && Str::contains($siteLogo->content, 'site_logos/'))
-                        <img src="{{ asset('storage/' . $siteLogo->content) }}" alt="Logo Desa"
-                            class="h-8 w-8 rounded-full">
-                    @else
-                        <img src="{{ asset('images/logo.jpg') }}" alt="Logo Desa" class="h-8 w-8 rounded-full">
-                    @endif
-                    <span class="ml-2 text-lg font-bold text-white">{{ strip_tags($villageName->content) }}</span>
-                </a>
-            </div>
+                <a href="{{ route('home') }}" class="flex items-center space-x-3 rtl:space-x-reverse py-2">
+                    @php
+                        $logoContent = $siteLogo->content ?? 'images/logo.png';
+                    @endphp
 
+                    @if (Str::contains($logoContent, 'images'))
+                        <img src="{{ asset($logoContent) }}" alt="{{ $villageName->content ?? 'Nama Desa' }} Logo"
+                            class="h-8 w-auto">
+                    @else
+                        <img src="{{ asset('storage/' . $logoContent) }}"
+                            alt="{{ $villageName->content ?? 'Nama Desa' }} Logo" class="h-8 w-auto">
+                    @endif
+
+                    <span class="ml-2 text-2xl font-semibold whitespace-nowrap text-white">
+                        {{ $villageName->content ?? 'Nama Desa' }}
+                    </span>
+                </a>
+
+            </div>
             <div class="hidden sm:flex space-x-6 items-center">
                 {{-- NAV-LINK UTAMA (BERANDA) --}}
                 <x-nav-link :href="route('home')" :active="request()->routeIs('home')"
@@ -113,7 +121,9 @@
                     @endif --}}
                 @endauth
 
-                <button @click="open = !open" class="sm:hidden text-white hover:text-yellow-200 focus:outline-none">
+                <button @click="open = !open" type="button"
+                    class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm rounded-lg md:hidden hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white"
+                    style="color: var(--color-secondary-light);"> {{-- Warna ikon hamburger --}}
                     <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path :class="{ 'hidden': open, 'inline-flex': !open }" class="inline-flex"
                             stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

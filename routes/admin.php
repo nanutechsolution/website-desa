@@ -6,12 +6,14 @@ use App\Http\Controllers\Admin\GalleryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\HeroSliderController;
 use App\Http\Controllers\Admin\InstitutionController;
+use App\Http\Controllers\Admin\LetterGeneratorController;
 use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\PotentialController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProfileContentController;
 use App\Http\Controllers\Admin\ServiceProcedureController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\ThemeSettingController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\VisionMissionController;
 use App\Http\Controllers\AdminController;
@@ -22,7 +24,10 @@ Route::get('/login', function () {
 })->name('login');
 
 Route::prefix('admin')->middleware(['auth', 'verified', 'role:admin'])->group(function () {
-    Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard'); // <--- Arahkan ke AdminController@index
+    Route::get('/theme', [ThemeSettingController::class, 'edit'])->name('admin.theme.edit');
+    Route::post('/theme', [ThemeSettingController::class, 'update'])->name('admin.theme.update');
+
+    Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
     // Rute untuk Manajemen Pengguna
     Route::resource('users', UserController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy'])->names('admin.users');
     // Rute untuk pengelolaan Hero Slider (CRUD)
@@ -58,4 +63,8 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'role:admin'])->group(fu
     // --- Rute Pengaturan Umum & Info Desa (Terkonsolidasi) ---
     Route::get('/settings/general-info', [SettingController::class, 'editGeneralInfo'])->name('admin.settings.edit-general-info');
     Route::put('/settings/general-info', [SettingController::class, 'updateGeneralInfo'])->name('admin.settings.update-general-info');
+
+    // --- Rute Generator Surat ---
+    Route::get('/letter-generator/create', [LetterGeneratorController::class, 'create'])->name('admin.letter-generator.create');
+    Route::post('/letter-generator/generate', [LetterGeneratorController::class, 'generate'])->name('admin.letter-generator.generate');
 });

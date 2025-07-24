@@ -57,175 +57,195 @@
             </button>
         @endif
     </div>
-
-
-    <section class=" bg-gray-100 text-gray-700 py-12 mt-12  border-gray-300">
-        {{-- <div
-            class="absolute inset-0 opacity-5 bg-[url('/images/motif-desa.png')] bg-cover bg-center pointer-events-none">
-        </div> --}}
-        @php
-            $villageName = App\Models\ProfileContent::where('key', 'village_name')->first();
-        @endphp
-        <div class="max-w-5xl mx-auto px-6 text-center relative z-10">
-            <h5 class="md:text-5xl font-extrabold text-desa-brown mb-6 tracking-tight drop-shadow-sm whitespace-nowrap overflow-hidden text-ellipsis"
+    <section class="py-16 bg-white dark:bg-gray-900">
+        <div class="max-w-5xl mx-auto px-6 text-center">
+            <h2 class="text-4xl font-extrabold tracking-tight mb-6" style="color: var(--color-accent);"
                 data-aos="fade-down">
-                👋 Selamat Datang di <span>{!! $villageName->content !!}</span>
-            </h5>
+                Selamat Datang di {{ $villageName->content ?? 'Nama Desa' }}!
+            </h2>
 
-            <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-8" data-aos="fade-up" data-aos-delay="100">
-                {!! $sekilasDesa->content ??
-                    '<span class="italic text-red-600">Teks sambutan desa belum diatur. Silakan hubungi admin.</span>' !!}
+            <p class="text-lg md:text-xl text-gray-700 dark:text-gray-300 leading-relaxed mb-8" data-aos="fade-up"
+                data-aos-delay="100">
+                {!! $sekilasDesa->content ?? 'Teks sambutan desa belum diatur. Silakan hubungi admin.' !!}
             </p>
+
             <a href="{{ route('profil.visi') }}"
-                class="inline-flex items-center gap-2 mt-4 bg-desa-green-600 hover:bg-desa-green-700 text-white font-semibold py-3 px-8 rounded-full transition duration-300 shadow-md hover:shadow-lg"
-                data-aos="zoom-in" data-aos-delay="200">
-                <svg class="h-5 w-5 text-white animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                </svg>
+                class="inline-flex items-center justify-center px-8 py-3 text-white font-semibold text-lg rounded-full shadow-lg transition duration-300 hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2"
+                style="background-color: var(--color-primary);" data-aos="zoom-in" data-aos-delay="200">
                 Pelajari Lebih Lanjut Tentang Kami
             </a>
         </div>
     </section>
-    <section id="berita-terbaru" class="py-24 bg-white">
+
+    <section id="potensi" class="py-20" style="background-color: var(--color-soft-gray);">
         <div class="container mx-auto px-4">
-            <!-- Header -->
             <div class="text-center mb-16" data-aos="fade-down">
-                <h2 class="text-4xl font-extrabold text-desa-brown tracking-tight mb-4">
-                    Berita Terbaru
-                </h2>
-                <div class="w-16 h-1 bg-desa-green-600 mx-auto rounded-full"></div>
+                <h2 class="text-3xl md:text-4xl font-bold mb-4" style="color: var(--color-accent);">Potensi Desa
+                    {{ $villageName->content ?? 'Nama Desa' }}</h2>
+                <div class="w-24 h-1 mx-auto" style="background-color: var(--color-primary-dark);"></div>
             </div>
-
-            <!-- Grid Berita -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                @forelse ($news as $index => $article)
-                    <div class="bg-white border border-gray-100 rounded-2xl shadow-sm overflow-hidden transform transition duration-300 hover:scale-[1.02] hover:shadow-xl"
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                @forelse ($potentials as $index => $potential)
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden transition hover:scale-105 duration-500 transform"
                         data-aos="fade-up" data-aos-delay="{{ 100 * ($index + 1) }}">
-
-                        @if ($article->image)
-                            <img src="{{ Storage::url($article->image) }}" alt="{{ $article->title }}"
-                                class="w-full h-52 object-cover">
+                        @if ($potential->image)
+                            <img src="{{ $potential->image_url }}" alt="{{ $potential->title }}"
+                                class="w-full h-48 object-cover">
+                        @else
+                            <div class="w-full h-48 bg-gray-200 flex items-center justify-center text-gray-500">No Image
+                            </div>
                         @endif
-
                         <div class="p-6">
-                            <!-- Judul -->
-                            <h3 class="text-lg font-semibold mb-2 text-gray-800 hover:text-desa-green-700 transition">
-                                <a href="{{ route('news.show', $article->slug) }}">
-                                    {{ Str::limit($article->title, 60) }}
-                                </a>
-                            </h3>
-
-                            <!-- Info Penulis -->
-                            <p class="text-xs text-gray-500 mb-3">
-                                Oleh <span class="font-medium">{{ $article->author ?? 'Admin' }}</span>,
-                                {{ $article->published_at ? $article->published_at->translatedFormat('d F Y') : '-' }}
-                            </p>
-
-                            <!-- Isi singkat -->
-                            <p class="text-gray-600 text-sm mb-4 leading-relaxed">
-                                {{ Str::limit(strip_tags($article->content), 100) }}
-                            </p>
-
-                            <!-- Tombol -->
-                            <a href="{{ route('news.show', $article->slug) }}"
-                                class="inline-block text-sm font-semibold text-desa-skyblue hover:text-blue-700 transition duration-200">
-                                Baca Selengkapnya &rarr;
+                            <h3 class="text-xl font-semibold text-dark-text mb-3">{{ $potential->title }}</h3>
+                            <p class="text-gray-600 mb-4">{{ Str::limit($potential->description, 100) }}</p>
+                            <a href="{{ route('potentials') }}"
+                                class="font-medium inline-flex items-center hover:underline"
+                                style="color: var(--color-primary-dark);">Selengkapnya
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5l7 7-7 7" />
+                                </svg>
                             </a>
                         </div>
                     </div>
                 @empty
-                    <p class="col-span-full text-center text-gray-400 text-sm">
-                        Belum ada berita terbaru yang dipublikasikan.
-                    </p>
+                    <p class="col-span-full text-center text-gray-500">Belum ada potensi desa yang ditambahkan.</p>
                 @endforelse
             </div>
-
-            <!-- Tombol Lihat Semua -->
-            @if ($news->count() > 0)
-                <div class="text-center mt-14" data-aos="fade-up" data-aos-delay="500">
-                    <a href="{{ route('news') }}"
-                        class="inline-block bg-desa-green-600 hover:bg-desa-green-700 text-white font-bold py-3 px-8 rounded-full transition-all duration-300 shadow-md hover:shadow-lg">
-                        Lihat Semua Berita
-                    </a>
+            @if ($potentials->count() > 0)
+                <div class="text-center mt-12">
+                    <a href="{{ route('potentials') }}" style="background-color: var(--color-primary);"
+                        class="inline-block text-white font-bold py-3 px-8 rounded-full transition-colors duration-300 hover:opacity-90">Lihat
+                        Semua Potensi</a>
                 </div>
             @endif
         </div>
     </section>
-
-    <section class="py-20 bg-gradient-to-r from-desa-skyblue/10 via-white to-desa-skyblue/10 backdrop-blur-md">
+    <section id="berita-terbaru" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16" data-aos="fade-down">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4" style="color: var(--color-accent);">Berita Terbaru</h2>
+                <div class="w-24 h-1 mx-auto" style="background-color: var(--color-primary-dark);"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                @forelse ($news as $index => $article)
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden transition hover:shadow-lg duration-300"
+                        data-aos="fade-up" data-aos-delay="{{ 100 * ($index + 1) }}">
+                        @if ($article->image)
+                            <img src="{{ $article->image_url }}" alt="{{ $article->title }}"
+                                class="w-full h-48 object-cover">
+                        @else
+                            <div class="w-full h-48 bg-gray-200 flex items-center justify-center text-gray-500">No Image
+                            </div>
+                        @endif
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2 text-dark-text hover:opacity-80"
+                                style="color: var(--color-secondary);">
+                                <a
+                                    href="{{ route('news.show', $article->slug) }}">{{ Str::limit($article->title, 50) }}</a>
+                            </h3>
+                            <p class="text-sm text-gray-600 mb-3">
+                                Oleh {{ $article->author ?? 'Admin' }} pada
+                                {{ $article->published_at ? $article->published_at->format('d F Y') : '-' }}
+                            </p>
+                            <p class="text-gray-700 leading-relaxed mb-4">
+                                {{ Str::limit(strip_tags($article->content), 100) }}
+                            </p>
+                            <a href="{{ route('news.show', $article->slug) }}"
+                                style="background-color: var(--color-secondary);"
+                                class="inline-block text-white font-bold py-2 px-4 rounded-md text-sm hover:opacity-90">Baca
+                                Selengkapnya →</a>
+                        </div>
+                    </div>
+                @empty
+                    <p class="col-span-full text-center text-gray-500">Belum ada berita terbaru yang dipublikasikan.
+                    </p>
+                @endforelse
+            </div>
+            @if ($news->count() > 0)
+                <div class="text-center mt-12">
+                    <a href="{{ route('news') }}" style="background-color: var(--color-primary);"
+                        class="inline-block text-white font-bold py-3 px-8 rounded-full transition-colors duration-300 hover:opacity-90">Lihat
+                        Semua Berita</a>
+                </div>
+            @endif
+        </div>
+    </section>
+    <section class="py-20 bg-gradient-to-r from-primary-light/10 via-white to-primary-light/10 backdrop-blur-md">
         <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-extrabold text-center text-desa-brown mb-14 tracking-tight" data-aos="fade-down">
+            <h2 class="text-4xl font-extrabold text-center text-accent mb-14 tracking-tight" data-aos="fade-down">
                 🚀 Akses Cepat Layanan Warga
             </h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                 {{-- Kartu 1 --}}
                 <a href="{{ route('online-services') }}"
-                    class="group relative bg-white rounded-2xl shadow-xl hover:shadow-2xl p-6 text-center transition-all duration-300 border-t-4 border-desa-skyblue hover:-translate-y-1"
+                    class="group relative bg-white rounded-2xl shadow-xl hover:shadow-2xl p-6 text-center transition-all duration-300 border-t-4 border-primary hover:-translate-y-1"
                     data-aos="zoom-in" data-aos-delay="100">
                     <div class="absolute top-0 right-0 m-3">
-                        <span
-                            class="inline-block px-2 py-1 text-xs font-semibold text-white bg-desa-skyblue rounded-full">
+                        <span class="inline-block px-2 py-1 text-xs font-semibold text-white bg-primary rounded-full">
                             NEW
                         </span>
                     </div>
-                    <svg class="h-14 w-14 text-desa-skyblue mx-auto mb-4 group-hover:scale-110 transition"
-                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg class="h-14 w-14 text-primary mx-auto mb-4 group-hover:scale-110 transition" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M9 12h6m-6 4h6m2.001.001C18.064 16.038 19 14.542 19 13c0-2.485-2.5-5-5.5-5S8 10.515 8 13c0 1.542.936 3.038 2.001 4.001zM12 21a9 9 0 100-18 9 9 0 000 18z" />
                     </svg>
-                    <h3 class="text-lg font-bold text-desa-brown">Ajukan Surat Online</h3>
-                    <p class="text-gray-600 text-sm mt-2">Permohonan dokumen desa secara daring, tanpa ribet.</p>
+                    <h3 class="text-lg font-bold text-primary">Ajukan Surat Online</h3>
+                    <p class="text-secondary-dark text-sm mt-2">Permohonan dokumen desa secara daring, tanpa ribet.</p>
                 </a>
 
                 {{-- Kartu 2 --}}
                 <a href="{{ route('service-procedures') }}"
-                    class="group relative bg-white rounded-2xl shadow-xl hover:shadow-2xl p-6 text-center transition-all duration-300 border-t-4 border-desa-green hover:-translate-y-1"
+                    class="group relative bg-white rounded-2xl shadow-xl hover:shadow-2xl p-6 text-center transition-all duration-300 border-t-4 border-secondary hover:-translate-y-1"
                     data-aos="zoom-in" data-aos-delay="200">
-                    <svg class="h-14 w-14 text-desa-green mx-auto mb-4 group-hover:rotate-6 transition" fill="none"
+                    <svg class="h-14 w-14 text-secondary mx-auto mb-4 group-hover:rotate-6 transition" fill="none"
                         viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
                     </svg>
-                    <h3 class="text-lg font-bold text-desa-green-dark">Prosedur Layanan</h3>
-                    <p class="text-gray-600 text-sm mt-2">Panduan lengkap urusan administratif.</p>
+                    <h3 class="text-lg font-bold text-secondary">Prosedur Layanan</h3>
+                    <p class="text-secondary-dark text-sm mt-2">Panduan lengkap urusan administratif.</p>
                 </a>
 
                 {{-- Kartu 3 --}}
                 <a href="{{ route('documents') }}"
-                    class="group relative bg-white rounded-2xl shadow-xl hover:shadow-2xl p-6 text-center transition-all duration-300 border-t-4 border-desa-brown hover:-translate-y-1"
+                    class="group relative bg-white rounded-2xl shadow-xl hover:shadow-2xl p-6 text-center transition-all duration-300 border-t-4 border-accent hover:-translate-y-1"
                     data-aos="zoom-in" data-aos-delay="300">
-                    <svg class="h-14 w-14 text-desa-brown mx-auto mb-4 group-hover:rotate-3 transition" fill="none"
+                    <svg class="h-14 w-14 text-accent mx-auto mb-4 group-hover:rotate-3 transition" fill="none"
                         viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m7 0V5m0 0a2 2 0 012-2h2a2 2 0 012 2v2m-6 6v4m-6-4v4" />
                     </svg>
-                    <h3 class="text-lg font-bold text-desa-brown">Unduh Dokumen</h3>
-                    <p class="text-gray-600 text-sm mt-2">Akses arsip dan peraturan desa dengan mudah.</p>
+                    <h3 class="text-lg font-bold text-accent">Unduh Dokumen</h3>
+                    <p class="text-secondary-dark text-sm mt-2">Akses arsip dan peraturan desa dengan mudah.</p>
                 </a>
 
                 {{-- Kartu 4 --}}
                 <a href="#"
-                    class="group relative bg-white rounded-2xl shadow-xl hover:shadow-2xl p-6 text-center transition-all duration-300 border-t-4 border-desa-skyblue hover:-translate-y-1"
+                    class="group relative bg-white rounded-2xl shadow-xl hover:shadow-2xl p-6 text-center transition-all duration-300 border-t-4 border-primary-light hover:-translate-y-1"
                     data-aos="zoom-in" data-aos-delay="400">
-                    <svg class="h-14 w-14 text-desa-skyblue mx-auto mb-4 group-hover:scale-110 transition"
+                    <svg class="h-14 w-14 text-primary-light mx-auto mb-4 group-hover:scale-110 transition"
                         fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
-                    <h3 class="text-lg font-bold text-desa-skyblue-dark">Lokasi & Kontak</h3>
-                    <p class="text-gray-600 text-sm mt-2">Cari kami, kirim pesan, atau langsung datang!</p>
+                    <h3 class="text-lg font-bold text-primary-light">Lokasi & Kontak</h3>
+                    <p class="text-secondary-dark text-sm mt-2">Cari kami, kirim pesan, atau langsung datang!</p>
                 </a>
             </div>
         </div>
     </section>
-    <section id="galeri" class="py-20 bg-soft-gray">
+
+    <section id="galeri" class="py-20" style="background-color: var(--color-soft-gray);">
         <div class="container mx-auto px-4">
             <div class="text-center mb-16" data-aos="fade-down">
-                <h2 class="text-3xl md:text-4xl font-bold text-desa-brown mb-4">Galeri Desa Orakeri</h2>
-                <div class="w-24 h-1 bg-desa-green-600 mx-auto"></div>
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 text-accent">Galeri Desa
+                    {{ $villageName->content ?? 'Nama Desa' }}</h2>
+                <div class="w-24 h-1 mx-auto" style="background-color: var(--color-primary-dark);"></div>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {{-- Ambil 6 album galeri terbaru untuk ditampilkan di homepage, atau paling baru --}}
@@ -241,45 +261,40 @@
                         data-aos-delay="{{ 100 * ($index + 1) }}">
                         <a href="{{ route('gallery.show', $gallery->slug) }}" class="block group">
                             @if ($gallery->cover_image)
-                                <img src="{{ Storage::url($gallery->cover_image) }}"
-                                    alt="Sampul {{ $gallery->name }}"
+                                <img src="{{ $gallery->image_url }}" alt="Sampul {{ $gallery->name }}"
                                     class="w-full h-64 object-cover transform hover:scale-105 transition duration-500">
-                            @elseif ($gallery->images->first())
-                                <img src="{{ Storage::url($gallery->images->first()->path) }}"
+                            @elseif ($gallery->images->isNotEmpty())
+                                <img src="{{ $gallery->images->first()->image_url }}"
                                     alt="Sampul {{ $gallery->name }}"
                                     class="w-full h-64 object-cover transform hover:scale-105 transition duration-500">
                             @else
-                                <div class="w-full h-64 flex items-center justify-center bg-gray-200 text-gray-500">
-                                    No
+                                <div class="w-full h-64 flex items-center justify-center bg-gray-200 text-gray-500">No
                                     Image</div>
                             @endif
                             <div class="p-4 bg-white">
-                                <h4 class="text-lg font-semibold text-dark-text">
-                                    {{ Str::limit($gallery->name, 40) }}
+                                <h4 class="text-lg font-semibold text-dark-text">{{ Str::limit($gallery->name, 40) }}
                                 </h4>
                                 <p class="text-sm text-gray-600">{{ $gallery->images->count() }} Foto</p>
                             </div>
                         </a>
                     </div>
                 @empty
-                    <p class="col-span-full text-center text-gray-500">Belum ada album galeri yang dipublikasikan.
-                    </p>
+                    <p class="col-span-full text-center text-gray-500">Belum ada album galeri yang dipublikasikan.</p>
                 @endforelse
             </div>
             @if ($homepageGalleries->count() > 0)
                 <div class="text-center mt-12">
-                    <a href="{{ route('gallery') }}"
-                        class="inline-block bg-desa-green-600 hover:bg-desa-green-700 text-white font-bold py-3 px-8 rounded-full transition-colors duration-300">Lihat
+                    <a href="{{ route('gallery') }}" style="background-color: var(--color-primary);"
+                        class="inline-block text-white font-bold py-3 px-8 rounded-full transition-colors duration-300 hover:opacity-90">Lihat
                         Semua Galeri</a>
                 </div>
             @endif
         </div>
     </section>
-    {{-- resources/views/frontend/home.blade.php (Bagian Lokasi Kantor Desa) --}}
     <section id="lokasi" class="py-20 bg-soft-gray">
         <div class="container mx-auto px-4">
             <div class="text-center mb-16" data-aos="fade-down">
-                <h2 class="text-3xl md:text-4xl font-bold text-desa-brown mb-4">Lokasi Kantor Desa</h2>
+                <h2 class="text-3xl md:text-4xl font-bold text-accent mb-4">Lokasi Kantor Desa</h2>
                 <div class="w-24 h-1 bg-desa-green-600 mx-auto"></div>
             </div>
             <div class="flex flex-col lg:flex-row gap-10">

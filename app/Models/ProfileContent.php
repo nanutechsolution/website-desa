@@ -29,11 +29,24 @@ class ProfileContent extends Model
     public function getImageUrlAttribute()
     {
         if ($this->type === 'image' && $this->content && (Str::startsWith($this->content, 'http://') || Str::startsWith($this->content, 'https://'))) {
-            return $this->content; // Sudah URL eksternal
+            return $this->content;
         } elseif ($this->type === 'image' && $this->content) {
-            return Storage::url($this->content); // Path lokal
+            if (Storage::disk('public')->exists($this->content)) {
+                return Storage::url($this->content);
+            }
         }
-        return asset('images/logo.jpg'); // Placeholder default
+        return asset('images/placeholder-logo.png');
+    }
+
+    // Accessor untuk mendapatkan URL Google Maps embed dari Lat/Long
+    public function getGoogleMapsEmbedUrlAttribute()
+    {
+        if ($this->Maps_latitude && $this->Maps_longitude) {
+            $lat = $this->Maps_latitude;
+            $lon = $this->Maps_longitude;
+            return "http://maps.google.com/maps?q={$lat},{$lon}&hl=en&z=15&output=embed";
+        }
+        return null;
     }
 
     protected static function boot()

@@ -16,25 +16,6 @@ export default {
                 sans: ['Poppins', ...defaultTheme.fontFamily.sans],
             },
             colors: {
-                // Palet Hijau Keren
-                'desa-green': { // Anda bisa mendefinisikan skala warna
-                    DEFAULT: '#4CAF50', // Hijau primer
-                    '50': '#E8F5E9',
-                    '100': '#D4EAD6',
-                    '200': '#A5D6A7',
-                    '300': '#81C784',
-                    '400': '#66BB6A', // Hijau sedikit lebih terang
-                    '500': '#4CAF50', // Sama dengan DEFAULT
-                    '600': '#43A047', // Hijau sedikit lebih gelap
-                    '700': '#388E3C', // Hijau lebih gelap untuk hover/aksen
-                    '800': '#2E7D32',
-                    '900': '#1B5E20',
-                },
-                'desa-brown': '#795548',
-                'desa-skyblue': '#2196F3',
-                'vibrant-green': '#00C853', // Hijau yang lebih cerah/bersemangat sebagai aksen kuat
-                'soft-gray': '#F8F8F8', // Abu-abu terang untuk latar belakang
-                'dark-text': '#333333', // Warna teks gelap yang lebih kaya dari gray-900'
                 primary: 'hsl(var(--primary-h), var(--primary-s), var(--primary-l))',
                 'primary-dark': 'hsl(var(--primary-h), var(--primary-s), calc(var(--primary-l) - 10%))',
                 'primary-darker': 'hsl(var(--primary-h), var(--primary-s), calc(var(--primary-l) - 20%))',
@@ -46,16 +27,10 @@ export default {
                 'accent-dark': 'hsl(var(--accent-h), var(--accent-s), calc(var(--accent-l) - 10%))',
                 'soft-gray': 'hsl(var(--primary-h), 10%, 95%)',
                 'dark-text': 'hsl(0, 0%, 20%)',
-
             },
         },
     },
-
     plugins: [
-        forms,
-        //  require('@tailwindcss/aspect-ratio'),
-        require('@tailwindcss/typography'),
-
         plugin(function ({ addBase }) {
             addBase({
                 ':root': {
@@ -70,5 +45,6 @@ export default {
                     '--accent-l': '50%',
                 },
             });
-        }),],
-};
+        }),
+    ],
+}
