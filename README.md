@@ -47,6 +47,8 @@ Ikuti langkah-langkah di bawah ini untuk menyiapkan proyek di lingkungan lokal A
     cd website-desa
     ```
     *(Ganti `USERNAME` dengan username GitHub Anda dan `website-desa` dengan nama repositori Anda jika berbeda.)*
+    git clone [https://github.com/Radianus/desa-orakeri-website.git
+    cd website-desa
 
 2.  **📦 Instal Dependensi PHP:**
     ```bash
