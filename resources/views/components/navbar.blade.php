@@ -90,14 +90,16 @@
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
                             <button
-                                class="text-white text-base font-semibold hover:text-yellow-200 flex items-center space-x-1">
-                                <span>{{ Auth::user()->name }}</span>
+                                class="text-white text-base font-semibold hover:text-yellow-200 flex items-center space-x-2">
+                                <img src="{{ Storage::url(Auth::user()->avatar ?? 'default-avatar.png') }}" alt="Avatar"
+                                    class="w-8 h-8 rounded-full object-cover border border-white shadow-sm">
                                 <svg class="w-4 h-4 fill-current" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd"
                                         d="M5.23 7.21a.75.75 0 0 1 1.06 0L10 10.92l3.71-3.71a.75.75 0 0 1 1.06 1.06l-4.24 4.24a.75.75 0 0 1-1.06 0L5.23 8.27a.75.75 0 0 1 0-1.06z"
                                         clip-rule="evenodd" />
                                 </svg>
                             </button>
+
                         </x-slot>
                         <x-slot name="content">
                             <x-dropdown-link :href="route('admin.dashboard')"
