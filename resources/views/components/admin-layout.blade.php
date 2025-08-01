@@ -7,9 +7,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <meta name="description" content="{{ config('app.description', 'Dasbor Admin Desa Orakeri') }}">
-    <title>{{ config('app.name', 'Dasbor Admin Desa Orakeri') }}</title>
-
-    {{-- Script untuk mencegah FOUC / FOLT (Tempatkan di SINI) --}}
     <script>
         // Check local storage for theme preference immediately
         const theme = localStorage.getItem('theme');
@@ -19,11 +16,11 @@
             document.documentElement.classList.remove('dark');
         }
     </script>
-
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-    <meta name="description" content="{{ $villageName ?? 'Website resmi Desa Orakeri.' }}">
-    <title>{{ config('app.name', 'Laravel') }} - {{ $villageName ?? 'Nama Desa' }}</title>
+    <meta name="description" content="{{ $villageName->content ?? 'Website resmi Desa Orakeri.' }}">
+    <title>{{ $villageName->content ?? config('app.name', 'Laravel') }}</title>
+    <link rel="icon" href="{{ Storage::url($siteLogo->content) }}" type="image/png">
     @livewireStyles
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="https://cdn.tiny.cloud/1/algt269vr4aq8vf2pokvkxyplcwaofury8xlyeekzrg85v42/tinymce/6/tinymce.min.js"
@@ -79,10 +76,107 @@
             display: none !important;
         }
     </style>
+
+     <style>
+        :root {
+            /* Warna Dasar dari DB (HEX, dihitung di sini ke HSL) */
+            @php // Helper function untuk konversi HEX ke HSL di Blade
+
+            $hexToHsl =function($hex) {
+                if ( !$hex || !preg_match('/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/', $hex)) {
+                    return [0,
+                    '0%',
+                    '0%'];
+                }
+
+                $r =hexdec(substr($hex, 1, 2));
+                $g =hexdec(substr($hex, 3, 2));
+                $b =hexdec(substr($hex, 5, 2));
+
+                $r /=255;
+                $g /=255;
+                $b /=255;
+                $max =max($r, $g, $b);
+                $min =min($r, $g, $b);
+                $h =$s =$l =($max + $min) / 2;
+
+                if ($max ===$min) {
+                    $h =$s =0;
+                }
+
+                else {
+                    $d =$max - $min;
+                    $s =$l >0.5 ? $d / (2 - $max - $min): $d / ($max + $min);
+
+                    switch ($max) {
+                        case $r: $h =($g - $b) / $d + ($g < $b ? 6 : 0);
+                        break;
+                        case $g: $h =($b - $r) / $d + 2;
+                        break;
+                        case $b: $h =($r - $g) / $d + 4;
+                        break;
+                    }
+
+                    $h /=6;
+                }
+
+                return [round($h * 360),
+                round($s * 100) . '%',
+                round($l * 100) . '%'];
+            }
+
+            ;
+
+            // Dapatkan nilai HEX dari ProfileContent
+            $primaryHex =$brandPrimaryColor->content ?? '#4CAF50';
+            $secondaryHex =$brandSecondaryColor->content ?? '#2196F3';
+            $accentHex =$brandAccentColor->content ?? '#795548';
+            $softGrayHex = '#F8F8F8';
+            $darkTextHex = '#333333';
+            // Konversi ke HSL
+            list($h1, $s1, $l1)=$hexToHsl($primaryHex);
+            list($h2, $s2, $l2)=$hexToHsl($secondaryHex);
+            list($h3, $s3, $l3)=$hexToHsl($accentHex);
+            list($h_sg, $s_sg, $l_sg)=$hexToHsl($softGrayHex);
+            list($h_dt, $s_dt, $l_dt)=$hexToHsl($darkTextHex);
+        @endphp
+
+        --primary-h: {{ $h1 }};
+        --primary-s: {{ $s1 }};
+        --primary-l: {{ $l1 }};
+        --secondary-h: {{ $h2 }};
+        --secondary-s: {{ $s2 }};
+        --secondary-l: {{ $l2 }};
+        --accent-h: {{ $h3 }};
+        --accent-s: {{ $s3 }};
+        --accent-l: {{ $l3 }};
+
+        /* Varian Warna (Untuk Hover, Background, dll.) */
+        --color-primary: hsl(var(--primary-h), var(--primary-s), var(--primary-l));
+        --color-primary-dark: hsl(var(--primary-h), var(--primary-s), clamp(0%, calc(var(--primary-l) - 10%), 100%));
+        /* Untuk hover/aktif */
+        --color-primary-darker: hsl(var(--primary-h), var(--primary-s), calc(var(--primary-l) - 20%));
+        /* Untuk bg mobile nav */
+        --color-primary-light: hsl(var(--primary-h), var(--primary-s), calc(var(--primary-l) + 10%));
+        /* Untuk bg-xx-100 */
+
+        --color-secondary: hsl(var(--secondary-h), var(--secondary-s), var(--secondary-l));
+        --color-secondary-dark: hsl(var(--secondary-h), var(--secondary-s), calc(var(--secondary-l) - 10%));
+        --color-secondary-light: hsl(var(--secondary-h), var(--secondary-s), calc(var(--secondary-l) + 10%));
+
+        --color-accent: hsl(var(--accent-h), var(--accent-s), var(--accent-l));
+        --color-accent-dark: hsl(var(--accent-h), var(--accent-s), calc(var(--accent-l) - 10%));
+        /* Warna Netral Dinamis dari HSL Konversi */
+        --color-soft-gray: hsl(var(--primary-h), 10%, 95%);
+        /* Bisa terkait primary atau statis */
+        --color-dark-text: hsl(0, 0%, 20%);
+        /* Tetap relatif gelap */
+        }
+    </style>
 </head>
 
 <body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors">
-    <header
+    <heade
         class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700 h-16 w-full flex items-center px-4 sm:px-6 lg:px-8 fixed top-0 inset-x-0 z-40">
         <div class="flex justify-between w-full">
             <div class="flex items-center space-x-2">
@@ -95,12 +189,27 @@
                 </button>
                 <div class="shrink-0 flex items-center pr-4 md:hidden">
                     <a href="#">
-                        <x-application-logo
-                            class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200 transition-colors" />
+                        @php
+                            $logoContent = $siteLogo->content ?? null;
+                        @endphp
+
+                        @if ($logoContent)
+                            @if (Str::contains($logoContent, 'images'))
+                                <img src="{{ asset($logoContent) }}"
+                                    alt="{{ $villageName->content ?? 'Nama Desa' }} Logo" class="h-8 w-auto">
+                            @else
+                                <img src="{{ asset('storage/' . $logoContent) }}"
+                                    alt="{{ $villageName->content ?? 'Nama Desa' }} Logo" class="h-8 w-auto">
+                            @endif
+                        @else
+                            {{-- Fallback ke default Laravel --}}
+                            <x-application-logo
+                                class="block h-8 w-auto fill-current text-gray-800 dark:text-gray-200 transition-colors" />
+                        @endif
                     </a>
                 </div>
                 <span
-                    class="transition-colors text-lg font-bold text-gray-900 dark:text-white">{{ $globalSettings->school_name ?? config('app.name', 'Akademika') }}</span>
+                    class="transition-colors text-lg font-bold text-gray-900 dark:text-white">{{ $villageName->content ?? config('app.name', 'Akademika') }}</span>
             </div>
             <div class="flex items-center space-x-4">
                 <div class="relative mr-4">
@@ -156,21 +265,18 @@
                 </x-dropdown>
             </div>
         </div>
-    </header>
-
+    </heade>
     <div class="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden" x-show="$store.ui.sidebarOpen"
         @click="$store.ui.closeSidebar()" x-transition.opacity></div>
-
     <aside :class="{ '-translate-x-full': !$store.ui.sidebarOpen }"
         x-show="$store.ui.sidebarOpen || window.innerWidth >= 1024"
         x-transition:enter="transition ease-out duration-300" x-transition:enter-start="-translate-x-full"
         x-transition:enter-end="translate-x-0" x-transition:leave="transition ease-in duration-300"
         x-transition:leave-start="translate-x-0" x-transition:leave-end="-translate-x-full"
         @click.outside="$store.ui.closeSidebar()"
-        class="fixed inset-y-0 left-0 z-50 w-64 bg-white dark:bg-gray-800 shadow-xl lg:translate-x-0 lg:flex-shrink-0 lg:block overflow-y-auto transition-colors">
-
+        class="fixed top-0 left-0 z-40 w-64 h-screen overflow-y-auto bg-white dark:bg-gray-800">
         <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700 h-16 flex items-center transition-colors">
-            <h2 class="text-xl font-semibold text-gray-900 dark:text-white">Desa ABC</h2>
+            <h2 class="text-xl font-semibold text-gray-900 dark:text-white">{{ $villageName->content }}</h2>
             <button @click="$store.ui.toggleSidebar()"
                 class="lg:hidden ml-auto text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 focus:outline-none transition-colors">
                 <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -184,19 +290,15 @@
         <nav class="mt-2 space-y-2 px-4">
             <ul class="space-y-1">
                 <li>
-                    <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')"
-                        class="flex items-center p-2 rounded-lg text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 group transition-colors">
-                        <svg class="h-5 w-5 mr-3 text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-200 transition-colors"
-                            fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m0 0l7 7m-10-7v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001 1h2m-7 0h2">
-                            </path>
-                        </svg>
-                        <span class="ms-3">{{ __('Dashboard') }}</span>
-                    </x-nav-link>
+                    <a href="{{ route('admin.dashboard') }}"
+                        class="flex items-center p-2 rounded-lg
+                               text-gray-700 dark:text-gray-200
+                               hover:bg-gray-100 dark:hover:bg-gray-700
+                               group transition-colors duration-200 ease-in-out
+                               {{ request()->routeIs('admin.dashboard') ? 'bg-gray-100 dark:bg-gray-700 font-semibold' : '' }}">
+                        <span class="ms-3 font-medium">Dashboard</span>
+                    </a>
                 </li>
-
                 <li x-data="{ open: {{ request()->routeIs('admin.hero-sliders.*', 'admin.news.*', 'admin.galleries.*', 'admin.potentials.*', 'admin.products.*', 'admin.documents.*', 'admin.comments.*') ? 'true' : 'false' }} }">
                     <button @click="open = !open"
                         class="flex items-center justify-between w-full p-2 rounded-lg
@@ -206,10 +308,11 @@
                                transition-colors duration-200 ease-in-out">
                         <span class="ms-3 font-medium">Manajemen Konten</span>
                         <svg :class="{ 'rotate-90': open }"
-                            class="w-4 h-4 transform transition-transform duration-200
-                                   text-gray-500 dark:text-gray-400">
+                            class="w-4 h-4 transform transition-transform duration-200 text-gray-500 dark:text-gray-400"
+                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                         </svg>
+
                     </button>
                     <ul x-show="open" x-transition:enter="transition ease-out duration-200"
                         x-transition:enter-start="opacity-0 transform scale-95"
@@ -302,8 +405,8 @@
                                transition-colors duration-200 ease-in-out">
                         <span class="ms-3 font-medium">Profil Desa</span>
                         <svg :class="{ 'rotate-90': open }"
-                            class="w-4 h-4 transform transition-transform duration-200
-                                   text-gray-500 dark:text-gray-400">
+                            class="w-4 h-4 transform transition-transform duration-200 text-gray-500 dark:text-gray-400"
+                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                         </svg>
                     </button>
@@ -377,8 +480,8 @@
                                transition-colors duration-200 ease-in-out">
                         <span class="ms-3 font-medium">Layanan Desa</span>
                         <svg :class="{ 'rotate-90': open }"
-                            class="w-4 h-4 transform transition-transform duration-200
-                                   text-gray-500 dark:text-gray-400">
+                            class="w-4 h-4 transform transition-transform duration-200 text-gray-500 dark:text-gray-400"
+                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                         </svg>
                     </button>
@@ -435,8 +538,8 @@
                                transition-colors duration-200 ease-in-out">
                         <span class="ms-3 font-medium">Pengaturan</span>
                         <svg :class="{ 'rotate-90': open }"
-                            class="w-4 h-4 transform transition-transform duration-200
-                                   text-gray-500 dark:text-gray-400">
+                            class="w-4 h-4 transform transition-transform duration-200 text-gray-500 dark:text-gray-400"
+                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                         </svg>
                     </button>
@@ -473,17 +576,16 @@
             </ul>
         </nav>
     </aside>
-    {{-- @if (isset($header))
-        <header class="bg-white shadow">
-            <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                {{ $header }}
+    <div class="pt-14 lg:ml-64 transition-all duration-200">
+        @if (isset($header))
+            <div class="bg-white dark:bg-gray-800 px-4 py-4 shadow">
+                <h1 class="text-xl font-semibold">{{ $header }}</h1>
             </div>
-        </header>
-    @endif --}}
-    <main class="lg:ml-64 p-4 mt-4">
-        {{ $slot }}
-    </main>
-
+        @endif
+        <main>
+            {{ $slot }}
+        </main>
+    </div>
     <script>
         document.addEventListener('alpine:init', () => {
             // Alpine Store untuk mengelola tema (Dark Mode)

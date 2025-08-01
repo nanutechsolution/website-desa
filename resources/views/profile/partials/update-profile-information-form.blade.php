@@ -1,12 +1,13 @@
 <section>
     <header>
         <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100 transition-colors">
-            {{ __('Profile Information') }}
+            {{ __('Informasi Profil') }}
         </h2>
 
-        <p class="mt-1 text-sm text-gray-600 dark:text-gray-400 transition-colors">
-            {{ __("Update your account's profile information and email address.") }}
+        <p class="mt-1 text-sm text-gray-600 dark:text-gray-300 transition-colors">
+            {{ __('Perbarui informasi profil dan alamat email akun Anda.') }}
         </p>
+
     </header>
 
     <form id="send-verification" method="post" action="{{ route('verification.send') }}">
@@ -36,7 +37,7 @@
 
                 {{-- Input File untuk Avatar Baru --}}
                 <input type="file" name="avatar" id="avatar" accept="image/*"
-                    class="block w-full text-sm text-gray-500 dark:text-gray-400
+                    class="block w-full text-sm text-gray-500 dark:text-gray-300
                            file:mr-4 file:py-2 file:px-4
                            file:rounded-md file:border-0
                            file:text-sm file:font-semibold
@@ -46,7 +47,7 @@
                     onchange="previewNewAvatar(event)">
             </div>
             <x-input-error class="mt-2" :messages="$errors->get('avatar')" />
-            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1 transition-colors">
+            <p class="text-sm text-gray-500 dark:text-gray-300 mt-1 transition-colors">
                 Ukuran maksimal 2MB. Format: JPG, JPEG, PNG.
             </p>
 
@@ -59,14 +60,14 @@
                                focus:ring-red-500 dark:focus:ring-red-600 focus:ring-offset-2 dark:focus:ring-offset-gray-800
                                transition-colors">
                     <label for="remove_avatar"
-                        class="ml-2 text-sm text-gray-600 dark:text-gray-400 transition-colors">{{ __('Hapus Avatar Saat Ini') }}</label>
+                        class="ml-2 text-sm text-gray-600 dark:text-gray-300 transition-colors">{{ __('Hapus Avatar Saat Ini') }}</label>
                 </div>
             @endif
         </div>
 
         {{-- Input Nama --}}
         <div>
-            <x-input-label for="name" :value="__('Name')" />
+            <x-input-label for="name" :value="__('Nama')" />
             <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)"
                 required autofocus autocomplete="name" />
             <x-input-error class="mt-2" :messages="$errors->get('name')" />
@@ -85,7 +86,7 @@
                         {{ __('Your email address is unverified.') }}
 
                         <button form="send-verification"
-                            class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md
+                            class="underline text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 rounded-md
                                    focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800
                                    transition-colors duration-200">
                             {{ __('Click here to re-send the verification email.') }}
@@ -93,7 +94,7 @@
                     </p>
 
                     @if (session('status') === 'verification-link-sent')
-                        <p class="mt-2 font-medium text-sm text-green-600 dark:text-green-400 transition-colors">
+                        <p class="mt-2 font-medium text-sm text-green-600 dark:text-green-300 transition-colors">
                             {{ __('A new verification link has been sent to your email address.') }}
                         </p>
                     @endif
@@ -103,11 +104,11 @@
 
         {{-- Tombol Simpan dan Status --}}
         <div class="flex items-center gap-4">
-            <x-primary-button>{{ __('Save') }}</x-primary-button>
+            <x-primary-button>{{ __('Simpan') }}</x-primary-button>
 
             @if (session('status') === 'profile-updated')
                 <p x-data="{ show: true }" x-show="show" x-transition x-init="setTimeout(() => show = false, 2000)"
-                    class="text-sm text-gray-600 dark:text-gray-400 transition-colors">{{ __('Saved.') }}</p>
+                    class="text-sm text-gray-600 dark:text-gray-300 transition-colors">{{ __('Saved.') }}</p>
             @endif
         </div>
     </form>

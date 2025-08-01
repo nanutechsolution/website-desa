@@ -15,7 +15,6 @@
 
 <body class="font-sans antialiased bg-gray-100">
     <div class="min-h-screen flex">
-        {{-- Sidebar Admin (Anda bisa membuat file terpisah seperti components/admin-sidebar.blade.php) --}}
         <aside class="w-64 bg-gray-800 text-white p-4 space-y-4">
             <div class="text-2xl font-bold mb-6">Admin Desa Orakeri</div>
             <nav>
@@ -26,7 +25,6 @@
                     Slider</a>
                 <a href="#" class="block py-2 px-3 rounded hover:bg-gray-700">Manajemen Berita</a>
                 <a href="#" class="block py-2 px-3 rounded hover:bg-gray-700">Manajemen Galeri</a>
-                {{-- Tambahkan link modul admin lainnya di sini --}}
             </nav>
         </aside>
 

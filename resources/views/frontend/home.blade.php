@@ -12,8 +12,7 @@
                 x-transition:leave="transition ease-in duration-1000" x-transition:leave-start="opacity-100 scale-100"
                 x-transition:leave-end="opacity-0 scale-95"
                 class="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat flex items-center justify-center"
-                style="background-image: url('{{ $slider->image }}');">
-
+                style="background-image: url('{{ Storage::url($slider->image) }}');">
                 {{-- Overlay gradien agar teks lebih kontras --}}
                 <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
 
@@ -59,8 +58,7 @@
     </div>
     <section class="py-16 bg-white dark:bg-gray-900">
         <div class="max-w-5xl mx-auto px-6 text-center">
-            <h2 class="text-4xl font-extrabold tracking-tight mb-6" style="color: var(--color-accent);"
-                data-aos="fade-down">
+            <h2 class="text-4xl font-extrabold tracking-tight mb-6 text-accent" data-aos="fade-down">
                 Selamat Datang di {{ $villageName->content ?? 'Nama Desa' }}!
             </h2>
 
@@ -70,37 +68,50 @@
             </p>
 
             <a href="{{ route('profil.visi') }}"
-                class="inline-flex items-center justify-center px-8 py-3 text-white font-semibold text-lg rounded-full shadow-lg transition duration-300 hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2"
-                style="background-color: var(--color-primary);" data-aos="zoom-in" data-aos-delay="200">
+                class="inline-flex items-center justify-center px-8 py-3 
+                   text-white text-sm font-semibold rounded-full shadow-lg 
+                   transition duration-300 focus:outline-none 
+                   focus:ring-2 focus:ring-offset-2"
+                style="background-color: var(--color-primary); 
+                   --tw-ring-color: var(--color-primary);"
+                onmouseover="this.style.backgroundColor = 'var(--color-primary-darker)'"
+                onmouseout="this.style.backgroundColor = 'var(--color-primary)'" data-aos="zoom-in"
+                data-aos-delay="200">
                 Pelajari Lebih Lanjut Tentang Kami
             </a>
         </div>
     </section>
 
-    <section id="potensi" class="py-20" style="background-color: var(--color-soft-gray);">
+
+    <section id="potensi" class="py-20 bg-[--color-soft-gray]">
         <div class="container mx-auto px-4">
             <div class="text-center mb-16" data-aos="fade-down">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4" style="color: var(--color-accent);">Potensi Desa
-                    {{ $villageName->content ?? 'Nama Desa' }}</h2>
-                <div class="w-24 h-1 mx-auto" style="background-color: var(--color-primary-dark);"></div>
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 text-accent border-accent inline-block pb-2">
+                    Potensi {{ $villageName->content ?? 'Nama Desa' }}
+                </h2>
+                <div class="w-24 h-1 mx-auto bg-[--color-primary-dark] mt-4"></div>
             </div>
+
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 @forelse ($potentials as $index => $potential)
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden transition hover:scale-105 duration-500 transform"
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden transition-transform hover:scale-105 duration-500"
                         data-aos="fade-up" data-aos-delay="{{ 100 * ($index + 1) }}">
                         @if ($potential->image)
-                            <img src="{{ $potential->image_url }}" alt="{{ $potential->title }}"
+                            <img src="{{ Storage::url($potential->image) }}" alt="{{ $potential->title }}"
                                 class="w-full h-48 object-cover">
                         @else
-                            <div class="w-full h-48 bg-gray-200 flex items-center justify-center text-gray-500">No Image
+                            <div class="w-full h-48 bg-gray-200 flex items-center justify-center text-gray-500">
+                                No Image
                             </div>
                         @endif
+
                         <div class="p-6">
-                            <h3 class="text-xl font-semibold text-dark-text mb-3">{{ $potential->title }}</h3>
-                            <p class="text-gray-600 mb-4">{{ Str::limit($potential->description, 100) }}</p>
+                            <h3 class="text-xl font-semibold text-[--color-dark-text] mb-3">{{ $potential->title }}
+                            </h3>
+                            <p class="text-gray-600 mb-4">{!! Str::limit($potential->description, 100) !!}</p>
                             <a href="{{ route('potentials') }}"
-                                class="font-medium inline-flex items-center hover:underline"
-                                style="color: var(--color-primary-dark);">Selengkapnya
+                                class="font-medium inline-flex items-center text-[--color-primary-dark] hover:underline">
+                                Selengkapnya
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -113,65 +124,76 @@
                     <p class="col-span-full text-center text-gray-500">Belum ada potensi desa yang ditambahkan.</p>
                 @endforelse
             </div>
+
             @if ($potentials->count() > 0)
                 <div class="text-center mt-12">
-                    <a href="{{ route('potentials') }}" style="background-color: var(--color-primary);"
-                        class="inline-block text-white font-bold py-3 px-8 rounded-full transition-colors duration-300 hover:opacity-90">Lihat
-                        Semua Potensi</a>
+                    <a href="{{ route('potentials') }}"
+                        class="inline-block text-white bg-[--color-primary] font-bold py-3 px-8 rounded-full transition duration-300 hover:bg-[--color-primary-dark]">
+                        Lihat Semua Potensi
+                    </a>
                 </div>
             @endif
         </div>
     </section>
-    <section id="berita-terbaru" class="py-20 bg-white">
+
+    <section id="berita-terbaru" class="py-20 bg-white dark:bg-gray-900">
         <div class="container mx-auto px-4">
             <div class="text-center mb-16" data-aos="fade-down">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4" style="color: var(--color-accent);">Berita Terbaru</h2>
-                <div class="w-24 h-1 mx-auto" style="background-color: var(--color-primary-dark);"></div>
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 text-accent">Berita Terbaru</h2>
+                <div class="w-24 h-1 mx-auto bg-[--color-primary-dark]"></div>
             </div>
+
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 @forelse ($news as $index => $article)
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden transition hover:shadow-lg duration-300"
+                    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-md overflow-hidden transition hover:shadow-lg duration-300"
                         data-aos="fade-up" data-aos-delay="{{ 100 * ($index + 1) }}">
+
                         @if ($article->image)
                             <img src="{{ $article->image_url }}" alt="{{ $article->title }}"
                                 class="w-full h-48 object-cover">
                         @else
-                            <div class="w-full h-48 bg-gray-200 flex items-center justify-center text-gray-500">No Image
+                            <div class="w-full h-48 bg-gray-200 flex items-center justify-center text-gray-500">
+                                No Image
                             </div>
                         @endif
+
                         <div class="p-6">
-                            <h3 class="text-xl font-bold mb-2 text-dark-text hover:opacity-80"
-                                style="color: var(--color-secondary);">
-                                <a
-                                    href="{{ route('news.show', $article->slug) }}">{{ Str::limit($article->title, 50) }}</a>
+                            <h3 class="text-xl font-bold mb-2 text-[--color-primary] hover:opacity-80">
+                                <a href="{{ route('news.show', $article->slug) }}">
+                                    {{ Str::limit($article->title, 50) }}
+                                </a>
                             </h3>
-                            <p class="text-sm text-gray-600 mb-3">
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">
                                 Oleh {{ $article->author ?? 'Admin' }} pada
                                 {{ $article->published_at ? $article->published_at->format('d F Y') : '-' }}
                             </p>
-                            <p class="text-gray-700 leading-relaxed mb-4">
+                            <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
                                 {{ Str::limit(strip_tags($article->content), 100) }}
                             </p>
                             <a href="{{ route('news.show', $article->slug) }}"
-                                style="background-color: var(--color-secondary);"
-                                class="inline-block text-white font-bold py-2 px-4 rounded-md text-sm hover:opacity-90">Baca
-                                Selengkapnya →</a>
+                                class="inline-block bg-[--color-primary] text-white font-bold py-2 px-4 rounded-md text-sm hover:bg-[--color-primary-dark] transition">
+                                Baca Selengkapnya →
+                            </a>
                         </div>
                     </div>
                 @empty
-                    <p class="col-span-full text-center text-gray-500">Belum ada berita terbaru yang dipublikasikan.
+                    <p class="col-span-full text-center text-gray-500 dark:text-gray-300">
+                        Belum ada berita terbaru yang dipublikasikan.
                     </p>
                 @endforelse
             </div>
+
             @if ($news->count() > 0)
                 <div class="text-center mt-12">
-                    <a href="{{ route('news') }}" style="background-color: var(--color-primary);"
-                        class="inline-block text-white font-bold py-3 px-8 rounded-full transition-colors duration-300 hover:opacity-90">Lihat
-                        Semua Berita</a>
+                    <a href="{{ route('news') }}"
+                        class="inline-block text-white text-sm bg-[--color-primary] font-bold py-3 px-8 rounded-full transition duration-300 hover:bg-[--color-primary-dark]">
+                        Lihat Semua Berita
+                    </a>
                 </div>
             @endif
         </div>
     </section>
+
     <section class="py-20 bg-gradient-to-r from-primary-light/10 via-white to-primary-light/10 backdrop-blur-md">
         <div class="container mx-auto px-6">
             <h2 class="text-4xl font-extrabold text-center text-accent mb-14 tracking-tight" data-aos="fade-down">
@@ -179,7 +201,7 @@
             </h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                 {{-- Kartu 1 --}}
-                <a href="{{ route('online-services') }}"
+                <a href="#"
                     class="group relative bg-white rounded-2xl shadow-xl hover:shadow-2xl p-6 text-center transition-all duration-300 border-t-4 border-primary hover:-translate-y-1"
                     data-aos="zoom-in" data-aos-delay="100">
                     <div class="absolute top-0 right-0 m-3">
@@ -233,22 +255,24 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
-                    <h3 class="text-lg font-bold text-primary-light">Lokasi & Kontak</h3>
+                    <h3 class="text-lg font-bold text-accent-light">Lokasi & Kontak</h3>
                     <p class="text-secondary-dark text-sm mt-2">Cari kami, kirim pesan, atau langsung datang!</p>
                 </a>
             </div>
         </div>
     </section>
 
-    <section id="galeri" class="py-20" style="background-color: var(--color-soft-gray);">
+    <section id="galeri" class="py-20 bg-gray-50 dark:bg-gray-900">
         <div class="container mx-auto px-4">
             <div class="text-center mb-16" data-aos="fade-down">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4 text-accent">Galeri Desa
-                    {{ $villageName->content ?? 'Nama Desa' }}</h2>
-                <div class="w-24 h-1 mx-auto" style="background-color: var(--color-primary-dark);"></div>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-accent dark:text-white mb-2">
+                    Galeri {{ $villageName->content ?? 'Nama Desa' }}
+                </h2>
+                <p class="text-gray-500 dark:text-gray-300 text-sm">Dokumentasi kegiatan dan potret desa kami</p>
+                <div class="mt-4 w-16 h-1 mx-auto bg-accent"></div>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {{-- Ambil 6 album galeri terbaru untuk ditampilkan di homepage, atau paling baru --}}
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
                 @php
                     $homepageGalleries = App\Models\Gallery::where('is_published', true)
                         ->orderBy('created_at', 'desc')
@@ -256,46 +280,60 @@
                         ->with('images')
                         ->get();
                 @endphp
+
                 @forelse ($homepageGalleries as $index => $gallery)
-                    <div class="overflow-hidden rounded-lg shadow-lg" data-aos="zoom-in"
-                        data-aos-delay="{{ 100 * ($index + 1) }}">
+                    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden"
+                        data-aos="zoom-in" data-aos-delay="{{ 100 * ($index + 1) }}">
                         <a href="{{ route('gallery.show', $gallery->slug) }}" class="block group">
                             @if ($gallery->cover_image)
-                                <img src="{{ $gallery->image_url }}" alt="Sampul {{ $gallery->name }}"
-                                    class="w-full h-64 object-cover transform hover:scale-105 transition duration-500">
-                            @elseif ($gallery->images->isNotEmpty())
-                                <img src="{{ $gallery->images->first()->image_url }}"
+                                <img src="{{ Storage::url($gallery->cover_image) }}"
                                     alt="Sampul {{ $gallery->name }}"
-                                    class="w-full h-64 object-cover transform hover:scale-105 transition duration-500">
+                                    class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500">
+                            @elseif ($gallery->images->isNotEmpty())
+                                <img src="{{ Storage::url($gallery->images->first()->path) }}"
+                                    alt="Sampul {{ $gallery->name }}"
+                                    class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500">
                             @else
-                                <div class="w-full h-64 flex items-center justify-center bg-gray-200 text-gray-500">No
-                                    Image</div>
+                                <div
+                                    class="w-full h-64 flex items-center justify-center bg-gray-200 dark:bg-gray-700 text-gray-500">
+                                    No Image
+                                </div>
                             @endif
-                            <div class="p-4 bg-white">
-                                <h4 class="text-lg font-semibold text-dark-text">{{ Str::limit($gallery->name, 40) }}
+
+                            <div class="p-5">
+                                <h4 class="text-xl font-semibold text-gray-800 dark:text-white mb-1">
+                                    {{ Str::limit($gallery->name, 40) }}
                                 </h4>
-                                <p class="text-sm text-gray-600">{{ $gallery->images->count() }} Foto</p>
+                                <p class="text-sm text-gray-500 dark:text-gray-300">
+                                    {{ $gallery->images->count() }} Foto
+                                </p>
                             </div>
                         </a>
                     </div>
                 @empty
-                    <p class="col-span-full text-center text-gray-500">Belum ada album galeri yang dipublikasikan.</p>
+                    <p class="col-span-full text-center text-gray-500 dark:text-gray-400">
+                        Belum ada album galeri yang dipublikasikan.
+                    </p>
                 @endforelse
             </div>
+
             @if ($homepageGalleries->count() > 0)
-                <div class="text-center mt-12">
-                    <a href="{{ route('gallery') }}" style="background-color: var(--color-primary);"
-                        class="inline-block text-white font-bold py-3 px-8 rounded-full transition-colors duration-300 hover:opacity-90">Lihat
-                        Semua Galeri</a>
+                <div class="text-center mt-14">
+                    <a href="{{ route('gallery') }}"
+                        class="inline-block bg-primary text-white font-semibold py-3 px-10 rounded-full shadow-md hover:bg-primary-dark active:bg-primary-darker transition">
+                        Lihat Semua Galeri
+                    </a>
+
                 </div>
             @endif
         </div>
     </section>
+
     <section id="lokasi" class="py-20 bg-soft-gray">
         <div class="container mx-auto px-4">
             <div class="text-center mb-16" data-aos="fade-down">
                 <h2 class="text-3xl md:text-4xl font-bold text-accent mb-4">Lokasi Kantor Desa</h2>
-                <div class="w-24 h-1 bg-desa-green-600 mx-auto"></div>
+                <div class="w-24 h-1 bg-accent mx-auto"></div>
             </div>
             <div class="flex flex-col lg:flex-row gap-10">
                 <div class="lg:w-full" data-aos="fade-left" data-aos-delay="100">

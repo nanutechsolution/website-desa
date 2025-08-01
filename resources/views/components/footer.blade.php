@@ -96,21 +96,21 @@
                 <span class="text-primary font-medium">
                     <a href="https://www.facebook.com/share/1BGG9pfRwU/?mibextid=qi2Omg" target="_blank"
                         rel="noopener noreferrer">
-                        Tim Nanu Group
+                        NanuTech Solution
                     </a>
                 </span>
             </p>
 
             <p class="mt-1">
                 Ingin website desa seperti ini? Hubungi via
-                <a href="https://wa.me/6281234567890" class="underline text-accent hover:text-accent-dark transition"
+                <a href="https://wa.me/#" class="underline text-accent hover:text-accent-dark transition"
                     target="_blank">
                     WhatsApp
                 </a>
                 atau kunjungi
                 <a href="https://facebook.com/nanu.ranusate"
                     class="underline text-accent hover:text-accent-dark transition" target="_blank">
-                    Facebook Nanu Group
+                    Facebook NanuTect Solution
                 </a>
             </p>
         </div>

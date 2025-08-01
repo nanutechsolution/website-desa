@@ -32,9 +32,9 @@ export default {
                 },
                 'desa-brown': '#795548',
                 'desa-skyblue': '#2196F3',
-                'vibrant-green': '#00C853', // Hijau yang lebih cerah/bersemangat sebagai aksen kuat
-                'soft-gray': '#F8F8F8', // Abu-abu terang untuk latar belakang
-                'dark-text': '#333333', // Warna teks gelap yang lebih kaya dari gray-900'
+                'vibrant-green': '#00C853',
+                'soft-gray': '#F8F8F8',
+                'dark-text': '#333333',
                 primary: 'hsl(var(--primary-h), var(--primary-s), var(--primary-l))',
                 'primary-dark': 'hsl(var(--primary-h), var(--primary-s), calc(var(--primary-l) - 10%))',
                 'primary-darker': 'hsl(var(--primary-h), var(--primary-s), calc(var(--primary-l) - 20%))',

@@ -53,31 +53,35 @@
                 }
             }
 
-
+/* Umum */
 ::-webkit-scrollbar {
   width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: transparent; /* Bisa diganti warna halus kalau mau */
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: rgba(255, 255, 255, 0.15);
-  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
 }
 
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.35);
+}
+
+/* Dark mode */
 .dark ::-webkit-scrollbar-thumb {
-  background-color: rgba(255, 255, 255, 0.1);
-}
-/* Scrollbar auto-hide */
-.sidebar:hover::-webkit-scrollbar {
-  display: block;
+  background-color: rgba(255, 255, 255, 0.12);
 }
 
-.sidebar::-webkit-scrollbar {
-  display: none;
+.dark ::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.25);
 }
+
 
 .transition-all {
   transition: all 0.3s ease-in-out;
