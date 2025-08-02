@@ -9,7 +9,7 @@
         @forelse ($sliders as $index => $slider)
             <div x-show="activeSlide === {{ $index }}" x-transition:enter="transition ease-out duration-5000"
                 x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
-                x-transition:leave="transition ease-in duration-5000" x-transition:leave-start="opacity-100 scale-100"
+                x-transition:leave="transition ease-in duration-1000" x-transition:leave-start="opacity-100 scale-100"
                 x-transition:leave-end="opacity-0 scale-95"
                 class="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat flex items-center justify-center"
                 style="background-image: url('{{ Storage::url($slider->image) }}');">
