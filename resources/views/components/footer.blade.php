@@ -1,4 +1,4 @@
-<footer class="bg-soft-gray text-dark-text py-12 mt-12 border-t border-gray-300">
+<footer class="bg-soft-gray text-dark-text py-12 mt-12 border-t border-gray-300 ">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
             {{-- Kolom 1: Tentang Desa --}}
@@ -128,9 +128,8 @@
     </div>
 
     {{-- Bawah Footer --}}
-    <div class="mt-12 pt-6 border-t border-gray-300 text-center text-xs text-dark-text/60">
+    <div class="mt-12 pt-6 border-t border-gray-300 text-center text-xs  text-dark-text/90">
         <p>&copy; {{ date('Y') }} {!! strip_tags($villageName->content) ?? 'Nama Desa' !!}. Hak Cipta Dilindungi.</p>
-
         <p class="mt-1 italic">
             Versi {{ config('app.version', '1.0.0') }} |
             Dibuat oleh
@@ -143,12 +142,13 @@
         </p>
         <p class="mt-1">
             Ingin website desa seperti ini? Hubungi via
-            <a href="https://wa.me/#" class="underline text-accent hover:text-accent-dark transition" target="_blank">
+            <a href="https://wa.me/+6287750124895" class="underline text-primary hover:text-primary-dark transition"
+                target="_blank">
                 WhatsApp
             </a>
             atau kunjungi
-            <a href="https://facebook.com/nanu.ranusate" class="underline text-accent hover:text-accent-dark transition"
-                target="_blank">
+            <a href="https://facebook.com/nanu.ranusate"
+                class="underline text-primary hover:text-primary-dark transition" target="_blank">
                 Facebook NanuTect Solution
             </a>
         </p>
