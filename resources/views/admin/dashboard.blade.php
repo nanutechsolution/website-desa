@@ -114,25 +114,30 @@
                                 </path>
                             </svg>
                         </div>
-                    </div>
-                    <div
-                        class="bg-indigo-600 text-white p-6 rounded-lg shadow-lg flex items-center justify-between transition-transform transform hover:scale-105  duration-200">
-                        <div>
-                            <div class="text-3xl font-bold">{{ $totalVisits }}</div>
-                            <div class="text-sm">Total Kunjungan</div>
-                            <div class="text-xs opacity-75 mt-1">{{ $uniqueVisitors }} Pengunjung Unik</div>
+                        <div
+                            class="bg-indigo-600 text-white p-6 rounded-lg shadow-lg flex items-center justify-between transition-transform transform hover:scale-105  duration-200">
+                            <div>
+                                <div class="text-3xl font-bold">{{ $totalVisits }}</div>
+                                <div class="text-sm">Total Kunjungan</div>
+                                <div class="text-xs opacity-75 mt-1">{{ $uniqueVisitors }} Pengunjung Unik</div>
+                            </div>
+                            <svg class="h-10 w-10 opacity-75" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10V6">
+                                </path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14v4">
+                                </path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 12h4">
+                                </path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2 12h4">
+                                </path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 2a9 9 0 100 18 9 9 0 000-18z"></path>
+                            </svg>
                         </div>
-                        <svg class="h-10 w-10 opacity-75" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10V6"></path>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14v4"></path>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 12h4"></path>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2 12h4"></path>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M12 2a9 9 0 100 18 9 9 0 000-18z"></path>
-                        </svg>
                     </div>
+
                     <hr class="border-gray-200 dark:border-gray-700 my-8 transition-colors">
 
                     {{-- Bagian Statistik Layanan & Moderasi --}}
