@@ -33,7 +33,7 @@
                 Tampilan</label>
             <input type="text" name="{{ $key }}_title" id="{{ $key }}_title"
                 class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-white shadow-sm"
-                value="{{ $currentTitle }}" required>
+                value="{{ $currentTitle }}" required readonly>
             @error($key . '_title')
                 <p class="text-red-500 dark:text-red-400 text-xs mt-1">{{ $message }}</p>
             @enderror
@@ -118,7 +118,6 @@
         </template>
     </div>
 
-    {{-- Checkbox Publikasi --}}
     <div class="mt-4 flex items-center">
         <input type="hidden" name="{{ $key }}_is_published" value="0">
         <input type="checkbox" name="{{ $key }}_is_published" id="{{ $key }}_is_published"

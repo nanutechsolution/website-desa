@@ -26,13 +26,11 @@
                         </div>
                     @endif
 
-                    {{-- FORM --}}
                     <form action="{{ route('admin.settings.update-general-info') }}" method="POST"
                         enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
 
-                        {{-- SECTION: Situs Utama --}}
                         <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4">Pengaturan Situs Utama
                         </h3>
                         @include('admin.settings.partials._setting_field', [
@@ -51,7 +49,6 @@
                             'errors' => $errors,
                         ])
 
-                        {{-- SECTION: Branding --}}
                         <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4 mt-6">Warna Branding</h3>
                         @include('admin.settings.partials._setting_field', [
                             'setting' => $settings['brand_primary_color_hsl'],
@@ -69,7 +66,6 @@
                             'errors' => $errors,
                         ])
 
-                        {{-- SECTION: Kontak --}}
                         <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4 mt-6">Informasi Kontak &
                             Lokasi</h3>
                         @php
@@ -104,8 +100,28 @@
                             'key' => 'contact_email',
                             'errors' => $errors,
                         ])
+                        <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4 mt-6">Media Sosial</h3>
+                        @include('admin.settings.partials._setting_field', [
+                            'setting' => $settings['social_media_facebook'],
+                            'key' => 'social_media_facebook',
+                            'errors' => $errors,
+                        ])
+                        @include('admin.settings.partials._setting_field', [
+                            'setting' => $settings['social_media_instagram'],
+                            'key' => 'social_media_instagram',
+                            'errors' => $errors,
+                        ])
+                        @include('admin.settings.partials._setting_field', [
+                            'setting' => $settings['social_media_twitter'],
+                            'key' => 'social_media_twitter',
+                            'errors' => $errors,
+                        ])
+                        @include('admin.settings.partials._setting_field', [
+                            'setting' => $settings['social_media_tiktok'],
+                            'key' => 'social_media_tiktok',
+                            'errors' => $errors,
+                        ])
 
-                        {{-- SECTION: Konten Tambahan --}}
                         <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4 mt-6">Konten Lainnya</h3>
                         @include('admin.settings.partials._setting_field', [
                             'setting' => $settings['footer_about'],

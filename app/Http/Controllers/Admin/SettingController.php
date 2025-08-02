@@ -53,12 +53,16 @@ class SettingController extends Controller
             'contact_address',
             'contact_phone',
             'contact_email',
-            'Maps_latitude', // Perbaikan Key
-            'Maps_longitude', // Perbaikan Key
+            'Maps_latitude',
+            'Maps_longitude',
             'footer_about',
             'brand_primary_color_hsl',
             'brand_secondary_color_hsl',
             'brand_accent_color_hsl',
+            'social_media_facebook',
+            'social_media_instagram',
+            'social_media_twitter',
+            'social_media_tiktok',
         ];
 
         $settings = [];
@@ -168,6 +172,22 @@ class SettingController extends Controller
             'brand_accent_color_hsl_content' => ['required', 'string', 'regex:/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/'],
             'brand_accent_color_hsl_title' => 'required|string|max:255',
             'brand_accent_color_hsl_type' => ['required', Rule::in(['text', 'richtext', 'url', 'image', 'color'])],
+
+            'social_media_facebook_content' => 'nullable|url|max:255',
+            'social_media_facebook_title' => 'required|string|max:255',
+            'social_media_facebook_type' => ['required', Rule::in(['text', 'richtext', 'url', 'image', 'color'])],
+
+            'social_media_instagram_content' => 'nullable|url|max:255',
+            'social_media_instagram_title' => 'required|string|max:255',
+            'social_media_instagram_type' => ['required', Rule::in(['text', 'richtext', 'url', 'image', 'color'])],
+
+            'social_media_twitter_content' => 'nullable|url|max:255',
+            'social_media_twitter_title' => 'required|string|max:255',
+            'social_media_twitter_type' => ['required', Rule::in(['text', 'richtext', 'url', 'image', 'color'])],
+
+            'social_media_tiktok_content' => 'nullable|url|max:255',
+            'social_media_tiktok_title' => 'required|string|max:255',
+            'social_media_tiktok_type' => ['required', Rule::in(['text', 'richtext', 'url', 'image', 'color'])],
         ];
 
         $allowedTypes = ['text', 'richtext', 'url', 'image', 'color'];
@@ -189,7 +209,11 @@ class SettingController extends Controller
             'site_logo',
             'brand_primary_color_hsl',
             'brand_secondary_color_hsl',
-            'brand_accent_color_hsl'
+            'brand_accent_color_hsl',
+            'social_media_facebook',
+            'social_media_instagram',
+            'social_media_twitter',
+            'social_media_tiktok',
         ];
         foreach ($keysToProcess as $key) {
             // Logika khusus untuk koordinat (sudah ada di bawah)

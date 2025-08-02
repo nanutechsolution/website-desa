@@ -268,6 +268,33 @@ class ProfileContentSeeder extends Seeder
                 'is_published' => true,
             ]
         );
+        ProfileContent::firstOrCreate(
+            ['key' => 'social_media_facebook'],
+            [
+                'title' => 'Link Facebook',
+                'content' => 'https://facebook.com/orakeri',
+                'type' => 'url',
+                'is_published' => true,
+            ]
+        );
+        ProfileContent::firstOrCreate(
+            ['key' => 'social_media_instagram'],
+            [
+                'title' => 'Link Instagram',
+                'content' => 'https://instagram.com/orakeri',
+                'type' => 'url',
+                'is_published' => true,
+            ]
+        );
+        ProfileContent::firstOrCreate(
+            ['key' => 'social_media_tiktok'],
+            [
+                'title' => 'Link tiktok/X',
+                'content' => 'https://tiktok.com/orakeri',
+                'type' => 'url',
+                'is_published' => true,
+            ]
+        );
     }
 
     // Pastikan helper faker ada

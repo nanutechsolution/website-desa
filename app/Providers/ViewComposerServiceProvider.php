@@ -28,6 +28,10 @@ class ViewComposerServiceProvider extends ServiceProvider
             $brandPrimaryColor = ProfileContent::where('key', 'brand_primary_color_hsl')->first(); // Key yang menyimpan HEX
             $brandSecondaryColor = ProfileContent::where('key', 'brand_secondary_color_hsl')->first();
             $brandAccentColor = ProfileContent::where('key', 'brand_accent_color_hsl')->first();
+            $socialMediaFacebook = ProfileContent::where('key', 'social_media_facebook')->first();
+            $socialMediaInstagram = ProfileContent::where('key', 'social_media_instagram')->first();
+            $socialMediaTwitter = ProfileContent::where('key', 'social_media_twitter')->first();
+            $socialMediaTiktok = ProfileContent::where('key', 'social_media_tiktok')->first(); // <-- TAMBAHKAN INI
 
             $view->with([
                 'footerAbout' => $footerAbout,
@@ -36,6 +40,10 @@ class ViewComposerServiceProvider extends ServiceProvider
                 'brandPrimaryColor' => $brandPrimaryColor,
                 'brandSecondaryColor' => $brandSecondaryColor,
                 'brandAccentColor' => $brandAccentColor,
+                'socialMediaFacebook' => $socialMediaFacebook,
+                'socialMediaInstagram' => $socialMediaInstagram,
+                'socialMediaTwitter' => $socialMediaTwitter,
+                'socialMediaTiktok' => $socialMediaTiktok,
             ]);
         });
     }
