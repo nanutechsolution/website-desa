@@ -105,21 +105,25 @@
                             'setting' => $settings['social_media_facebook'],
                             'key' => 'social_media_facebook',
                             'errors' => $errors,
+                            'type' => 'url',
                         ])
                         @include('admin.settings.partials._setting_field', [
                             'setting' => $settings['social_media_instagram'],
                             'key' => 'social_media_instagram',
                             'errors' => $errors,
+                            'type' => 'url',
                         ])
                         @include('admin.settings.partials._setting_field', [
                             'setting' => $settings['social_media_twitter'],
                             'key' => 'social_media_twitter',
                             'errors' => $errors,
+                            'type' => 'url',
                         ])
                         @include('admin.settings.partials._setting_field', [
                             'setting' => $settings['social_media_tiktok'],
                             'key' => 'social_media_tiktok',
                             'errors' => $errors,
+                            'type' => 'url',
                         ])
 
                         <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4 mt-6">Konten Lainnya</h3>
