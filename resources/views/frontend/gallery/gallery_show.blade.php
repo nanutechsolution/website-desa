@@ -9,7 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    <h3 class="text-2xl font-bold mb-4 text-desa-brown text-center" data-aos="fade-down">
+                    <h3 class="text-2xl font-bold mb-4 text-accent text-center" data-aos="fade-down">
                         {{ $gallery->name }}</h3>
                     <p class="text-gray-700 mb-6 text-center" data-aos="fade-down" data-aos-delay="100">
                         {!! strip_tags($gallery->description) !!}</p>

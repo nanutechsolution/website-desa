@@ -9,7 +9,7 @@
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    <h1 class="text-3xl font-bold mb-4 text-desa-brown" data-aos="fade-down">{{ $procedure->title }}</h1>
+                    <h1 class="text-3xl font-bold mb-4 text-accent" data-aos="fade-down">{{ $procedure->title }}</h1>
                     @if ($procedure->category)
                         <span
                             class="inline-block bg-desa-skyblue bg-opacity-20 text-desa-skyblue text-sm font-semibold px-3 py-1 rounded-full mb-4"
