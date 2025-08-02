@@ -1,7 +1,7 @@
 <nav
     x-data="{ open: false, profileDropdownOpen: false }"class="sticky top-0 z-50  shadow-lg bg-[linear-gradient(135deg,var(--color-primary)_0%,var(--color-secondary)_50%,var(--color-accent)_100%)]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16 items-center"> {{-- Tambahkan items-center di sini --}}
+        <div class="flex justify-between h-16 items-center">
             <div class="flex items-center space-x-4">
                 <a href="{{ route('home') }}" class="flex items-center space-x-3 rtl:space-x-reverse py-2">
                     @php
