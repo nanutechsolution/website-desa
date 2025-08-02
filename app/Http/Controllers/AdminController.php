@@ -8,8 +8,10 @@ use App\Models\Gallery;
 use App\Models\Document;
 use App\Models\Event;
 use App\Models\Institution;
-use App\Models\PengajuanSurat; // Untuk pengajuan surat
-use App\Models\Comment; // Untuk komentar
+use App\Models\PengajuanSurat;
+use App\Models\Comment;
+use App\Models\Visit;
+use Carbon\Carbon;
 
 class AdminController extends Controller
 {
@@ -34,6 +36,13 @@ class AdminController extends Controller
         $totalServiceProcedures = \App\Models\ServiceProcedure::count();
         $pendingComments = Comment::where('is_approved', false)->count();
 
+        // --- Statistik Kunjungan (BARU) ---
+        $totalVisits = Visit::count();
+        $uniqueVisitors = Visit::select('ip_address')->distinct()->count();
+        $todayVisits = Visit::whereDate('created_at', Carbon::today())->count();
+        $todayUniqueVisitors = Visit::whereDate('created_at', Carbon::today())->select('ip_address')->distinct()->count();
+
+
         // --- Aktivitas Terbaru ---
         // Eager load news for comments
         $latestNews = News::orderBy('created_at', 'desc')->take(5)->get();
@@ -52,7 +61,11 @@ class AdminController extends Controller
             'pendingComments',
             'latestNews',
             'latestServiceRequests',
-            'latestComments'
+            'latestComments',
+            'totalVisits',
+            'uniqueVisitors',
+            'todayVisits',
+            'todayUniqueVisitors'
         ));
     }
 }

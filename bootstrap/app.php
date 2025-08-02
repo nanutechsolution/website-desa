@@ -15,8 +15,9 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'role' => RoleMiddleware::class, // <--- TAMBAHKAN BARIS INI
         ]);
-
-        //
+        $middleware->web(append: [
+            \App\Http\Middleware\TrackVisitsMiddleware::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
