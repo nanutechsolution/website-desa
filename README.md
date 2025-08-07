@@ -124,7 +124,7 @@ Proyek ini adalah milik pribadi dan bersifat komersial.
 - Menghapus atau mengubah hak cipta (copyright).
 
 Untuk izin penggunaan komersial, silakan hubungi:
-📧 ranusate19@gmai.com 
+📧 nanutechsolution@gmail.com 
 
 > Setiap pelanggaran akan ditindak secara hukum sesuai Undang-Undang Hak Cipta yang berlaku.
 
