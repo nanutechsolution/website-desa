@@ -5,7 +5,6 @@
             activeSlide = (activeSlide + 1) % slides.length;
         }, 5000);
     }">
-        {{-- Slides --}}
         @forelse ($sliders as $index => $slider)
             <div x-show="activeSlide === {{ $index }}" x-transition:enter="transition ease-out duration-5000"
                 x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
@@ -65,7 +64,7 @@
                 data-aos-delay="100">
                 {!! $sekilasDesa->content ?? 'Teks sambutan desa belum diatur. Silakan hubungi admin.' !!}
             </p>
-
+            <br>
             <a href="{{ route('profil.visi') }}"
                 class="inline-flex items-center justify-center px-8 py-3 
                    text-white text-sm font-semibold rounded-full shadow-lg 

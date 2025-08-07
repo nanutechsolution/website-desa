@@ -34,7 +34,7 @@
                         <span class="leading-tight text-sm">Profil Desa</span>
                     </button>
                     <div x-show="dropdownOpen" x-transition
-                        class="absolute top-5 right-0 mt-2 w-max bg-white shadow-lg rounded-md py-4 z-50">
+                        class="absolute top-10 right-0 mt-2 w-max bg-white shadow-lg rounded-md py-4 z-50">
                         <a href="{{ route('profil.visi') }}"
                             class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Visi & Misi</a>
                         <a href="{{ route('profil.sejarah') }}"

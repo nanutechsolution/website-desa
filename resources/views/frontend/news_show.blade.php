@@ -33,9 +33,7 @@
 
                         <div class="mt-8 text-center" data-aos="fade-up" data-aos-delay="200">
                             <a href="{{ route('news') }}"
-                                class="inline-flex items-center px-4 py-2 bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-gray-800 uppercase tracking-widest hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-150"
-                                style="color: var(--color-dark-text); focus-ring-color: var(--color-secondary);">
-                                {{-- Ubah warna fokus --}}
+                                class="inline-flex items-center px-4 py-2 text-dark-text bg-gray-200 border border-transparent rounded-md font-semibold text-xs hover:ring-secondary uppercase tracking-widest hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-150">
                                 &larr; Kembali ke Berita
                             </a>
                         </div>
@@ -59,7 +57,6 @@
                                     <span class="block sm:inline">{{ session('success_comment') }}</span>
                                 </div>
                             @endif
-
                             {{-- Daftar Komentar yang Disetujui --}}
                             <div class="space-y-6 mb-10">
                                 @forelse ($article->comments()->where('is_approved', true)->orderBy('created_at', 'asc')->get() as $comment)
@@ -80,13 +77,13 @@
                             </div>
 
                             {{-- Formulir Komentar --}}
-                            <h4 class="text-xl font-bold mb-4" style="color: var(--color-primary);">Tinggalkan Komentar
+                            <h4 class="text-xl font-bold mb-4 text-primary">Tinggalkan Komentar
                                 Anda</h4> {{-- Warna judul form --}}
                             <form action="{{ route('comments.store', $article->slug) }}" method="POST"
                                 class="p-6 rounded-lg shadow-sm" style="background-color: var(--color-soft-gray);">
                                 {{-- Latar belakang form --}}
                                 @csrf
-                                @guest {{-- Tampilkan field nama/email jika belum login --}}
+                                @guest
                                     <div class="mb-4">
                                         <label for="guest_name" class="block text-sm font-medium text-gray-700">Nama
                                             Anda</label>
@@ -121,7 +118,6 @@
                                         <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                                     @enderror
                                 </div>
-
                                 {{-- RECAPTCHA --}}
                                 {{-- @guest
                                     <div class="mb-4">
@@ -132,11 +128,8 @@
                                         @enderror
                                     </div>
                                 @endguest --}}
-
                                 <button type="submit"
-                                    class="inline-flex items-center px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-150"
-                                    style="background-color: var(--color-primary); focus-bg-color: var(--color-primary-dark); active-bg-color: var(--color-primary-darker);">
-                                    {{-- Warna tombol submit --}}
+                                    class="bg-primary focus:bg-primary-dark hover:bg-primary-darker inline-flex items-center px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-150">
                                     Kirim Komentar
                                 </button>
                             </form>
