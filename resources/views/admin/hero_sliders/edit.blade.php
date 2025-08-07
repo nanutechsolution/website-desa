@@ -99,7 +99,7 @@
                             <a href="{{ route('admin.hero-sliders.index') }}"
                                 class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white mr-4">Batal</a>
                             <button type="submit"
-                                class="inline-flex items-center justify-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 active:bg-blue-900 focus:outline-none focus:border-blue-900 focus:ring ring-blue-300 disabled:opacity-25 transition ease-in-out duration-150 w-full sm:w-auto">
+                                class="inline-flex items-center justify-center px-4 py-2 bg-primary border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-primary-dark active:bg-primary-darker focus:outline-none focus:border-primary-darker focus:ring ring-primary-light disabled:opacity-25 transition ease-in-out duration-150 w-full sm:w-auto">
                                 Simpan
                             </button>
                         </div>

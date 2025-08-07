@@ -26,11 +26,8 @@ Route::get('/login', function () {
 Route::prefix('admin')->middleware(['auth', 'verified', 'role:admin'])->group(function () {
     Route::get('/theme', [ThemeSettingController::class, 'edit'])->name('admin.theme.edit');
     Route::post('/theme', [ThemeSettingController::class, 'update'])->name('admin.theme.update');
-
     Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
-    // Rute untuk Manajemen Pengguna
     Route::resource('users', UserController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy'])->names('admin.users');
-    // Rute untuk pengelolaan Hero Slider (CRUD)
     Route::resource('hero-sliders', HeroSliderController::class)->names('admin.hero-sliders');
     Route::get('/vision-mission', [VisionMissionController::class, 'index'])->name('admin.vision-mission.index');
     Route::get('/vision-mission/edit', [VisionMissionController::class, 'edit'])->name('admin.vision-mission.edit');

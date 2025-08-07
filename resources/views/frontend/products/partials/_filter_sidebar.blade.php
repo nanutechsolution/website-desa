@@ -1,5 +1,3 @@
-{{-- resources/views/frontend/products/partials/_filter_sidebar.blade.php --}}
-
 <aside class="w-full lg:w-full bg-white rounded-lg shadow-lg p-6">
     <h3 class="text-xl font-bold mb-4"
         style="color: var(--color-dark-text); border-bottom-color: var(--color-soft-gray-dark);">Filter Produk</h3>

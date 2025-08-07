@@ -8,11 +8,15 @@
         <div class="">
             <div class="">
                 <div x-data="{ searchTerm: '' }" class="p-4 sm:p-6 text-gray-900 dark:text-gray-100">
-
                     {{-- Tombol Tambah dan Input Cari --}}
                     <div class="flex flex-col sm:flex-row justify-between items-center mb-4 gap-4">
                         <a href="{{ route('admin.news.create') }}"
-                            class="inline-flex items-center justify-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 active:bg-blue-900 focus:outline-none focus:border-blue-900 focus:ring ring-blue-300 disabled:opacity-25 transition ease-in-out duration-150 w-full sm:w-auto">
+                            class="inline-flex items-center justify-center px-4 py-2 bg-primary border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-primary-darker active:bg-primary-darker focus:outline-none focus:border-primary-darker focus:ring ring-primary-light disabled:opacity-25 transition ease-in-out duration-150 w-full sm:w-auto">
+                            <svg class="-ml-1 mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 4v16m8-8H4"></path>
+                            </svg>
                             Tambah Berita Baru
                         </a>
                         <input type="text" x-model="searchTerm" placeholder="Cari berita..."
@@ -55,7 +59,7 @@
                             </thead>
                             <tbody class="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-700">
                                 @forelse ($news as $article)
-                                    <tr
+                                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600"
                                         x-show="articleMatch(JSON.parse('{{ json_encode($article->only(['title', 'author'])) }}'), searchTerm)">
                                         <td class="px-4 py-2 whitespace-nowrap">
                                             @if ($article->image)
@@ -93,8 +97,8 @@
                                                     class="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-200">Hapus</button>
                                             </form>
                                         </td>
-                                    </tr>
-                                @empty
+                                        </>
+                                    @empty
                                     <tr>
                                         <td colspan="6"
                                             class="px-4 py-4 text-center text-gray-500 dark:text-gray-400">Tidak ada

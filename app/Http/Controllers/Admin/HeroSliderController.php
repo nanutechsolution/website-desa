@@ -15,7 +15,7 @@ class HeroSliderController extends Controller
      */
     public function index()
     {
-        $sliders = HeroSlider::orderBy('order')->paginate(10); // Tambahkan pagination
+        $sliders = HeroSlider::orderBy('order')->paginate(10);
         return view('admin.hero_sliders.index', compact('sliders'));
     }
 
@@ -27,7 +27,7 @@ class HeroSliderController extends Controller
         // Validasi: Maksimal 5 slider aktif
         $activeSlidersCount = HeroSlider::where('is_active', true)->count();
         if ($activeSlidersCount >= 5) {
-            return redirect()->route('admin.hero-sliders.index') // Perhatikan nama rute yang di-prefix
+            return redirect()->route('admin.hero-sliders.index')
                 ->with('error', 'Anda hanya dapat memiliki maksimal 5 slider hero yang aktif.');
         }
         return view('admin.hero_sliders.create');
@@ -57,7 +57,6 @@ class HeroSliderController extends Controller
             }
         }
 
-        // Simpan gambar ke storage/app/public/hero_sliders
         $imagePath = $request->file('image')->store('hero_sliders', 'public');
 
         HeroSlider::create([
@@ -95,7 +94,7 @@ class HeroSliderController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:10048', // Gambar opsional saat update
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:10048',
             'is_active' => 'nullable|boolean',
             'order' => 'nullable|integer',
         ]);

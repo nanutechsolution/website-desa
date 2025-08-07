@@ -5,7 +5,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
     <meta name="description" content="{{ config('app.description', 'Dasbor Admin Desa Orakeri') }}">
     <script>
         // Check local storage for theme preference immediately
@@ -19,8 +18,15 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     <meta name="description" content="{{ $villageName->content ?? 'Website resmi Desa Orakeri.' }}">
-    <title>{{ $villageName->content ?? config('app.name', 'Laravel') }}</title>
-    <link rel="icon" href="{{ Storage::url($siteLogo->content) }}" type="image/png">
+    <title>{{ $villageName->content ?? config('app.name', 'Satu Desa') }}</title>
+    @php
+        $logoContent = $siteLogo->content ?? 'images/logo.jpg';
+    @endphp
+    @if (Str::contains($logoContent, 'images'))
+        <link rel="shortcut icon" href="{{ asset($logoContent) }}" type="image/jpg/x-icon/png">
+    @else
+        <link rel="shortcut icon" href="{{ Storage::url($logoContent) }}" type="image/jpg/x-icon/png">
+    @endif
     @livewireStyles
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="https://cdn.tiny.cloud/1/algt269vr4aq8vf2pokvkxyplcwaofury8xlyeekzrg85v42/tinymce/6/tinymce.min.js"
@@ -77,7 +83,7 @@
         }
     </style>
 
-     <style>
+    <style>
         :root {
             /* Warna Dasar dari DB (HEX, dihitung di sini ke HSL) */
             @php // Helper function untuk konversi HEX ke HSL di Blade
@@ -187,29 +193,8 @@
                             d="M4 6h16M4 12h16M4 18h16" />
                     </svg>
                 </button>
-                <div class="shrink-0 flex items-center pr-4 md:hidden">
-                    <a href="#">
-                        @php
-                            $logoContent = $siteLogo->content ?? null;
-                        @endphp
-
-                        @if ($logoContent)
-                            @if (Str::contains($logoContent, 'images'))
-                                <img src="{{ asset($logoContent) }}"
-                                    alt="{{ $villageName->content ?? 'Nama Desa' }} Logo" class="h-8 w-auto">
-                            @else
-                                <img src="{{ asset('storage/' . $logoContent) }}"
-                                    alt="{{ $villageName->content ?? 'Nama Desa' }} Logo" class="h-8 w-auto">
-                            @endif
-                        @else
-                            {{-- Fallback ke default Laravel --}}
-                            <x-application-logo
-                                class="block h-8 w-auto fill-current text-gray-800 dark:text-gray-200 transition-colors" />
-                        @endif
-                    </a>
-                </div>
                 <span
-                    class="transition-colors text-lg font-bold text-gray-900 dark:text-white">{{ $villageName->content ?? config('app.name', 'Akademika') }}</span>
+                    class="transition-colors text-lg font-bold text-gray-900 dark:text-white">{{ $villageName->content ?? config('app.name', 'Satu Desa') }}</span>
             </div>
             <div class="flex items-center space-x-4">
                 <div class="relative mr-4">

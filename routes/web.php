@@ -14,7 +14,6 @@ use App\Http\Controllers\Frontend\PotentialController;
 use App\Http\Controllers\Frontend\ProductController;
 use App\Http\Controllers\Frontend\ServiceProcedureController;
 
-// --- RUTE FRONTEND PUBLIK DESA ORAKERI ---
 
 // Rute Homepage
 Route::get('/', [HomeController::class, 'index'])->name('home');

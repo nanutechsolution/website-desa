@@ -1,11 +1,4 @@
 <x-admin-layout>
-    {{-- Anda telah mengomentari x-slot header. Jika Anda ingin header di dashboard, aktifkan kembali --}}
-    {{-- <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight transition-colors">
-            {{ __('Dashboard Admin') }}
-        </h2>
-    </x-slot> --}}
-
     <div class="py-12">
         <div class="max-w-full mx-auto sm:px-6 lg:px-8">
             <div
@@ -100,7 +93,6 @@
                                 </path>
                             </svg>
                         </div>
-                        {{-- Card Lembaga Desa --}}
                         <div
                             class="bg-orange-600 dark:bg-orange-700 text-white p-6 rounded-lg shadow-lg flex items-center justify-between transition-transform transform hover:scale-105 duration-200">
                             <div>

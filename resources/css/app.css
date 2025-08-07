@@ -59,9 +59,9 @@
   height: 6px;
 }
 
-::-webkit-scrollbar-track {
-  background: transparent; /* Bisa diganti warna halus kalau mau */
-}
+/* ::-webkit-scrollbar-track {
+  background: transparent;
+} */
 
 ::-webkit-scrollbar-thumb {
   background-color: rgba(0, 0, 0, 0.2);

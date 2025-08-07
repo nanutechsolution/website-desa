@@ -9,12 +9,11 @@
             </svg>
         </button>
 
-        {{-- Spasi atau Judul Admin (Opsional) --}}
         <div class="flex-1 text-white text-lg font-semibold ml-4 hidden md:block">
             Dashboard Admin
         </div>
 
-        <div class="flex items-center ms-auto"> {{-- ms-auto akan mendorongnya ke kanan --}}
+        <div class="flex items-center ms-auto">
             @auth
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
@@ -42,7 +41,6 @@
                         <x-dropdown-link :href="route('profile.edit')">
                             {{ __('Profil Saya') }}
                         </x-dropdown-link>
-
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <x-dropdown-link :href="route('logout')"
