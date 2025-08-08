@@ -107,3 +107,24 @@ Ikuti langkah-langkah di bawah ini untuk menyiapkan proyek di lingkungan lokal A
     * Login dengan kredensial admin default (`admin@desa.com` / `password`).
 
 ---
+
+---
+
+## 🚫 Lisensi & Kebijakan Penggunaan
+
+Proyek ini adalah milik pribadi dan bersifat komersial.
+
+📌 Diperbolehkan:
+- Fork untuk pembelajaran pribadi.
+- Menjalankan aplikasi di lingkungan lokal non-komersial.
+
+⛔ Dilarang keras:
+- Mengubah, menjual ulang, atau mendistribusikan ulang tanpa izin tertulis.
+- Menggunakan sebagian atau seluruh kode dalam proyek komersial tanpa lisensi resmi.
+- Menghapus atau mengubah hak cipta (copyright).
+
+Untuk izin penggunaan komersial, silakan hubungi:
+📧 nanutechsolution@gmail.com 
+
+> Setiap pelanggaran akan ditindak secara hukum sesuai Undang-Undang Hak Cipta yang berlaku.
+
