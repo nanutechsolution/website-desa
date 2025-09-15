@@ -21,7 +21,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 
 Route::get('/layanan-online', function () {
-    return view('frontend.online_services');
+    return view('frontend.surat.create');
 })->name('online-services');
 Route::get('/kontak', function () {
     return view('frontend.contact');

@@ -204,7 +204,7 @@
                     data-aos="zoom-in" data-aos-delay="100">
                     <div class="absolute top-0 right-0 m-3">
                         <span class="inline-block px-2 py-1 text-xs font-semibold text-white bg-primary rounded-full">
-                            NEW
+                            Baru
                         </span>
                     </div>
                     <svg class="h-14 w-14 text-primary mx-auto mb-4 group-hover:scale-110 transition" fill="none"

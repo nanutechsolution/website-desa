@@ -142,6 +142,10 @@
                     <x-responsive-nav-link :href="route('profil.sejarah')" :active="request()->routeIs('profil.sejarah')"
                         class="block text-white hover:bg-desa-green-600 px-3 py-2 rounded-md">Sejarah
                         Desa</x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('profil.struktur')" :active="request()->routeIs('profil.struktur')"
+                        class="block text-white hover:bg-desa-green-600 px-3 py-2 rounded-md">Struktur
+                        Pemerintahan</x-responsive-nav-link>
+
                 </div>
             </div>
             <div x-data="{ mobileLayananDesa: false }">
