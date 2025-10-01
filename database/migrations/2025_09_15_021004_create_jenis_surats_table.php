@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pengajuan_surat', function (Blueprint $table) {
+        Schema::create('jenis_surats', function (Blueprint $table) {
             $table->id();
+            $table->string('kode')->nullable();
             $table->string('nama');
-            $table->string('nik')->nullable();
-            $table->string('jenis_surat');
-            $table->text('keperluan');
-            $table->string('status')->default('pending'); // pending, diproses, selesai, ditolak
-            $table->text('catatan_admin')->nullable();
+            $table->text('deskripsi')->nullable();
+            $table->text('template')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pengajuan_surat');
+        Schema::dropIfExists('jenis_surats');
     }
 };

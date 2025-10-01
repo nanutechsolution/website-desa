@@ -44,8 +44,11 @@ class ProfileContentController extends Controller
             case 'Maps_embed':
                 $title = 'URL Google Maps Embed';
                 break;
-            case 'footer_about': // <-- TAMBAHKAN INI
+            case 'footer_about':
                 $title = 'Teks Tentang Desa di Footer';
+                break;
+            case 'kepala_desa':
+                $title = 'Teks Nama Kepal Desa';
                 break;
             default:
                 $title = 'Konten Profil Tidak Dikenal';

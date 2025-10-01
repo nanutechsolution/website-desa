@@ -43,7 +43,7 @@
                 relative_urls: false,
                 remove_script_host: false,
                 convert_urls: false,
-                images_upload_url: '/admin/upload-editor-image', // Contoh endpoint upload Anda di Laravel
+                images_upload_url: '/admin/upload-editor-image',
                 automatic_uploads: true,
                 file_picker_types: 'image',
                 file_picker_callback: function(cb, value, meta) {
@@ -459,7 +459,11 @@
                     </ul>
                 </li>
 
-                <li x-data="{ open: {{ request()->routeIs('admin.service-procedures.*') ? 'true' : 'false' }} }">
+                <li x-data="{ open: {{ request()->routeIs('admin.service-procedures.*') ||
+                request()->routeIs('admin.jenis-surat.*') ||
+                request()->routeIs('admin.surat.*')
+                    ? 'true'
+                    : 'false' }} }">
                     <button @click="open = !open"
                         class="flex items-center justify-between w-full p-2 rounded-lg
                                text-gray-700 dark:text-gray-200
@@ -492,13 +496,23 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('admin.letter-generator.create') }}"
+                            <a href="{{ route('admin.jenis-surat.index') }}"
                                 class="block w-full p-2 rounded-md text-sm
                                       text-gray-700 dark:text-gray-200
                                       hover:bg-gray-200 dark:hover:bg-gray-600
                                       transition-colors duration-150 ease-in-out
-                                      {{ request()->routeIs('admin.letter-generator.*') ? 'bg-gray-200 dark:bg-gray-600 font-semibold' : '' }}">
-                                Generator Surat
+                                      {{ request()->routeIs('admin.jenis-surat.*') ? 'bg-gray-200 dark:bg-gray-600 font-semibold' : '' }}">
+                                Jenis Surat
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.surat.index') }}"
+                                class="block w-full p-2 rounded-md text-sm
+                                      text-gray-700 dark:text-gray-200
+                                      hover:bg-gray-200 dark:hover:bg-gray-600
+                                      transition-colors duration-150 ease-in-out
+                                      {{ request()->routeIs('admin.surat.*') ? 'bg-gray-200 dark:bg-gray-600 font-semibold' : '' }}">
+                                Surat
                             </a>
                         </li>
                     </ul>
@@ -626,6 +640,7 @@
             }
         }
     </script>
+    @stack('scripts')
 </body>
 
 </html>

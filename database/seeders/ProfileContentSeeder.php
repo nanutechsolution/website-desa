@@ -219,6 +219,16 @@ class ProfileContentSeeder extends Seeder
                 'is_published' => true,
             ]
         );
+        // Nama Desa Dinamis
+        ProfileContent::firstOrCreate(
+            ['key' => 'kepala_desa'],
+            [
+                'title' => 'Kepala Desa',
+                'content' => 'Kepala Desa',
+                'type' => 'text',
+                'is_published' => true,
+            ]
+        );
 
         // Logo Website Utama
         ProfileContent::firstOrCreate(

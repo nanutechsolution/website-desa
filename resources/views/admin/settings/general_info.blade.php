@@ -39,6 +39,11 @@
                             'errors' => $errors,
                         ])
                         @include('admin.settings.partials._setting_field', [
+                            'setting' => $settings['kepala_desa'],
+                            'key' => 'kepala_desa',
+                            'errors' => $errors,
+                        ])
+                        @include('admin.settings.partials._setting_field', [
                             'setting' => $settings['site_meta_description'],
                             'key' => 'site_meta_description',
                             'errors' => $errors,

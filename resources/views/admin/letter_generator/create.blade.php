@@ -60,8 +60,6 @@
                                     class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-desa-skyblue focus:ring focus:ring-desa-skyblue focus:ring-opacity-50"
                                     value="{{ old('nomor_surat', '470/D-' . (old('letter_type') ? $letterTypes[old('letter_type')] : '') . '/' . date('Y')) }}"
                                     required>
-                                {{-- atau lebih sederhana lagi: value="{{ old('nomor_surat', '470/D-/'.date('Y')) }}" --}}
-                                {{-- atau paling sederhana: value="{{ old('nomor_surat') }}" --}}
                                 @error('nomor_surat')
                                     <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                                 @enderror

@@ -63,6 +63,7 @@ class SettingController extends Controller
             'social_media_instagram',
             'social_media_twitter',
             'social_media_tiktok',
+            'kepala_desa',
         ];
 
         $settings = [];
@@ -112,7 +113,6 @@ class SettingController extends Controller
             }
         }
 
-        // --- Logika gabungan koordinat maps ---
         // PASTIKAN KEY-NYA MENGGUNAKAN UNDERSCORE: Maps_latitude
         $googleMapsLatitudeContent = ProfileContent::firstOrCreate(['key' => 'Maps_latitude']);
         $googleMapsLongitudeContent = ProfileContent::firstOrCreate(['key' => 'Maps_longitude']);
@@ -143,16 +143,16 @@ class SettingController extends Controller
         $validationRules = [
             'village_name_content' => 'required|string|max:255',
             'village_name_title' => 'required|string|max:255',
+            'kepala_desa_content' => 'required|string|max:255',
+            'kepala_desa_title' => 'required|string|max:255',
             'contact_address_content' => 'nullable|string',
             'contact_address_title' => 'nullable|string',
             'contact_phone_content' => 'nullable|string|max:20',
             'contact_phone_title' => 'nullable|string',
             'contact_email_content' => 'nullable|email|max:255',
             'contact_email_title' => 'nullable|string',
-            // --- KOREKSI KEY DI SINI ---
             'Maps_coords_combined_content' => 'nullable|string',
             'Maps_coords_combined_title' => 'nullable|string',
-            // --- AKHIR KOREKSI ---
             'footer_about_content' => 'nullable|string',
             'footer_about_title' => 'nullable|string',
             'site_meta_description_content' => 'nullable|string|max:255',
@@ -164,32 +164,25 @@ class SettingController extends Controller
             'brand_primary_color_hsl_content' => ['required', 'string', 'regex:/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/'],
             'brand_primary_color_hsl_title' => 'required|string|max:255',
             'brand_primary_color_hsl_type' => ['required', Rule::in(['text', 'richtext', 'url', 'image', 'color'])],
-
             'brand_secondary_color_hsl_content' => ['required', 'string', 'regex:/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/'],
             'brand_secondary_color_hsl_title' => 'required|string|max:255',
             'brand_secondary_color_hsl_type' => ['required', Rule::in(['text', 'richtext', 'url', 'image', 'color'])],
-
             'brand_accent_color_hsl_content' => ['required', 'string', 'regex:/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/'],
             'brand_accent_color_hsl_title' => 'required|string|max:255',
             'brand_accent_color_hsl_type' => ['required', Rule::in(['text', 'richtext', 'url', 'image', 'color'])],
-
             'social_media_facebook_content' => 'nullable|url|max:255',
             'social_media_facebook_title' => 'required|string|max:255',
             'social_media_facebook_type' => ['required', Rule::in(['text', 'richtext', 'url', 'image', 'color'])],
-
             'social_media_instagram_content' => 'nullable|url|max:255',
             'social_media_instagram_title' => 'required|string|max:255',
             'social_media_instagram_type' => ['required', Rule::in(['text', 'richtext', 'url', 'image', 'color'])],
-
             'social_media_twitter_content' => 'nullable|url|max:255',
             'social_media_twitter_title' => 'required|string|max:255',
             'social_media_twitter_type' => ['required', Rule::in(['text', 'richtext', 'url', 'image', 'color'])],
-
             'social_media_tiktok_content' => 'nullable|url|max:255',
             'social_media_tiktok_title' => 'required|string|max:255',
             'social_media_tiktok_type' => ['required', Rule::in(['text', 'richtext', 'url', 'image', 'color'])],
         ];
-
         $allowedTypes = ['text', 'richtext', 'url', 'image', 'color'];
         foreach (['village_name', 'contact_address', 'contact_phone', 'contact_email', 'footer_about', 'site_meta_description', 'site_logo', 'brand_primary_color_hsl', 'brand_secondary_color_hsl', 'brand_accent_color_hsl'] as $key) {
             if (isset($request[$key . '_type'])) {

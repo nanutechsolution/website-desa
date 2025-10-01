@@ -199,7 +199,7 @@
             </h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                 {{-- Kartu 1 --}}
-                <a href="#"
+                <a href="{{ route('surat.public.create') }}"
                     class="group relative bg-white rounded-2xl shadow-xl hover:shadow-2xl p-6 text-center transition-all duration-300 border-t-4 border-primary hover:-translate-y-1"
                     data-aos="zoom-in" data-aos-delay="100">
                     <div class="absolute top-0 right-0 m-3">

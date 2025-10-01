@@ -2,8 +2,8 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Frontend\HomeController; // Import HomeController
-use App\Http\Controllers\Frontend\ProfileController as FrontendProfileController; // Import ProfileController frontend dengan alias
+use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Controllers\Frontend\ProfileController as FrontendProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\CommentController;
 use App\Http\Controllers\Frontend\DocumentController;
@@ -13,13 +13,10 @@ use App\Http\Controllers\Frontend\NewsController;
 use App\Http\Controllers\Frontend\PotentialController;
 use App\Http\Controllers\Frontend\ProductController;
 use App\Http\Controllers\Frontend\ServiceProcedureController;
-
+use App\Http\Controllers\SuratController;
 
 // Rute Homepage
 Route::get('/', [HomeController::class, 'index'])->name('home');
-
-
-
 Route::get('/layanan-online', function () {
     return view('frontend.surat.create');
 })->name('online-services');
@@ -79,6 +76,10 @@ Route::post('/news/{news}/comments', [CommentController::class, 'store'])->name(
 Route::get('/lembaga-desa', [InstitutionController::class, 'index'])->name('institutions.index');
 Route::get('/lembaga-desa/{slug}', [InstitutionController::class, 'show'])->name('institutions.show');
 
+Route::get('/ajukan-surat', [SuratController::class, 'createPublic'])->name('surat.public.create');
+Route::post('/ajukan-surat', [SuratController::class, 'storePublic'])->name('surat.public.store');
+Route::get('/cek-surat', [SuratController::class, 'tracking'])->name('surat.tracking');
+Route::post('/cek-surat', [SuratController::class, 'trackingResult'])->name('surat.tracking.result');
 
 // Route::get('/profil/visi-misi', [ProfileController::class, 'visiMisi'])->name('profil.visi');
 require __DIR__ . '/auth.php';

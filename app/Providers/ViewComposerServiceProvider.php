@@ -24,6 +24,8 @@ class ViewComposerServiceProvider extends ServiceProvider
         View::composer('*', function ($view) {
             $footerAbout = ProfileContent::where('key', 'footer_about')->first();
             $villageName = ProfileContent::where('key', 'village_name')->first();
+            $profileKepalaDesa = ProfileContent::where('key', 'kepala_desa')->first();
+            $contactAddress = ProfileContent::where('key', 'contact_address')->first();
             $siteLogo = ProfileContent::where('key', 'site_logo')->first();
             $brandPrimaryColor = ProfileContent::where('key', 'brand_primary_color_hsl')->first(); // Key yang menyimpan HEX
             $brandSecondaryColor = ProfileContent::where('key', 'brand_secondary_color_hsl')->first();
@@ -35,6 +37,7 @@ class ViewComposerServiceProvider extends ServiceProvider
 
             $view->with([
                 'footerAbout' => $footerAbout,
+                'profileKepalaDesa' => $profileKepalaDesa,
                 'villageName' => $villageName,
                 'siteLogo' => $siteLogo,
                 'brandPrimaryColor' => $brandPrimaryColor,
@@ -43,6 +46,7 @@ class ViewComposerServiceProvider extends ServiceProvider
                 'socialMediaFacebook' => $socialMediaFacebook,
                 'socialMediaInstagram' => $socialMediaInstagram,
                 'socialMediaTwitter' => $socialMediaTwitter,
+                'contactAddress' => $contactAddress,
                 'socialMediaTiktok' => $socialMediaTiktok,
             ]);
         });

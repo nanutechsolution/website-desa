@@ -50,7 +50,11 @@
                     @mouseleave="dropdownOpenLayanan = false">
                     <button
                         class="flex items-center gap-1 text-sm font-semibold text-white hover:text-yellow-200 transition   mt-1
-                        {{ request()->routeIs('service-procedures') || request()->routeIs('documents') ? 'border-b-2 border-primary' : '' }}">
+                        {{ request()->routeIs('service-procedures') ||
+                        request()->routeIs('documents') ||
+                        request()->routeIs('ajukan-surat')
+                            ? 'border-b-2 border-primary'
+                            : '' }}">
                         <span class="leading-tight text-sm">Layanan</span>
                     </button>
                     <div x-show="dropdownOpenLayanan" x-transition
@@ -59,6 +63,8 @@
                             class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Prosedur Layanan</a>
                         <a href="{{ route('documents') }}"
                             class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Dokumen Desa</a>
+                        <a href="{{ route('surat.public.create') }}"
+                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Ajukan Surat Online</a>
                     </div>
                 </div>
 
@@ -167,6 +173,9 @@
                     <x-responsive-nav-link :href="route('documents')" :active="request()->routeIs('documents')"
                         class="block text-white hover:bg-desa-green-600 px-3 py-2 rounded-md">Dokumen
                         Desa</x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('surat.public.create')" :active="request()->routeIs('surat.public.create')"
+                        class="block text-white hover:bg-desa-green-600 px-3 py-2 rounded-md">Ajukan Surat
+                        Online</x-responsive-nav-link>
                 </div>
             </div>
             <x-responsive-nav-link :href="route('potentials')" :active="request()->routeIs('potentials')"

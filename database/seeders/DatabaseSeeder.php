@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\JenisSurat;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -22,7 +24,9 @@ class DatabaseSeeder extends Seeder
             ProductSeeder::class,
             ServiceProcedureSeeder::class,
             ProfileContentSeeder::class,
-            InstitutionSeeder::class
+            InstitutionSeeder::class,
+            JenisSuratSeeder::class
+
         ]);
     }
 }
