@@ -129,7 +129,7 @@ Untuk izin penggunaan komersial, silakan hubungi:
 ### 🛡️ Kontak, Kontribusi & Donasi
 Jika Anda ingin berkontribusi atau memiliki pertanyaan mengenai sistem ini, silakan hubungi pengembang melalui:
 
-- **WhatsApp**: [082247459503](https://wa.me/6287750124895)
+- **WhatsApp**: [087750124895](https://wa.me/6287750124895)
 - **Kontribusi**:
     1. Fork repositori ini.
     2. Buat branch fitur baru (`git checkout -b feature/NamaFitur`).
